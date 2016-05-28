@@ -14,13 +14,8 @@ This repository contains my dockerfiles to build containers for the most used Bi
 *	Kafka - This image contains Kafka.
 *	Zookeeper - This image contains Zookeeper.
 
-## Main docker commands
+## How to use these images
 
-* Docker build
+To use these images run the command ```make``` first on the os images and then on the other image with the tool to run in a container.
 
-	docker build -t "os_centos:dockerfile" .
-
-* Docker run
-
-	docker run -i -t os_centos:dockerfile /bin/bash
-
+To run the images run the command ```make run```.
