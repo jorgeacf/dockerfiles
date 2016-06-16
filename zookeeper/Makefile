@@ -14,4 +14,10 @@ nocache:
 
 .PHONY: run
 run:
-	docker run -ti -p 2181:2181 $(REPO):lateast
+	docker run -ti --name zookeeper-single -p 2181:2181 $(REPO):lateast
+
+.PHONY: run-multi
+run-multi:
+	docker run -d -i -t --name zookeeper-multi-1 -p 2181:2181 $(REPO):lateast
+	docker run -d -i -t --name zookeeper-multi-2 -p 2182:2181 $(REPO):lateast
+	docker run -d -i -t --name zookeeper-multi-3 -p 2183:2181 $(REPO):lateast

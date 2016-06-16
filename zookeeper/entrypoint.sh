@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 mkdir -p /tmp/zookeeper
-zkServer.sh start
+./zookeeper/bin/zkServer.sh start
 sleep 2
-zkCli.sh
+./zookeeper/bin/zkCli.sh
