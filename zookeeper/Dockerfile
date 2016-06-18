@@ -22,4 +22,4 @@ COPY entrypoint.sh /
 
 ENV PATH=/zookeeper/bin:${PATH}
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+CMD /entrypoint.sh

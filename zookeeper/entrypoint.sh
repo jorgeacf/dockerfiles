@@ -14,4 +14,4 @@ if [ -n "$SERVERS" ]; then
 fi
 
 echo 'Starting Zookeeper server...'
-./zookeeper/bin/zkServer.sh start-foreground
+zkServer.sh start-foreground
