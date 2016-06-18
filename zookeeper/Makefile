@@ -6,18 +6,16 @@ all:
 
 .PHONY: build
 build:
-	docker build -t $(REPO):lateast .
+	docker build -t $(REPO):latest .
 
 .PHONY: nocache
 nocache:
-	docker build -t $(REPO):lateast --no-cache .
+	docker build -t $(REPO):latest --no-cache .
 
 .PHONY: run
 run:
-	docker run -ti --name zookeeper-single -p 2181:2181 $(REPO):lateast
+	docker run -ti --name zookeeper-single -p 2181:2181 $(REPO):latest
 
 .PHONY: run-multi
 run-multi:
-	docker run -d -i -t --name zookeeper-multi-1 -p 2181:2181 $(REPO):lateast
-	docker run -d -i -t --name zookeeper-multi-2 -p 2182:2181 $(REPO):lateast
-	docker run -d -i -t --name zookeeper-multi-3 -p 2183:2181 $(REPO):lateast
+	docker-compose up

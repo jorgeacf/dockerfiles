@@ -1,0 +1,19 @@
+version: '2'
+services:
+  zookeeper_1:
+    image: jorgeacf/zookeeper:latest
+    environment:
+      MYID: 1
+      SERVERS: zookeeper_1,zookeeper_2,zookeeper_3
+
+  zookeeper_2:
+    image: jorgeacf/zookeeper:latest
+    environment:
+      MYID: 2
+      SERVERS: zookeeper_1,zookeeper_2,zookeeper_3
+
+  zookeeper_3:
+    image: jorgeacf/zookeeper:latest
+    environment:
+      MYID: 3
+      SERVERS: zookeeper_1,zookeeper_2,zookeeper_3

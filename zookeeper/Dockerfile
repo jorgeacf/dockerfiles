@@ -15,10 +15,11 @@ RUN rm -fv "${ZOOKEEPER_TAR}"
 RUN ln -sv /zookeeper-${ZOOKEEPER_VERSION} /zookeeper
 RUN cp -av /zookeeper/conf/zoo_sample.cfg /zookeeper/conf/zoo.cfg
 RUN rm -fr /zookeeper/{src,docs}
-RUN rm -fr /zookeeper-${ZOOKEEPER_VERSION}
 
 EXPOSE 2181 3181 4181
 
 COPY entrypoint.sh /
 
-CMD /entrypoint.sh
+ENV PATH=/zookeeper/bin:${PATH}
+
+ENTRYPOINT [ "/entrypoint.sh" ]
