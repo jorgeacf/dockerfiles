@@ -21,3 +21,28 @@ run:
 	-p 8030:8030 -p 8031:8031 -p 8032:8032 -p 8033:8033 -p 8040:8040 -p 8042:8042 -p 8088:8088 \
 	-p 49707:49707 -p 2122:2122 \
 	jorgeacf/hadoop:latest
+
+.PHONY: run-multi
+run-multi:
+
+	# start hadoop master container
+	docker rm -f hadoop-master
+	echo "start hadoop-master container..."
+	docker run -itd \
+		--net=hadoop \
+		-p 50070:50070 \
+		-p 8088:8088 \
+		--name hadoop-master \
+		--hostname hadoop-master \
+		jorgeacf/hadoop:latest 
+
+    # start hadoop slave container
+	docker rm -f hadoop-slave1
+	echo "start hadoop-slave1 container..."
+	docker run -itd \
+		--net=hadoop \
+		--name hadoop-slave1 \
+		--hostname hadoop-slave1 \
+		jorgeacf/hadoop:latest
+
+	docker exec -it hadoop-master bash
