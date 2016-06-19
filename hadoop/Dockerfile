@@ -12,14 +12,13 @@ ENV PATH $PATH:/hadoop/bin
 
 WORKDIR /
 
-RUN \
-	yum install -y openssh-server && \
-	wget -O "$HADOOP_TAR" "http://www.apache.org/dyn/closer.lua?filename=hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-$HADOOP_VERSION.tar.gz&action=download" && \
-	tar zxvf "$HADOOP_TAR" && \
-	ln -sv hadoop-$HADOOP_VERSION hadoop && \
-    /hadoop/bin/hdfs namenode -format && \
-    yum autoremove -y && \
-    yum clean all
+RUN yum install -y openssh-server
+RUN wget -O "$HADOOP_TAR" "http://www.apache.org/dyn/closer.lua?filename=hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-$HADOOP_VERSION.tar.gz&action=download"
+RUN tar zxvf "$HADOOP_TAR"
+RUN ln -sv hadoop-$HADOOP_VERSION hadoop
+RUN /hadoop/bin/hdfs namenode -format
+RUN yum autoremove -y
+RUN yum clean all
 
 COPY entrypoint.sh /
 COPY config/core-site.xml /hadoop/etc/hadoop/
@@ -27,6 +26,16 @@ COPY config/hdfs-site.xml /hadoop/etc/hadoop/
 COPY config/yarn-site.xml /hadoop/etc/hadoop/
 COPY config/mapred-site.xml /hadoop/etc/hadoop/
 
-EXPOSE 8020 8042 8088 9000 10020 19888 50010 50020 50070 50075 50090
+CMD /entrypoint.sh
 
-CMD "/entrypoint.sh"
+# HDFS ports
+EXPOSE 50010 50020 50070 50075 50090 8020 9000
+
+# Mapred ports
+EXPOSE 19888
+
+#YARN ports
+EXPOSE 8030 8031 8032 8033 8040 8042 8088
+
+#Other ports
+EXPOSE 49707 2122
