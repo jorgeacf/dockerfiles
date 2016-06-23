@@ -26,7 +26,7 @@ run:
 run-multi:
 
 	# start hadoop master container
-	docker rm -f hadoop-master
+	#docker rm -f hadoop-master
 	echo "start hadoop-master container..."
 	docker run -itd \
 		--net=hadoop \
@@ -37,7 +37,7 @@ run-multi:
 		jorgeacf/hadoop:latest 
 
     # start hadoop slave container
-	docker rm -f hadoop-slave1
+	#docker rm -f hadoop-slave1
 	echo "start hadoop-slave1 container..."
 	docker run -itd \
 		--net=hadoop \

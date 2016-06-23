@@ -1,4 +1,3 @@
-
 FROM jorgeacf/os-centos:latest
 MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
