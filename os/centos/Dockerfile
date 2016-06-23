@@ -17,5 +17,6 @@ RUN yum install curl -y
 RUN yum install wget -y
 RUN yum install tar -y
 RUN yum install zip -y
+RUN yum clean all
 
 CMD /bin/bash
