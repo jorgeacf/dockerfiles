@@ -25,24 +25,19 @@ run:
 .PHONY: run-multi
 run-multi:
 
-	# start hadoop master container
-	#docker rm -f hadoop-master
-	echo "start hadoop-master container..."
+	echo "Starting hadoop-master container..."
 	docker run -itd \
 		--net=hadoop \
 		-p 50070:50070 \
 		-p 8088:8088 \
 		--name hadoop-master \
 		--hostname hadoop-master \
+		-e SLAVES=$(slaves) \
 		jorgeacf/hadoop:latest 
 
-    # start hadoop slave container
-	#docker rm -f hadoop-slave1
-	echo "start hadoop-slave1 container..."
-	docker run -itd \
-		--net=hadoop \
-		--name hadoop-slave1 \
-		--hostname hadoop-slave1 \
-		jorgeacf/hadoop:latest
+	for i in {1..$(slaves)}; do \
+		echo "Starting hadoop-slave$$i container..."; \
+		docker run -itd --net=hadoop --name hadoop-slave$$i --hostname hadoop-slave$$i jorgeacf/hadoop:latest; \
+	done
 
 	docker exec -it hadoop-master bash

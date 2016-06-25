@@ -26,12 +26,13 @@ RUN ssh-keygen -t rsa -f /root/.ssh/id_rsa -P '' && \
     cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 
 COPY entrypoint.sh /
+
+# Configuration
 COPY config/hadoop-env.sh /hadoop/etc/hadoop/
 COPY config/core-site.xml /hadoop/etc/hadoop/
 COPY config/hdfs-site.xml /hadoop/etc/hadoop/
 COPY config/yarn-site.xml /hadoop/etc/hadoop/
 COPY config/mapred-site.xml /hadoop/etc/hadoop/
-COPY config/slaves /hadoop/etc/hadoop/slaves
 COPY config/ssh_config /root/.ssh/config
 RUN chmod 600 /root/.ssh/config
 
