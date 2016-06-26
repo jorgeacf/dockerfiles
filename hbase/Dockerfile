@@ -17,8 +17,17 @@ RUN ln -sv hbase-$HBASE_VERSION hbase
 RUN rm -fv hbase-$HBASE_VERSION-bin.tar.gz
 RUN rm -fr /hbase/docs /hbase/src
 
+RUN yum install -y openssh-server
+
+COPY config/ /hbase/conf/
+
+# ssh without key
+RUN ssh-keygen -t rsa -f /root/.ssh/id_rsa -P '' && \
+    cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+COPY config/ssh_config /root/.ssh/config
+RUN chmod 600 /root/.ssh/config
+
 COPY entrypoint.sh /
-COPY config/hbase-site.xml /hbase/conf/
 
 EXPOSE 2181 8080 8085 9090 9095 16000 16010 16201 16301
 
