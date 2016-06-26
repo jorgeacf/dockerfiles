@@ -24,6 +24,8 @@ ENV PATH=$PATH:$HADOOP_HOME/bin
 # ssh without key
 RUN ssh-keygen -t rsa -f /root/.ssh/id_rsa -P '' && \
     cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+COPY config/ssh_config /root/.ssh/config
+RUN chmod 600 /root/.ssh/config
 
 COPY entrypoint.sh /
 
@@ -33,8 +35,6 @@ COPY config/core-site.xml /hadoop/etc/hadoop/
 COPY config/hdfs-site.xml /hadoop/etc/hadoop/
 COPY config/yarn-site.xml /hadoop/etc/hadoop/
 COPY config/mapred-site.xml /hadoop/etc/hadoop/
-COPY config/ssh_config /root/.ssh/config
-RUN chmod 600 /root/.ssh/config
 
 # Example for debug
 COPY run-word-count.sh /
