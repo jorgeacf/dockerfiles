@@ -4,7 +4,7 @@ docker ps -q | xargs -n 1 docker inspect --format '{{ .NetworkSettings.IPAddress
 
 awk '{ FS = " " ; print $2 }' /tmp/hosts | sort > /tmp/containers
 
-echo '172.0.0.1 localhost' >> /tmp/hosts
+echo '127.0.0.1 localhost' >> /tmp/hosts
 
 sort /tmp/hosts -o /tmp/hosts
 

@@ -27,7 +27,6 @@ run-multi:
 
 	echo "Starting hadoop-master container..."
 	docker run -itd \
-		--net=hadoop \
 		-p 50070:50070 \
 		-p 8088:8088 \
 		--name hadoop-master \
@@ -37,7 +36,10 @@ run-multi:
 
 	for i in {1..$(slaves)}; do \
 		echo "Starting hadoop-slave$$i container..."; \
-		docker run -itd --net=hadoop --name hadoop-slave$$i --hostname hadoop-slave$$i jorgeacf/hadoop:latest; \
+		docker run -itd --name hadoop-slave$$i --hostname hadoop-slave$$i jorgeacf/hadoop:latest; \
 	done
+
+	echo 'Updating hostnames...'
+	../scripts/docker-update-all-containers-hosts.sh
 
 	docker exec -it hadoop-master bash
