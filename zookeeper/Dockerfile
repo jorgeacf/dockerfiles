@@ -9,12 +9,12 @@ LABEL Description="ZooKeeper"
 
 WORKDIR /
 
-RUN wget -O "$ZOOKEEPER_TAR" "http://www.apache.org/dyn/closer.lua?filename=zookeeper/zookeeper-${ZOOKEEPER_VERSION}/${ZOOKEEPER_TAR}&action=download"
-RUN tar zxvf "${ZOOKEEPER_TAR}"
-RUN rm -fv "${ZOOKEEPER_TAR}"
-RUN ln -sv /zookeeper-${ZOOKEEPER_VERSION} /zookeeper
-RUN cp -av /zookeeper/conf/zoo_sample.cfg /zookeeper/conf/zoo.cfg
-RUN rm -fr /zookeeper/{src,docs}
+RUN wget -O "$ZOOKEEPER_TAR" "http://www.apache.org/dyn/closer.lua?filename=zookeeper/zookeeper-${ZOOKEEPER_VERSION}/${ZOOKEEPER_TAR}&action=download" && \
+	tar zxvf "${ZOOKEEPER_TAR}" && \
+	rm -fv "${ZOOKEEPER_TAR}" && \
+	ln -sv /zookeeper-${ZOOKEEPER_VERSION} /zookeeper && \
+	cp -av /zookeeper/conf/zoo_sample.cfg /zookeeper/conf/zoo.cfg && \
+	rm -fr /zookeeper/{src,docs}
 
 EXPOSE 2181 3181 4181
 

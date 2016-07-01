@@ -12,6 +12,7 @@ RUN yum install -y openssh-server
 RUN wget -O "$HADOOP_TAR" "http://www.apache.org/dyn/closer.lua?filename=hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-$HADOOP_VERSION.tar.gz&action=download"
 RUN tar zxvf "$HADOOP_TAR"
 RUN ln -sv hadoop-$HADOOP_VERSION hadoop
+RUN rm -r -f "$HADOOP_TAR"
 RUN yum autoremove -y
 RUN yum clean all
 
