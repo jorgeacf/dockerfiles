@@ -19,16 +19,14 @@ run:
 .PHONY: run-multi
 run-multi:
 
-	servers='zookeeper1,zookeeper2,zookeeper3'
-
 	echo 'Starting Zookeeper #1...'
-	docker run -itd --name zookeeper1 -h zookeeper1 -e SERVERS=$servers $(REPO):latest
+	docker run -itd --name zookeeper1 -h zookeeper1 -e SERVERS='zookeeper1,zookeeper2,zookeeper3' $(REPO):latest
 
 	echo 'Starting Zookeeper #2...'
-	docker run -itd --name zookeeper2 -h zookeeper2 -e SERVERS=$servers $(REPO):latest
+	docker run -itd --name zookeeper2 -h zookeeper2 -e SERVERS='zookeeper1,zookeeper2,zookeeper3' $(REPO):latest
 
 	echo 'Starting Zookeeper #3...'
-	docker run -itd --name zookeeper3 -h zookeeper3 -e SERVERS=$servers $(REPO):latest
+	docker run -itd --name zookeeper3 -h zookeeper3 -e SERVERS='zookeeper1,zookeeper2,zookeeper3' $(REPO):latest
 
 	echo 'Updating hostnames on containers...'
 	../scripts/docker-update-all-containers-hosts.sh

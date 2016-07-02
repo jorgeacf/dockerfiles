@@ -13,6 +13,7 @@ if [ -n "$SERVERS" ]; then
 	for i in "${!servers[@]}"; do 
 		printf "\nserver.%i=%s:2888:3888" "$((1 + $i))" "${servers[$i]}" >> /zookeeper/conf/zoo.cfg
 	done
+	echo '' >> /zookeeper/conf/zoo.cfg
 fi
 
 echo 'Starting Zookeeper server...'
