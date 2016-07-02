@@ -20,6 +20,8 @@ sleep 1
 echo "Starting Hadoop..."
 /hadoop/sbin/start-dfs.sh
 /hadoop/sbin/start-yarn.sh
+/hadoop/sbin/mr-jobhistory-daemon.sh start historyserver
+
 tail -f /hadoop/logs/*
 /hadoop/sbin/stop-yarn.sh
 /hadoop/sbin/stop-dfs.sh
