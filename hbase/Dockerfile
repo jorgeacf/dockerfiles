@@ -9,15 +9,13 @@ ENV PATH $PATH:/hbase/bin
 
 WORKDIR /
 
-RUN wget -t 100 --retry-connrefused -O "hbase-$HBASE_VERSION-bin.tar.gz" "http://www.apache.org/dyn/closer.lua?filename=hbase/$HBASE_VERSION/hbase-$HBASE_VERSION-bin.tar.gz&action=download"
-
-RUN mkdir hbase-$HBASE_VERSION
-RUN tar zxvf hbase-$HBASE_VERSION-bin.tar.gz -C hbase-$HBASE_VERSION --strip 1
-RUN ln -sv hbase-$HBASE_VERSION hbase
-RUN rm -fv hbase-$HBASE_VERSION-bin.tar.gz
-RUN rm -fr /hbase/docs /hbase/src
-
-RUN yum install -y openssh-server
+RUN wget -t 100 --retry-connrefused -O "hbase-$HBASE_VERSION-bin.tar.gz" "http://www.apache.org/dyn/closer.lua?filename=hbase/$HBASE_VERSION/hbase-$HBASE_VERSION-bin.tar.gz&action=download" && \
+	mkdir hbase-$HBASE_VERSION && \
+	tar zxvf hbase-$HBASE_VERSION-bin.tar.gz -C hbase-$HBASE_VERSION --strip 1 && \
+	ln -sv hbase-$HBASE_VERSION hbase && \
+	rm -fv hbase-$HBASE_VERSION-bin.tar.gz && \
+	rm -fr /hbase/docs /hbase/src && \
+	yum install -y openssh-server
 
 COPY config/ /hbase/conf/
 
