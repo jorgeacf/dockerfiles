@@ -16,8 +16,12 @@ RUN \
     rm -fv "${SPARK_TAR}" && \
     ln -s "spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION" spark
 
+COPY config /spark/conf
+COPY hadoop/conf /hadoop/conf
+ENV HADOOP_CONF_DIR /hadoop/conf
+
 RUN mkdir /var/run/sshd && chmod 0755 /var/run/sshd && \
-cp -v /spark/conf/spark-env.sh.template /spark/conf/spark-env.sh
+	cp -v /spark/conf/spark-env.sh.template /spark/conf/spark-env.sh
 
 COPY entrypoint.sh /
 
