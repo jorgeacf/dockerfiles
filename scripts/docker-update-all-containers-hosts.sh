@@ -12,6 +12,7 @@ while IFS='' read -r container || [[ -n "$container" ]]; do
 	echo $container
     docker cp /tmp/hosts $container:hosts
     docker exec $container /bin/sh -c "cat hosts > /etc/hosts"
+    docker exec $container /bin/sh -c "rm hosts"
 done < /tmp/containers
 
 sudo cp /tmp/hosts /etc/hosts
