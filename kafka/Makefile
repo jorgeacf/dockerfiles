@@ -1,5 +1,5 @@
-
 REPO=jorgeacf/kafka
+VERSION=$(shell cat VERSION)
 
 .PHONY: all
 all:
@@ -8,27 +8,27 @@ all:
 .PHONY: build
 build:
 	#@make clear
-	docker build -t $(REPO):latest .
+	docker build -t $(REPO):$(VERSION) .
 
 .PHONY: nocache
 nocache:
-	docker build -t $(REPO):latest --no-cache .
+	docker build -t $(REPO):$(VERSION) --no-cache .
 
 .PHONY: run
 run:
-	docker run -ti -p 2181:2181 -p 9092:9092 $(REPO):latest
+	docker run -ti -p 2181:2181 -p 9092:9092 $(REPO):$(VERSION)
 
 .PHONY: run-multi
 run-multi:
 
 	echo 'Starting Kafka #1...'
-	docker run -itd --name kafka1 -h kafka1 -e SERVERS='kafka1,kafka2,kafka3' $(REPO):latest
+	docker run -itd --name kafka1 -h kafka1 -e SERVERS='kafka1,kafka2,kafka3' $(REPO):$(VERSION)
 
 	echo 'Starting Kafka #2...'
-	docker run -itd --name kafka2 -h kafka2 -e SERVERS='kafka1,kafka2,kafka3' $(REPO):latest
+	docker run -itd --name kafka2 -h kafka2 -e SERVERS='kafka1,kafka2,kafka3' $(REPO):$(VERSION)
 
 	echo 'Starting Kafka #3...'
-	docker run -itd --name kafka3 -h kafka3 -e SERVERS='kafka1,kafka2,kafka3' $(REPO):latest
+	docker run -itd --name kafka3 -h kafka3 -e SERVERS='kafka1,kafka2,kafka3' $(REPO):$(VERSION)
 
 	echo 'Updating hostnames on containers...'
 	../scripts/docker-update-all-containers-hosts.sh

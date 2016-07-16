@@ -3,7 +3,7 @@ MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
 LABEL Description="Apache HBase"
 
-ARG HBASE_VERSION=1.2.1
+ARG HBASE_VERSION=1.2.2
 
 ENV PATH $PATH:/hbase/bin
 
