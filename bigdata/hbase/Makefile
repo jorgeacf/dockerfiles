@@ -1,5 +1,5 @@
-
 REPO=jorgeacf/hbase
+VERSION=$(shell cat VERSION)
 
 .PHONY: all
 all:
@@ -7,7 +7,7 @@ all:
 
 .PHONY: build
 build:
-	docker build -t $(REPO):latest .
+	docker build -t $(REPO):$(VERSION) .
 
 .PHONY: run
 run:
@@ -17,7 +17,7 @@ run:
 		-p 16010:16010 -p 16201:16201 -p 16301:16301 \
 		--name hbase-master \
 		--hostname hbase-master \
-		$(REPO):latest
+		$(REPO):$(VERSION)
 
 .PHONY: run-multi
 run-multi:
@@ -30,12 +30,12 @@ run-multi:
 		--name hbase-master \
 		--hostname hbase-master \
 		-e NODE_TYPE=m \
-		$(REPO):latest
+		$(REPO):$(VERSION)
 
 
 	for i in {1..$(region-servers)}; do \
 		echo "Starting hbase-region-server$$i container..."; \
-		docker run -itd --name hbase-region-server$$i --hostname hbase-region-server$$i -e NODE_TYPE=s $(REPO):latest; \
+		docker run -itd --name hbase-region-server$$i --hostname hbase-region-server$$i -e NODE_TYPE=s $(REPO):$(VERSION); \
 	done
 
 	echo 'Updating hostnames...'

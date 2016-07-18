@@ -1,5 +1,5 @@
-
 REPO=jorgeacf/cassandra
+VERSION=$(shell cat VERSION)
 
 .PHONY: all
 all:
@@ -7,14 +7,14 @@ all:
 
 .PHONY: build
 build:
-	docker build -t $(REPO):latest .
+	docker build -t $(REPO):$(VERSION) .
 
 .PHONY: run-multi
 run-multi:
 	
 	for i in {1..$(nodes)}; do \
 		echo "Starting Cassandra Node #$$i container..."; \
-		docker run -itd --name cassandra$$i --hostname cassandra$$i $(REPO):latest /entrypoint.sh $(nodes); \
+		docker run -itd --name cassandra$$i --hostname cassandra$$i $(REPO):$(VERSION) /entrypoint.sh $(nodes); \
 	done
 
 	echo 'Updating hostnames...'
