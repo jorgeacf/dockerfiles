@@ -21,7 +21,7 @@ run:
 run-multi:
 
 	echo "Starting hadoop-master container..."
-	docker run -itd
+	docker run -itd \
 		--name hadoop-master \
 		--hostname hadoop-master \
 		-e SLAVES=$(slaves) \
@@ -34,8 +34,6 @@ run-multi:
 
 	echo 'Updating hostnames...'
 	../scripts/docker-update-all-containers-hosts.sh
-
-	docker exec -it hadoop-master bash
 
 .PHONY: clean
 clean:
