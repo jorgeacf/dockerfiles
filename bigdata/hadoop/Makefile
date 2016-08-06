@@ -33,7 +33,7 @@ run-multi:
 	done
 
 	echo 'Updating hostnames...'
-	../scripts/docker-update-all-containers-hosts.sh
+	../../scripts/docker-update-all-containers-hosts.sh
 
 .PHONY: clean
 clean:
