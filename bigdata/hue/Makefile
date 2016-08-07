@@ -10,10 +10,13 @@ build:
 
 .PHONY: run
 run:
-	docker run -ti \
+	docker run -it \
 		--name hue \
 		--hostname hue \
 		$(REPO):latest
+
+	echo 'Updating hostnames...'
+	#../../scripts/docker-update-all-containers-hosts.sh
 
 .PHONY: clear
 clear:

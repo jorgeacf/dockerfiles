@@ -34,6 +34,9 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
 RUN git clone https://github.com/cloudera/hue.git
 WORKDIR hue
 RUN make apps
+
+COPY config/pseudo-distributed.ini /hue/desktop/conf/pseudo-distributed.ini
+
 EXPOSE 8888
 
 COPY entrypoint.sh /

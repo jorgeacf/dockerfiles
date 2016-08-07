@@ -21,3 +21,5 @@ run:
 
 	echo 'Updating hostnames...'
 	../../scripts/docker-update-all-containers-hosts.sh
+
+	docker exec -it hive hive
