@@ -16,7 +16,7 @@ run:
 		$(REPO):latest
 
 	echo 'Updating hostnames...'
-	#../../scripts/docker-update-all-containers-hosts.sh
+	../../scripts/docker-update-all-containers-hosts.sh
 
 .PHONY: clear
 clear:
