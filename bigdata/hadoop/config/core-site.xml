@@ -2,8 +2,19 @@
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 
 <configuration>
+
     <property>
         <name>fs.defaultFS</name>
         <value>hdfs://hadoop-master:9000/</value>
     </property>
+
+	<property>
+		<name>hadoop.proxyuser.hue.hosts</name>
+		<value>*</value>
+	</property>
+	<property>
+		<name>hadoop.proxyuser.hue.groups</name>
+		<value>*</value>
+	</property>
+
 </configuration>
