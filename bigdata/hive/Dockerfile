@@ -14,6 +14,9 @@ RUN wget http://www-eu.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE
 	mv apache-hive-$HIVE_VERSION-bin hive && \
 	rm apache-hive-$HIVE_VERSION-bin.tar.gz
 
+COPY config /hive/conf
+
+EXPOSE 10002
 
 COPY entrypoint.sh /
 
