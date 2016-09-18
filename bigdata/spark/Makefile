@@ -1,6 +1,15 @@
 REPO=jorgeacf/spark
 VERSION=$(shell cat VERSION)
 
+.DEFAULT_GOAL := help
+
+help:
+
+	@echo ""
+	@echo "This is the make help for Apache Spark (${VERSION}) docker image"
+
+	@echo ""
+
 .PHONY: all
 all:
 	make build

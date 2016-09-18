@@ -1,14 +1,13 @@
 REPO=jorgeacf/drill
 VERSION=$(shell cat VERSION)
 
-.PHONY: help
+.DEFAULT_GOAL := help
+
 help:
+
 	@echo ""
-	@echo ""
-	@echo "	Docker Apache Drill containers"
-	@echo ""
-	@echo "make build -> build Apache Drill docker images"
-	@echo "make run -> run Apache Drill docker containers"
+	@echo "This is the make help for Apache Drill (${VERSION}) docker image"
+
 	@echo ""
 
 .PHONY: all

@@ -1,6 +1,16 @@
 REPO=jorgeacf/hbase
 VERSION=$(shell cat VERSION)
 
+.DEFAULT_GOAL := help
+
+help:
+
+	@echo ""
+	@echo "This is the make help for Apache HBase (${VERSION}) docker image"
+
+	@echo ""
+	
+
 .PHONY: all
 all:
 	make build

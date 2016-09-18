@@ -1,6 +1,15 @@
 REPO=jorgeacf/cassandra
 VERSION=$(shell cat VERSION)
 
+.DEFAULT_GOAL := help
+
+help:
+
+	@echo ""
+	@echo "This is the make help for Apache Cassandra (${VERSION}) docker image"
+
+	@echo ""
+
 .PHONY: all
 all:
 	make build
