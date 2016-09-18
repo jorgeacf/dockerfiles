@@ -5,7 +5,7 @@ h=`hostname`
 # Cassandra node name
 N='cassandra'
 
-# String will total cassandra nodes
+# String with total cassandra nodes
 R=''
 for i in {1..$1}
 do

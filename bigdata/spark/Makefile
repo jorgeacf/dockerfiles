@@ -28,15 +28,15 @@ nocache:
 .PHONY: run-yarn
 run-yarn:
 
-	docker run -itd --name spark --hostname spark -p 4040:4040 -p 7077:7077 -p 8080:8080 -p 8081:8081 $(REPO):$(VERSION)
+	@docker run -itd --name spark --hostname spark -p 4040:4040 -p 7077:7077 -p 8080:8080 -p 8081:8081 $(REPO):$(VERSION)
 
-	echo 'Updating hostnames...'
-	../scripts/docker-update-all-containers-hosts.sh
+	@echo 'Updating hostnames...'
+	@../../scripts/docker-update-all-containers-hosts.sh
 
-	docker exec -it spark bash
+	@docker exec -it spark bash
 
 .PHONY: clean
 clean:
 
-	docker stop spark
-	docker rm spark
+	@docker stop spark
+	@docker rm spark

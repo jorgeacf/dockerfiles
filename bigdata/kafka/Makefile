@@ -39,16 +39,13 @@ run-multi:
 	echo 'Starting Kafka #3...'
 	docker run -itd --name kafka3 -h kafka3 -e SERVERS='kafka1,kafka2,kafka3' $(REPO):$(VERSION)
 
-	echo 'Updating hostnames on containers...'
-	../scripts/docker-update-all-containers-hosts.sh
+	@echo 'Updating hostnames on containers...'
+	@../../scripts/docker-update-all-containers-hosts.sh
 
-.PHONY: clear
-clear:
+.PHONY: clean
+clean:
 
-	docker stop kafka1
-	docker stop kafka2
-	docker stop kafka3
+	-@docker ps | grep $(REPO):$(VERSION) | awk '{ print $$1 }' | xargs docker kill > /dev/null
+	-@docker ps -a | grep $(REPO):$(VERSION) | awk '{ print $$1 }' | xargs docker rm > /dev/null
 
-	docker rm kafka1
-	docker rm kafka2
-	docker rm kafka3
+	@echo "Apache Kafka containers cleaned..."

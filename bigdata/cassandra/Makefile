@@ -16,27 +16,23 @@ all:
 
 .PHONY: build
 build:
-	docker build -t $(REPO):$(VERSION) .
+	@docker build -t $(REPO):$(VERSION) .
 
 .PHONY: run-multi
 run-multi:
 	
-	for i in {1..$(nodes)}; do \
+	@for i in {1..$(nodes)}; do \
 		echo "Starting Cassandra Node #$$i container..."; \
 		docker run -itd --name cassandra$$i --hostname cassandra$$i $(REPO):$(VERSION) /entrypoint.sh $(nodes); \
 	done
 
-	echo 'Updating hostnames...'
-	../scripts/docker-update-all-containers-hosts.sh
+	@echo 'Updating hostnames...'
+	@../../scripts/docker-update-all-containers-hosts.sh
 
-.PHONY: clear
-clear:
+.PHONY: clean
+clean:
 
-	docker stop cassandra1
-	docker rm cassandra1
+	-@docker ps | grep $(REPO):$(VERSION) | awk '{ print $$1 }' | xargs docker kill > /dev/null
+	-@docker ps -a | grep $(REPO):$(VERSION) | awk '{ print $$1 }' | xargs docker rm > /dev/null
 
-	docker stop cassandra2
-	docker rm cassandra2
-
-	docker stop cassandra3
-	docker rm cassandra3
+	@echo "Apache Cassandra containers cleaned..."

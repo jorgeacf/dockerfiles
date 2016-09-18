@@ -27,4 +27,4 @@ EXPOSE 7000 7001 7199 9042 9160
 COPY conf /cassandra/conf
 COPY entrypoint.sh /
 
-#CMD /entrypoint.sh
+CMD /entrypoint.sh

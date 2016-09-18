@@ -18,17 +18,23 @@ all:
 build:
 	#mkdir -p hadoop/conf
 	#cp -r ../hadoop/config/* hadoop/conf/
-	docker build -t $(REPO):$(VERSION) .
+	@docker build -t $(REPO):$(VERSION) .
 	#rm -r hadoop
 
 .PHONY: run
 run:
-	docker run -itd \
+	@docker run -itd \
 		--name hive \
 		--hostname hive \
 		$(REPO):$(VERSION)
 
-	echo 'Updating hostnames...'
-	../../scripts/docker-update-all-containers-hosts.sh
+	@echo 'Updating hostnames...'
+	@../../scripts/docker-update-all-containers-hosts.sh
 
 	#docker exec -it hive hive
+
+.PHONY: clean
+clean:
+
+	@docker stop hive
+	@docker rm hive
