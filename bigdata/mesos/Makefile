@@ -28,19 +28,16 @@ run-multi:
 
 	for i in {1..$(slaves)}; do \
 		echo "Starting mesos-slave$$i container..."; \
-		docker run -it --name mesos-slave$$i --hostname mesos-slave$$i --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro $(REPO):latest /entrypoint-slave.sh; \
+		docker run -itd --name mesos-slave$$i --hostname mesos-slave$$i --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro $(REPO):latest /entrypoint-slave.sh; \
 	done
 
 	echo 'Updating hostnames...'
-	../scripts/docker-update-all-containers-hosts.sh
+	@../../scripts/docker-update-all-containers-hosts.sh
 
 .PHONY: clean
 clean:
 
-	#docker stop mesos-master
-	docker rm -f mesos-master
+	-@docker ps | grep $(REPO):$(VERSION) | awk '{ print $$1 }' | xargs docker kill > /dev/null
+	-@docker ps -a | grep $(REPO):$(VERSION) | awk '{ print $$1 }' | xargs docker rm > /dev/null
 
-	for i in {1..$(slaves)}; do \
-		echo "Removing mesos-slave$$i container..."; \
-		docker rm -f mesos-slave$$i; \
-	done
+	@echo "Apache Mesos containers cleaned..."
