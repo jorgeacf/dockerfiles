@@ -42,7 +42,7 @@ COPY config/mapred-site.xml /hadoop/etc/hadoop/
 # Example for debug
 COPY run-word-count.sh /
 
-RUN mkdir -p /root/hdfs/namenode && \ 
+RUN mkdir -p /root/hdfs/namenode && \
     mkdir -p /root/hdfs/datanode && \
     mkdir /hadoop/logs
 

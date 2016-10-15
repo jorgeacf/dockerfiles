@@ -7,9 +7,10 @@ help:
 
 	@echo ""
 	@echo "This is the make help for Apache Hadoop (${VERSION}) docker image"
-	@echo "Run 'make build' to build the Hadoop docker image"
-	@echo "Run 'make run-multi slaves=n' to start Hadoop with n slaves"
-	@echo "Run 'make clean' to clean all Hadoop containers"
+	@echo ""
+	@echo "  Run 'make build' to build the Hadoop docker image."
+	@echo "  Run 'make run-multi slaves=n' to start Hadoop with n slaves."
+	@echo "  Run 'make clean' to clean all Hadoop containers."
 	@echo ""
 
 .PHONY: all
@@ -18,20 +19,26 @@ all:
 
 .PHONY: build
 build:
-	docker build -t $(REPO):$(VERSION) .
+	@sed -i -e "s/ARG HADOOP_VERSION=.*/ARG HADOOP_VERSION=$(VERSION)/g" Dockerfile
+	@docker build -t $(REPO):$(VERSION) .
 
 .PHONY: nocache
 nocache:
+	@sed -i -e "s/ARG HADOOP_VERSION=.*/ARG HADOOP_VERSION=$(VERSION)/g" Dockerfile
 	docker build -t $(REPO):$(VERSION) --no-cache .
 
 .PHONY: run
 run:
 	docker run -ti $(REPO):$(VERSION)
 
+.PHONY: download
+download:
+	@scripts/download-dependencies.sh ${VERSION}
+
 .PHONY: run-multi
 run-multi:
 
-	echo "Starting hadoop-master container..."
+	@echo "Starting hadoop-master container..."
 	@docker run -itd \
 		--name hadoop-master \
 		--hostname hadoop-master \
@@ -43,7 +50,7 @@ run-multi:
 		docker run -itd --name hadoop-slave$$i --hostname hadoop-slave$$i $(REPO):$(VERSION); \
 	done
 
-	echo 'Updating hostnames...'
+	@echo 'Updating hostnames...'
 	@../../scripts/docker-update-all-containers-hosts.sh
 
 .PHONY: clean

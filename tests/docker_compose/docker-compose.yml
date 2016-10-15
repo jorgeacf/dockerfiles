@@ -1,0 +1,4 @@
+version: '2'
+services:
+  os:
+    image: jorgeacf/jenkins:2.7.2

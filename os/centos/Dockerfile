@@ -1,5 +1,3 @@
-
-
 FROM centos:latest
 MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
