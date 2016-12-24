@@ -3,13 +3,13 @@ MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
 LABEL Description="Apache HBase"
 
-ARG HBASE_VERSION=1.2.2
+ARG HBASE_VERSION=1.2.4
 
 ENV PATH $PATH:/hbase/bin
 
 WORKDIR /
 
-RUN wget -t 100 --retry-connrefused -O "hbase-$HBASE_VERSION-bin.tar.gz" "http://www.apache.org/dyn/closer.lua?filename=hbase/$HBASE_VERSION/hbase-$HBASE_VERSION-bin.tar.gz&action=download" && \
+RUN wget -t 100 --retry-connrefused -O "hbase-$HBASE_VERSION-bin.tar.gz" "http://apache.mirror.anlx.net/hbase/$HBASE_VERSION/hbase-$HBASE_VERSION-bin.tar.gz" && \
 	mkdir hbase-$HBASE_VERSION && \
 	tar zxvf hbase-$HBASE_VERSION-bin.tar.gz -C hbase-$HBASE_VERSION --strip 1 && \
 	ln -sv hbase-$HBASE_VERSION hbase && \

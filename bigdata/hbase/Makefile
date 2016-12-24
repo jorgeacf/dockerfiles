@@ -17,7 +17,8 @@ all:
 
 .PHONY: build
 build:
-	docker build -t $(REPO):$(VERSION) .
+	@sed -i -e "s/ARG HBASE_VERSION=.*/ARG HBASE_VERSION=$(VERSION)/g" Dockerfile
+	@docker build -t $(REPO):$(VERSION) .
 
 .PHONY: run
 run:
