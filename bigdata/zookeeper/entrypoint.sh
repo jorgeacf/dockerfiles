@@ -16,5 +16,6 @@ if [ -n "$SERVERS" ]; then
 	echo '' >> /zookeeper/conf/zoo.cfg
 fi
 
+sleep 10
 echo 'Starting Zookeeper server...'
 zkServer.sh start-foreground

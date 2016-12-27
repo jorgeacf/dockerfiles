@@ -38,7 +38,7 @@ run-multi:
 	echo 'Starting Zookeeper #3...'
 	@docker run -itd --name zookeeper3 -h zookeeper3 -e SERVERS='zookeeper1,zookeeper2,zookeeper3' $(REPO):$(VERSION)
 
-	echo 'Updating hostnames on containers...'
+	@echo 'Updating hostnames...'
 	@../../scripts/docker-update-all-containers-hosts.sh
 
 .PHONY: clean
