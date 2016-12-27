@@ -14,11 +14,15 @@
 		<value>true</value>
 	</property>
 	<property>
+		<name>hbase.zookeeper.property.dataDir</name>
+		<value>/tmp/zookeeper</value>
+	</property>
+	<property>
 		<name>hbase.zookeeper.property.clientPort</name>
 		<value>2181</value>
 	</property>
 	<property>
 		<name>hbase.zookeeper.quorum</name>
-		<value>hbase-master</value>
+		<value>zookeeper1,zookeeper2,zookeeper3</value>
 	</property>
 </configuration>

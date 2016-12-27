@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://hadoop-master:9000/</value>
+    </property>
+
+	<property>
+		<name>hadoop.proxyuser.hue.hosts</name>
+		<value>*</value>
+	</property>
+	<property>
+		<name>hadoop.proxyuser.hue.groups</name>
+		<value>*</value>
+	</property>
+
+	<!-- This is related to the hive container -->
+	<property>
+		<name>hadoop.proxyuser.hive.hosts</name>
+		<value>*</value>
+	</property>
+	<property>
+		<name>hadoop.proxyuser.hive.groups</name>
+		<value>*</value>
+	</property>
+
+</configuration>
