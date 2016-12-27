@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#docker ps -q | xargs -n 1 docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} {{.Name}}' | sed 's/ \// /' > /tmp/hosts
 docker ps -q | xargs -n 1 docker inspect --format '{{ .NetworkSettings.IPAddress }} {{ .Name }}' | sed 's/ \// /' > /tmp/hosts
 
 awk '{ FS = " " ; print $2 }' /tmp/hosts | sort > /tmp/containers
