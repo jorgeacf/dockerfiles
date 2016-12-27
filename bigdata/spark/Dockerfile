@@ -11,7 +11,7 @@ ENV PATH $PATH:/spark/bin
 LABEL Description="Apache Spark"
 
 RUN \
-    wget -O "${SPARK_TAR}" "http://mirror.ox.ac.uk/sites/rsync.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz" && \
+    wget -O "${SPARK_TAR}" "http://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz" && \
     tar -zxvf "${SPARK_TAR}" && \
     rm -fv "${SPARK_TAR}" && \
     ln -s "spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION" spark
