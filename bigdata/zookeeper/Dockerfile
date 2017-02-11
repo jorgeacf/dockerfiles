@@ -1,5 +1,4 @@
-
-FROM jorgeacf/os-centos:latest
+FROM jorgeacf/centos:latest
 MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
 ARG ZOOKEEPER_VERSION=3.4.8

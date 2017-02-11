@@ -1,5 +1,4 @@
-
-FROM jorgeacf/os-centos
+FROM jorgeacf/centos
 MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
 ARG SCALA_VERSION=2.11

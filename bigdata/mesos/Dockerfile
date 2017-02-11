@@ -1,4 +1,4 @@
-FROM jorgeacf/os-debian:latest
+FROM jorgeacf/debian:latest
 MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
 LABEL Description="Apache Mesos"

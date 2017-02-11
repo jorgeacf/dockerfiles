@@ -1,5 +1,4 @@
-
-FROM jorgeacf/os-centos:latest
+FROM jorgeacf/centos:latest
 MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
 ARG SPARK_VERSION=1.6.1

@@ -1,4 +1,4 @@
-REPO=jorgeacf/os-centos
+REPO=jorgeacf/centos
 
 .PHONY: all
 all:

@@ -1,4 +1,4 @@
-REPO=jorgeacf/os-debian
+REPO=jorgeacf/debian
 
 .PHONY: all
 all:
