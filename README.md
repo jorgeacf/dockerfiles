@@ -25,7 +25,7 @@ This repository contains my dockerfiles to build containers for the most used Bi
 
 | Docker Container      | Docker Hub Build Status and URL                           | Image Size
 | :------------------------------------  | :-----------------------------------------                | :--------------
-| Hadoop    | [good](https://registry.hub.docker.com/u/jorgeacf/hadoop)  | [![Layers and Size](https://images.microbadger.com/badges/image/library/r-base.svg)](https://registry.hub.docker.com/u/jorgeacf/hadoop/)
+| Hadoop    | [good](https://registry.hub.docker.com/u/jorgeacf/hadoop)  | [![](https://images.microbadger.com/badges/image/jorgeacf/hadoop.svg)](https://microbadger.com/images/jorgeacf/hadoop "Get your own image badge on microbadger.com")
 
 ## How to build these Docker images
 
