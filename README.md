@@ -25,6 +25,7 @@ This repository contains my dockerfiles to build containers for the most used Bi
 
 | Docker Container      | Docker Hub Build Status and URL                           | Image Size
 | :------------------------------------  | :-----------------------------------------                | :--------------
+| Zookeeper    | [good](https://registry.hub.docker.com/u/jorgeacf/zookeeper)  | [![](https://images.microbadger.com/badges/image/jorgeacf/zookeeper.svg)](https://microbadger.com/images/jorgeacf/zookeeper "Get your own image badge on microbadger.com")
 | Hadoop    | [good](https://registry.hub.docker.com/u/jorgeacf/hadoop)  | [![](https://images.microbadger.com/badges/image/jorgeacf/hadoop.svg)](https://microbadger.com/images/jorgeacf/hadoop "Get your own image badge on microbadger.com")
 
 ## How to build these Docker images
