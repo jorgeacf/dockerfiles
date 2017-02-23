@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-export MASTER=yarn
+#/livy/bin/livy-server
 
-/spark/bin/spark-shell
+bash
