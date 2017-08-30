@@ -20,7 +20,7 @@ build:
 
 .PHONY: run
 run:
-	docker run -tid --name zeppelin $(REPO):$(VERSION)
+	docker run -tid --name zeppelin -p 8080:8080 $(REPO):$(VERSION)
 
 .PHONY: clean
 clean:

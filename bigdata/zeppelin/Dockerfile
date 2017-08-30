@@ -1,7 +1,7 @@
 FROM jorgeacf/centos:latest
 MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
-ARG ZEPPELIN_VERSION=0.7.0
+ARG ZEPPELIN_VERSION=0.7.2
 ARG ZEPPELIN_TAR="zeppelin-$ZEPPELIN_VERSION-bin-all.tgz"
 
 LABEL Description="Zeppelin"
