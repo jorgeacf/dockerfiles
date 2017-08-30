@@ -1,0 +1,10 @@
+version: '2.1'
+services:
+    jenkins:
+        image: jorgeacf/jenkins:2.60.3
+        ports:
+            - 8080:8080
+    nexus:
+        image: jorgeacf/nexus:latest
+        ports:
+            - 8081:8081

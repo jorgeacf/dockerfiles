@@ -42,6 +42,7 @@ run-multi:
 	@docker run -itd \
 		--name hadoop-master \
 		--hostname hadoop-master \
+		-p 8088:8088 \
 		-e SLAVES=$(slaves) \
 		$(REPO):$(VERSION) 
 
