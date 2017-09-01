@@ -1,10 +1,37 @@
 version: '2.1'
 services:
+    gitlab:
+        image: gitlab/gitlab-ce:latest
+        restart: always
+        ports:
+          - 443:443
+          - 80:80
+          - 22:22
+        volumes:
+          - gitlab_config:/etc/gitlab
+          - gitlab_logs:/var/log/gitlab
+          - gitlab_data:/var/opt/gitlab
     jenkins:
         image: jorgeacf/jenkins:2.60.3
+        restart: always
         ports:
-            - 8080:8080
+          - 8080:8080
+        volumes:
+          - jenkins_home:/var/jenkins_home
     nexus:
-        image: jorgeacf/nexus:latest
+        image: jorgeacf/nexus:2.14.5-02
+        restart: always
         ports:
-            - 8081:8081
+          - 8081:8081
+    sonar:
+        image: sonarqube
+        restart: always
+        ports:
+          - 9000:9000
+          - 9092:9092
+
+volumes:
+  jenkins_home:
+  gitlab_config:
+  gitlab_logs:
+  gitlab_data:

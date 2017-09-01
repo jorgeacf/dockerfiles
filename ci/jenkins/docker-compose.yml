@@ -1,6 +1,6 @@
 version: '2.1'
 services:
     jenkins:
-        image: jorgeacf/jenkins:latest
+        image: jorgeacf/jenkins:2.60.3
         ports:
             - 8080:8080

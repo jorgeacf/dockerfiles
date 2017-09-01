@@ -1,0 +1,23 @@
+version: '3'
+services:
+    zookeeper1:
+        image: jorgeacf/zookeeper:3.4.10
+        container_name: zookeeper1
+        hostname: zookeeper1
+        environment:
+           - ZOO_SERVER_ID=1
+           - ZOO_SERVERS=zookeeper1,zookeeper2,zookeeper3
+    zookeeper2:
+        image: jorgeacf/zookeeper:3.4.10
+        container_name: zookeeper2
+        hostname: zookeeper2
+        environment:
+           - ZOO_SERVER_ID=2
+           - ZOO_SERVERS=zookeeper1,zookeeper2,zookeeper3
+    zookeeper3:
+        image: jorgeacf/zookeeper:3.4.10
+        container_name: zookeeper3
+        hostname: zookeeper3
+        environment:
+           - ZOO_SERVER_ID=3
+           - ZOO_SERVERS=zookeeper1,zookeeper2,zookeeper3
