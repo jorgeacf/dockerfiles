@@ -1,5 +1,15 @@
 <?xml version="1.0"?>
 <configuration>
+
+    <property>
+        <name>yarn.resourcemanager.scheduler.class</name>
+        <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.fair.allocation.file</name>
+        <value>/hadoop/etc/hadoop/fair-scheduler.xml</value>
+    </property>
+
     <property>
         <name>yarn.nodemanager.aux-services</name>
         <value>mapreduce_shuffle</value>
@@ -10,7 +20,7 @@
     </property>
     <property>
         <name>yarn.resourcemanager.hostname</name>
-        <value>hadoop-master</value>
+        <value>resourcemanager</value>
     </property>
     <property>
         <name>yarn.nodemanager.vmem-check-enabled</name>

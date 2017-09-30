@@ -31,13 +31,11 @@ COPY config/ssh_config /root/.ssh/config
 RUN chmod 600 /root/.ssh/config
 
 COPY entrypoint.sh /
+COPY entrypoint-node-manager.sh /
+COPY entrypoint-resource-manager.sh /
 
 # Configuration
-COPY config/hadoop-env.sh /hadoop/etc/hadoop/
-COPY config/core-site.xml /hadoop/etc/hadoop/
-COPY config/hdfs-site.xml /hadoop/etc/hadoop/
-COPY config/yarn-site.xml /hadoop/etc/hadoop/
-COPY config/mapred-site.xml /hadoop/etc/hadoop/
+COPY config/*.* /hadoop/etc/hadoop/
 
 # Example for debug
 COPY run-word-count.sh /
@@ -48,8 +46,6 @@ RUN mkdir -p /root/hdfs/namenode && \
 
 # Format namenode
 RUN /hadoop/bin/hdfs namenode -format
-
-CMD /entrypoint.sh
 
 # HDFS ports
 EXPOSE 50010 50020 50070 50075 50090 8020 9000
@@ -62,3 +58,5 @@ EXPOSE 8030 8031 8032 8033 8040 8042 8088
 
 #Other ports
 EXPOSE 49707 2122
+
+CMD "/entrypoint.sh"

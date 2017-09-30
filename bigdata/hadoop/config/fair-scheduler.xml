@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<allocations>
+ 
+	 <queue name="smallpool">
+		 <minResources>0 mb, 1 vcores</minResources>
+		 <maxResources>8000 mb, 20 vcores</maxResources>
+		 <schedulingPolicy>fifo</schedulingPolicy>
+	 </queue>
+	 
+	 <queue name="smallerpool">
+		 <minResources>0 mb, 1 vcores</minResources>
+		 <maxResources>8000 mb, 5 vcores</maxResources>
+		 <schedulingPolicy>fifo</schedulingPolicy>
+	 </queue>
+
+	 <queue name="high_priority">
+		 <minResources>0 mb, 10 vcores</minResources>
+		 <maxResources>8000 mb, 200 vcores</maxResources>
+		 <schedulingPolicy>fifo</schedulingPolicy>
+	 </queue>
+	
+	 <userMaxAppsDefault>10000</userMaxAppsDefault>
+ </allocations>

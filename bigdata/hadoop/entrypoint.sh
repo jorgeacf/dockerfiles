@@ -17,11 +17,17 @@ echo "Starting SSH service..."
 /usr/sbin/sshd
 sleep 1
 
-echo "Starting Hadoop..."
-/hadoop/sbin/start-dfs.sh
-/hadoop/sbin/start-yarn.sh
-/hadoop/sbin/mr-jobhistory-daemon.sh start historyserver
+echo "Starting YARN resourcemanager..."
+/hadoop/sbin/yarn-daemon.sh start resourcemanager
+
+#echo "Starting HDFS namenode..."
+#/hadoop/sbin/hadoop-daemon.sh --script hdfs start namenode
+
+#/hadoop/bin/yarn --daemon start resourcemanager
+#/hadoop/sbin/start-dfs.sh
+#/hadoop/sbin/start-yarn.sh
+#/hadoop/sbin/mr-jobhistory-daemon.sh start historyserver
 
 tail -f /hadoop/logs/*
-/hadoop/sbin/stop-yarn.sh
-/hadoop/sbin/stop-dfs.sh
+/hadoop/sbin/yarn-daemon.sh stop resourcemanager
+#/hadoop/sbin/hadoop-daemon.sh --script hdfs stop namenode
