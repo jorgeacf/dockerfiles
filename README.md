@@ -1,10 +1,8 @@
 # Dockerfiles
 
 [![DockerHub](https://img.shields.io/badge/docker-available-blue.svg)](https://hub.docker.com/u/jorgeacf/)
-
 [![GitHub stars](https://img.shields.io/github/stars/jorgeacf/Dockerfiles.svg)](https://github.com/jorgeacf/Dockerfiles/stargazers) 
 [![GitHub forks](https://img.shields.io/github/forks/jorgeacf/Dockerfiles.svg)](https://github.com/jorgeacf/Dockerfiles/network) 
-[![DockerHub](https://img.shields.io/badge/docker-available-blue.svg)](https://hub.docker.com/u/jorgeacf/)
 
 
 This repository contains my dockerfiles to build containers for the most used Big Data Tools.
