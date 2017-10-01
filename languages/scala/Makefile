@@ -17,9 +17,9 @@ push:
 .PHONY: run
 run:
 	@docker run -it \
-		$(REPO):$(VERSION) bash
+		$(REPO):$(TAG) bash
 
 .PHONY: clean
 clean:
-	@docker stop sbt
-	@docker rm sbt
+	#@docker stop sbt
+	#@docker rm sbt

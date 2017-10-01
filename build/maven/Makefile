@@ -1,4 +1,4 @@
-REPO=jorgeacf/sbt
+REPO=jorgeacf/maven
 VERSION=$(shell cat VERSION)
 TAG=$(shell perl -n -e '/^\s*ARG\s+.+_VERSION\s*=\s*(\d+\.\d+.\d+)/ && &{ print $$1; exit }' Dockerfile)
 
@@ -17,9 +17,10 @@ push:
 .PHONY: run
 run:
 	@docker run -it \
-		$(REPO):$(VERSION) bash
+		--name maven-$(TAG) \
+		$(REPO):$(TAG) bash
 
 .PHONY: clean
 clean:
-	@docker stop sbt
-	@docker rm sbt
+	@docker stop maven-$(TAG)
+	@docker rm maven-$(TAG)
