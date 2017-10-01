@@ -1,7 +1,7 @@
 FROM fedora:latest
 
+ARG SBT_VERSION=1.0.1
 ARG JAVA_VERSION=jdk1.8.0_144
-ARG SBT_VERSION=1.0.2
 
 ENV PATH=$PATH:/opt/jdk/bin:/opt/sbt/bin
 
