@@ -30,6 +30,20 @@ run:
 .PHONY: run-multi
 run-multi:
 
+	echo 'Starting Zookeeper #1...'
+	@docker run -itd --name zookeeper1 -h zookeeper1 -e ZOO_SERVERS='zookeeper1,zookeeper2,zookeeper3' jorgeacf/zookeeper:3.4.10
+
+	echo 'Starting Zookeeper #2...'
+	@docker run -itd --name zookeeper2 -h zookeeper2 -e ZOO_SERVERS='zookeeper1,zookeeper2,zookeeper3' jorgeacf/zookeeper:3.4.10
+
+	echo 'Starting Zookeeper #3...'
+	@docker run -itd --name zookeeper3 -h zookeeper3 -e ZOO_SERVERS='zookeeper1,zookeeper2,zookeeper3' jorgeacf/zookeeper:3.4.10
+
+	@echo 'Updating hostnames...'
+	@../../scripts/docker-update-all-containers-hosts.sh
+
+#	sleep 20;
+
 	echo 'Starting Kafka #1...'
 	docker run -itd --name kafka1 -h kafka1 -e SERVERS='kafka1,kafka2,kafka3' $(REPO):$(VERSION)
 
@@ -47,5 +61,13 @@ clean:
 
 	-@docker ps | grep $(REPO):$(VERSION) | awk '{ print $$1 }' | xargs docker kill > /dev/null
 	-@docker ps -a | grep $(REPO):$(VERSION) | awk '{ print $$1 }' | xargs docker rm > /dev/null
-
 	@echo "Apache Kafka containers cleaned..."
+
+	@docker stop zookeeper1 >/dev/null
+	@docker stop zookeeper2 >/dev/null
+	@docker stop zookeeper3 >/dev/null
+	@docker rm zookeeper1 >/dev/null
+	@docker rm zookeeper2 >/dev/null
+	@docker rm zookeeper3 >/dev/null
+
+	@echo "Apache Zookeeper containers cleaned..."

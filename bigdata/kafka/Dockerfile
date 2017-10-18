@@ -13,19 +13,6 @@ RUN \
     rm -fv "kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz" && \
     ln -sv "kafka_${SCALA_VERSION}-${KAFKA_VERSION}" kafka
 
-#RUN \
-#	yum install -y gcc-c++ make && \
-#	curl -sL https://rpm.nodesource.com/setup_6.x | bash - && \
-#	yum install -y nodejs git && \
-#	git clone https://github.com/Landoop/kafka-topics-ui.git && \
-#	cd kafka-topics-ui && \
-#	npm install -g bower && \
-#	npm install -g http-server && \
-#	npm install && \
-#	bower install --allow-root
-
-ENV ZK_HOSTS=localhost:2181
-
 RUN \
 	yum install -y java-1.8.0-openjdk-devel unzip which && \
 	wget -O "kafka-manager-$KAFKA_MANAGER_VERSION.tar.gz" "https://github.com/yahoo/kafka-manager/archive/$KAFKA_MANAGER_VERSION.tar.gz" && \
@@ -36,10 +23,11 @@ RUN \
 	./sbt clean dist && \
 	unzip  -d / ./target/universal/kafka-manager-${KAFKA_MANAGER_VERSION}.zip && \
 	rm -fr /root/.sbt /root/.ivy2 /kafka-manager-$KAFKA_MANAGER_VERSION-src && \
-	ln -sv kafka-manager-1.3.3.14 kafka-manager && \
+#	ln -sv /kafka-manager-1.3.3.14 kafka-manager && \
 	yum autoremove -y java-1.8.0-openjdk-devel unzip which && \
     yum clean all
 
+ENV ZK_HOSTS=zookeeper1:2181
 
 COPY config/server.properties /kafka/config/server.properties
 

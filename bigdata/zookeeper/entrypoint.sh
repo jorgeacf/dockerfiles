@@ -5,7 +5,10 @@ mkdir -p /tmp/zookeeper
 
 if [ -n "$ZOO_SERVERS" ]; then
 	
-	echo $ZOO_SERVER_ID > /tmp/zookeeper/myid
+	h=`hostname`
+ 	i=$((${#str}-1))		
+ 	echo ${h:$i:1} > /tmp/zookeeper/myid
+	#echo $ZOO_SERVER_ID > /tmp/zookeeper/myid
 
 	IFS=\, read -a servers <<<"$ZOO_SERVERS"
 	for i in "${!servers[@]}"; do 
