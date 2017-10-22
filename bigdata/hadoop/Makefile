@@ -40,16 +40,12 @@ run-multi:
 
 	@echo "Starting hadoop-master container..."
 	@docker run -itd \
-		--name hadoop-master \
-		--hostname hadoop-master \
-		-p 8088:8088 \
-		-e SLAVES=$(slaves) \
+		--name resourcemanager \
+		--hostname resourcemanager \
 		$(REPO):$(VERSION) 
 
-	@for i in {1..$(slaves)}; do \
-		echo "Starting hadoop-slave$$i container..."; \
-		docker run -itd --name hadoop-slave$$i --hostname hadoop-slave$$i $(REPO):$(VERSION); \
-	done
+	@docker run -itd $(REPO):$(VERSION)
+
 
 	@echo 'Updating hostnames...'
 	@../../scripts/docker-update-all-containers-hosts.sh
