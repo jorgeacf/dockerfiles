@@ -3,4 +3,4 @@ language: node_js
 before_script:
   - npm install -g dockerlint
 
-script: dockerlint build/sbt/Dockerfile
+script: ./scripts/run-docker-lint.sh
