@@ -20,4 +20,4 @@ COPY entrypoint.sh /
 
 EXPOSE 8047
 
-ENTRYPOINT "/entrypoint.sh"
+ENTRYPOINT ["/entrypoint.sh"]

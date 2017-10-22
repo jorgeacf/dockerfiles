@@ -35,4 +35,4 @@ COPY entrypoint.sh /
 
 EXPOSE 2181 8080 9092
 
-CMD /entrypoint.sh
+CMD ["/entrypoint.sh"]

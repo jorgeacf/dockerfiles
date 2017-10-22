@@ -19,4 +19,4 @@ RUN yum update -y && \
 	yum remove java-1.7.0-openjdk-devel -y && \
 	yum remove java-1.7.0-openjdk-headless -y
 
-CMD /bin/bash
+CMD ["/bin/bash"]

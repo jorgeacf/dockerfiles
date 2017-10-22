@@ -10,4 +10,4 @@ COPY authorized_keys /root/.ssh/authorized_keys
 COPY config /root/.ssh/config
 RUN chmod 600 /root/.ssh/config
 
-CMD bash
+CMD ["bash"]

@@ -11,4 +11,4 @@ RUN apt-get update && \
     apt-get clean
 
 
-CMD /bin/bash
+CMD ["/bin/bash"]

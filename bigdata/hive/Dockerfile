@@ -20,4 +20,4 @@ EXPOSE 10002
 
 COPY entrypoint.sh /
 
-CMD "/entrypoint.sh"
+CMD ["/entrypoint.sh"]

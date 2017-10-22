@@ -21,4 +21,4 @@ RUN yum update -y && \
 
 COPY entrypoint.sh /
 
-CMD /entrypoint.sh
+CMD ["/entrypoint.sh"]

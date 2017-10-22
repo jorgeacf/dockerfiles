@@ -17,4 +17,4 @@ EXPOSE 8080
 
 COPY entrypoint.sh /
 
-CMD /entrypoint.sh
+CMD ["/entrypoint.sh"]

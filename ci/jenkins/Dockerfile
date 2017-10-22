@@ -2,8 +2,8 @@ FROM java:openjdk-8-jdk-alpine
 
 RUN apk add --no-cache git openssh-client curl zip unzip bash ttf-dejavu coreutils
 
-ENV MAVEN_VERSION="3.2.5" \
-M2_HOME=/usr/lib/mvn
+ARG MAVEN_VERSION=3.2.5
+ARG M2_HOME=/usr/lib/mvn
 
 RUN apk add --update wget && \
   cd /tmp && \
@@ -58,4 +58,4 @@ USER ${user}
 
 COPY entrypoint.sh /
 
-CMD /entrypoint.sh
+CMD ["/entrypoint.sh"]
