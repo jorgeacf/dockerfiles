@@ -7,6 +7,8 @@ services:
 
 before_script:
   - npm install -g dockerlint
-  - cd build/sbt && make build;
+  - docker images
+  - cd build/maven && make build;
+  - docker images
 
 script: ./scripts/run-docker-lint.sh
