@@ -1,6 +1,12 @@
+sudo: required
+
 language: node_js
+
+services:
+  - docker
 
 before_script:
   - npm install -g dockerlint
+  - cd build/sbt; make build;
 
 script: ./scripts/run-docker-lint.sh
