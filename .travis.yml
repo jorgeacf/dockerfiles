@@ -8,7 +8,8 @@ services:
 before_script:
   - npm install -g dockerlint
   - docker images
-  - cd build/maven && make build && cd ../..
-  - docker images
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+#  - cd build/maven && make build && cd ../..
+#  - docker images
 
 script: ./scripts/run-docker-lint.sh
