@@ -9,7 +9,8 @@ before_script:
   - npm install -g dockerlint
   - docker images
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-#  - cd build/maven && make build && cd ../..
-#  - docker images
+  - cd build/maven && make build && cd ../..
+  - docker images
+  - docker push jorgeacf/maven
 
 script: ./scripts/run-docker-lint.sh
