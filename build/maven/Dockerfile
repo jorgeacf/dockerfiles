@@ -1,10 +1,10 @@
 FROM fedora:latest
 
-ARG MAVEN_VERSION=3.5.0
+ARG MAVEN_VERSION=3.5.2
 ARG JAVA_VERSION=jdk1.8.0_144
 
-ENV PATH=$PATH:/opt/jdk/bin:/opt/maven/bin
 ENV JAVA_HOME=/opt/jdk
+ENV PATH=$PATH:/opt/jdk/bin:/opt/maven/bin
 
 RUN dnf install -y wget which && \
 	
