@@ -1,7 +1,7 @@
 FROM fedora:latest
 
 ARG MAVEN_VERSION=3.5.2
-ARG JAVA_VERSION=jdk1.8.0_144
+ARG JAVA_VERSION=jdk1.8.0_151
 
 ENV JAVA_HOME=/opt/jdk
 ENV PATH=$PATH:/opt/jdk/bin:/opt/maven/bin
@@ -14,7 +14,7 @@ RUN dnf install -y wget which && \
 		http://download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-linux-x64.tar.gz \
 		-O $JAVA_VERSION-linux-x64.tar.gz && \
 	mkdir /$JAVA_VERSION && \
-	tar -xzf $JAVA_VERSION-linux-x64.tar.gz -C /$JAVA_VERSION && \
+	tar -xzf $JAVA_VERSION-linux-x64.tar.gz && \
 	rm $JAVA_VERSION-linux-x64.tar.gz && \
 	mv $JAVA_VERSION /opt && \
 	ln -s /opt/$JAVA_VERSION/ /opt/jdk && \
