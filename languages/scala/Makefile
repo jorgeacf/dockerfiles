@@ -1,4 +1,4 @@
-REPO=jorgeacf/sbt
+REPO=jorgeacf/scala
 VERSION=$(shell cat VERSION)
 TAG=$(shell perl -n -e '/^\s*ARG\s+.+_VERSION\s*=\s*(\d+\.\d+.\d+)/ && &{ print $$1; exit }' Dockerfile)
 
