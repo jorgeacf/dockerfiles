@@ -3,6 +3,7 @@
 declare -a arr=(
 	"build/maven"
 	"build/sbt"
+	"languages/scala"
 )
 
 docker images
