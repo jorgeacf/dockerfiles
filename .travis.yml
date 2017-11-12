@@ -8,5 +8,6 @@ services:
 before_script:
   - npm install -g dockerlint
 
-script: ./scripts/run-docker-lint.sh
-script: ./scripts/build-docker-images.sh
+script:
+  - ./scripts/run-docker-lint.sh
+  - ./scripts/build-docker-images.sh
