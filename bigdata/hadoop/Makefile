@@ -27,6 +27,11 @@ nocache:
 	@sed -i -e "s/ARG HADOOP_VERSION=.*/ARG HADOOP_VERSION=$(VERSION)/g" Dockerfile
 	docker build -t $(REPO):$(VERSION) --no-cache .
 
+.PHONY: push
+push:
+	docker push $(REPO):$(VERSION)
+	docker push $(REPO):latest
+
 .PHONY: run
 run:
 	docker run -ti $(REPO):$(VERSION)

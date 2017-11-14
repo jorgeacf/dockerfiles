@@ -4,6 +4,7 @@ declare -a arr=(
 	"build/maven"
 	"build/sbt"
 	"languages/scala"
+	"bigdata/hadoop"
 )
 
 docker images

@@ -13,6 +13,7 @@ build:
 .PHONY: push
 push:
 	docker push $(REPO):$(TAG)
+	docker push $(REPO):latest
 
 .PHONY: run
 run:
