@@ -1,7 +1,7 @@
 version: '3'
 services:
     resource_manager:
-      image: jorgeacf/hadoop:2.8.1
+      image: jorgeacf/hadoop:2.8.2
       container_name: resourcemanager
       hostname: resourcemanager
       command: "/entrypoint-resource-manager.sh"
@@ -21,7 +21,7 @@ services:
         #- 8033:8033
         #- 8040:8040
     node_manager:
-      image: jorgeacf/hadoop:2.8.1
+      image: jorgeacf/hadoop:2.8.2
       command: "/entrypoint-node-manager.sh"
       #ports:
       #  - 38967:38967
