@@ -1,4 +1,4 @@
-# Dockerfiles
+# Jorge Figueiredo - Dockerfiles
 
 [![Build Status](https://travis-ci.org/jorgeacf/dockerfiles.svg?branch=master)](https://travis-ci.org/jorgeacf/dockerfiles)
 [![DockerHub](https://img.shields.io/badge/docker-available-blue.svg)](https://hub.docker.com/u/jorgeacf/)
