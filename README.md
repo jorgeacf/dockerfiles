@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/jorgeacf/dockerfiles.svg?branch=master)](https://travis-ci.org/jorgeacf/dockerfiles)
 [![DockerHub](https://img.shields.io/badge/docker-available-blue.svg)](https://hub.docker.com/u/jorgeacf/)
+[![Latest version](https://img.shields.io/github/license/mashape/apistatus.svg)](https://raw.githubusercontent.com/jorgeacf/dockerfiles/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/jorgeacf/Dockerfiles.svg)](https://github.com/jorgeacf/Dockerfiles/stargazers) 
 [![GitHub forks](https://img.shields.io/github/forks/jorgeacf/Dockerfiles.svg)](https://github.com/jorgeacf/Dockerfiles/network) 
 

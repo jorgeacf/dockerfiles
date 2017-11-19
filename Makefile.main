@@ -1,0 +1,32 @@
+
+VERSION=$(shell cat VERSION)
+
+.DEFAULT_GOAL := help
+
+.PHONY: version
+version:
+	echo $(REPO)
+	echo $(VERSION)
+
+.PHONY: all
+all:
+	make build
+
+.PHONY: build
+build:
+	@docker build -t $(REPO):$(VERSION) .
+
+.PHONY: push
+push:
+	@docker push $(REPO):$(VERSION)
+	@docker tag $(REPO):$(VERSION) $(REPO):latest
+	@docker push $(REPO):latest
+
+.PHONY: run
+run:
+	@docker run -it $(REPO):$(VERSION) bash
+
+.PHONY: clean
+clean:
+	@docker stop $$(docker ps -a -q --filter ancestor=$(REPO):$(VERSION) --format="{{.ID}}") >> /dev/null
+	@docker rm $$(docker ps -a -q --filter ancestor=$(REPO):$(VERSION) --format="{{.ID}}")

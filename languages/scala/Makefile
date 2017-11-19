@@ -1,26 +1,18 @@
-REPO=jorgeacf/scala
-VERSION=$(shell cat VERSION)
-TAG=$(shell perl -n -e '/^\s*ARG\s+.+_VERSION\s*=\s*(\d+\.\d+.\d+)/ && &{ print $$1; exit }' Dockerfile)
 
-.PHONY: all
-all:
-	make build
 
-.PHONY: build
-build:
-	docker build -t $(REPO):$(TAG) .
+REPO := jorgeacf/scala
 
-.PHONY: push
-push:
-	docker push $(REPO):$(TAG)
-	docker push $(REPO):latest
+include ../../Makefile.main
 
-.PHONY: run
-run:
-	@docker run -it \
-		$(REPO):$(TAG) bash
 
-.PHONY: clean
-clean:
-	#@docker stop sbt
-	#@docker rm sbt
+.PHONY: help
+help:
+
+	@echo ""
+	@echo "This is the make help for Apache Hadoop (${VERSION}) docker image"
+	@echo ""
+	@echo "  Run 'make build' to build the Hadoop docker image."
+	@echo "  Run 'make run-multi slaves=n' to start Hadoop with n slaves."
+	@echo "  Run 'make clean' to clean all Hadoop containers."
+	@echo ""
+

@@ -1,17 +1,17 @@
 #!/bin/bash
 
-declare -a arr=(
-	"build/maven"
-	"build/sbt"
-	"languages/scala"
-	"bigdata/hadoop"
-)
+set -euo pipefail
+[ -n "${DEBUG:-}" ] && set -x
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+source "$DIR/docker-images.sh"
 
 docker images
 
 docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
-for i in "${arr[@]}"
+for i in "${images[@]}"
 do
    cd "$i"
    make build push

@@ -3,6 +3,7 @@ VERSION=$(shell cat VERSION)
 
 .DEFAULT_GOAL := help
 
+.PHONY: help
 help:
 
 	@echo ""
