@@ -9,36 +9,18 @@
 
 This repository contains my dockerfiles to build containers for the most used Big Data Tools.
 
-| Docker Container      | Docker Hub Build Status and URL                           | Image Size
-| :------------------------------------  | :----------------------------------------| :--------------
-| Zookeeper    	| [good](https://registry.hub.docker.com/u/jorgeacf/zookeeper)  	| [![](https://images.microbadger.com/badges/image/jorgeacf/zookeeper.svg)](https://microbadger.com/images/jorgeacf/zookeeper "Get your own image badge on microbadger.com")
-| Hadoop    	| [good](https://registry.hub.docker.com/u/jorgeacf/hadoop)  		| [![](https://images.microbadger.com/badges/image/jorgeacf/hadoop.svg)](https://microbadger.com/images/jorgeacf/hadoop "Get your own image badge on microbadger.com")
-| Spark    		| [good](https://registry.hub.docker.com/u/jorgeacf/spark) 			| [![](https://images.microbadger.com/badges/image/jorgeacf/spark.svg)](https://microbadger.com/images/jorgeacf/spark "Get your own image badge on microbadger.com")
-| HBase    		| [good](https://registry.hub.docker.com/u/jorgeacf/hbase) 			| [![](https://images.microbadger.com/badges/image/jorgeacf/hbase.svg)](https://microbadger.com/images/jorgeacf/hbase "Get your own image badge on microbadger.com")
-| Hive    		| [good](https://registry.hub.docker.com/u/jorgeacf/hive) 			| [![](https://images.microbadger.com/badges/image/jorgeacf/hive.svg)](https://microbadger.com/images/jorgeacf/hive "Get your own image badge on microbadger.com")
-| Kafka    		| [good](https://registry.hub.docker.com/u/jorgeacf/kafka) 			| [![](https://images.microbadger.com/badges/image/jorgeacf/kafka.svg)](https://microbadger.com/images/jorgeacf/kafka "Get your own image badge on microbadger.com")
-| Hue    		| [good](https://registry.hub.docker.com/u/jorgeacf/hue) 			| [![](https://images.microbadger.com/badges/image/jorgeacf/hue.svg)](https://microbadger.com/images/jorgeacf/hue "Get your own image badge on microbadger.com")
-| Jenkins   	| [good](https://registry.hub.docker.com/u/jorgeacf/jenkins) 		| [![](https://images.microbadger.com/badges/image/jorgeacf/jenkins.svg)](https://microbadger.com/images/jorgeacf/jenkins "Get your own image badge on microbadger.com")
-| Nexus    		| [good](https://registry.hub.docker.com/u/jorgeacf/nexus) 			| [![](https://images.microbadger.com/badges/image/jorgeacf/nexus.svg)](https://microbadger.com/images/jorgeacf/nexus "Get your own image badge on microbadger.com")
+| Docker Container   | Docker Hub Build Status and URL          					| Image Size       | Latest Version 
+| :----------------: | :----------------------------------------------------------: | :--------------: | :---------------: |
+| Zookeeper    	     | [good](https://registry.hub.docker.com/u/jorgeacf/zookeeper) | [![](https://images.microbadger.com/badges/image/jorgeacf/zookeeper.svg)](https://microbadger.com/images/jorgeacf/zookeeper "Zookeeper")  | 
+| Hadoop    	     | [good](https://registry.hub.docker.com/u/jorgeacf/hadoop)  	| [![](https://images.microbadger.com/badges/image/jorgeacf/hadoop.svg)](https://microbadger.com/images/jorgeacf/hadoop "Hadoop")			| [![](https://images.microbadger.com/badges/version/jorgeacf/hadoop.svg)](https://microbadger.com/images/jorgeacf/hadoop "Hadoop")
+| Spark    			 | [good](https://registry.hub.docker.com/u/jorgeacf/spark) 	| [![](https://images.microbadger.com/badges/image/jorgeacf/spark.svg)](https://microbadger.com/images/jorgeacf/spark "Spark")				|
+| HBase    		     | [good](https://registry.hub.docker.com/u/jorgeacf/hbase) 	| [![](https://images.microbadger.com/badges/image/jorgeacf/hbase.svg)](https://microbadger.com/images/jorgeacf/hbase "HBase")				|
+| Hive    		     | [good](https://registry.hub.docker.com/u/jorgeacf/hive) 		| [![](https://images.microbadger.com/badges/image/jorgeacf/hive.svg)](https://microbadger.com/images/jorgeacf/hive "Hive")					|
+| Kafka    		     | [good](https://registry.hub.docker.com/u/jorgeacf/kafka) 	| [![](https://images.microbadger.com/badges/image/jorgeacf/kafka.svg)](https://microbadger.com/images/jorgeacf/kafka "Kafka")				|
+| Hue    		     | [good](https://registry.hub.docker.com/u/jorgeacf/hue) 		| [![](https://images.microbadger.com/badges/image/jorgeacf/hue.svg)](https://microbadger.com/images/jorgeacf/hue "Hue")					|
+| Jenkins   	     | [good](https://registry.hub.docker.com/u/jorgeacf/jenkins) 	| [![](https://images.microbadger.com/badges/image/jorgeacf/jenkins.svg)](https://microbadger.com/images/jorgeacf/jenkins "Jenkins")		|
+| Nexus    		     | [good](https://registry.hub.docker.com/u/jorgeacf/nexus) 	| [![](https://images.microbadger.com/badges/image/jorgeacf/nexus.svg)](https://microbadger.com/images/jorgeacf/nexus "Nexus")				|
 
-## List of container images:
-
-*	CentOS - Latest CentOS image plus the basic development tools.
-*	Debian - Latest Debian image plus the basic development tools.
-*	Fedora - Latest Fedora image plus the basic development tools.
-*	Cassandra
-*	Drill
-*	Flink
-*	Hadoop
-*	HBase
-*	Hive
-*	Hue
-*	Kafka
-*	Mesos
-*	Spark
-*	Zookeeper
-*	Jenkins
-*	Nexus
 
 ## How to build these Docker images
 
