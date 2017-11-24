@@ -30,13 +30,13 @@ run:
 run-multi:
 
 	echo 'Starting Zookeeper #1...'
-	@docker run -itd --name zookeeper1 -h zookeeper1 -e SERVERS='zookeeper1,zookeeper2,zookeeper3' $(REPO):$(VERSION)
+	@docker run -itd --name zookeeper1 -h zookeeper1 -e ZOO_SERVERS='zookeeper1,zookeeper2,zookeeper3' $(REPO):$(VERSION)
 
 	echo 'Starting Zookeeper #2...'
-	@docker run -itd --name zookeeper2 -h zookeeper2 -e SERVERS='zookeeper1,zookeeper2,zookeeper3' $(REPO):$(VERSION)
+	@docker run -itd --name zookeeper2 -h zookeeper2 -e ZOO_SERVERS='zookeeper1,zookeeper2,zookeeper3' $(REPO):$(VERSION)
 
 	echo 'Starting Zookeeper #3...'
-	@docker run -itd --name zookeeper3 -h zookeeper3 -e SERVERS='zookeeper1,zookeeper2,zookeeper3' $(REPO):$(VERSION)
+	@docker run -itd --name zookeeper3 -h zookeeper3 -e ZOO_SERVERS='zookeeper1,zookeeper2,zookeeper3' $(REPO):$(VERSION)
 
 	@echo 'Updating hostnames...'
 	@../../scripts/docker-update-all-containers-hosts.sh

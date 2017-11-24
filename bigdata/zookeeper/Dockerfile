@@ -1,14 +1,14 @@
 FROM jorgeacf/centos:latest
 MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
-ARG ZOOKEEPER_VERSION=3.4.8
+ARG ZOOKEEPER_VERSION=3.4.10
 ARG ZOOKEEPER_TAR="zookeeper-${ZOOKEEPER_VERSION}.tar.gz"
 
 LABEL Description="ZooKeeper"
 
 WORKDIR /
 
-RUN wget -O "$ZOOKEEPER_TAR" "http://www.apache.org/dyn/closer.lua?filename=zookeeper/zookeeper-${ZOOKEEPER_VERSION}/${ZOOKEEPER_TAR}&action=download" && \
+RUN wget -O "$ZOOKEEPER_TAR" "http://apache.mirror.anlx.net/zookeeper/zookeeper-$ZOOKEEPER_VERSION/zookeeper-$ZOOKEEPER_VERSION.tar.gz" && \
 	tar zxvf "${ZOOKEEPER_TAR}" && \
 	rm -fv "${ZOOKEEPER_TAR}" && \
 	ln -sv /zookeeper-${ZOOKEEPER_VERSION} /zookeeper && \
