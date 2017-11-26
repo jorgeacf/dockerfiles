@@ -1,6 +1,13 @@
+sudo: required
+
 language: node_js
+
+services:
+  - docker
 
 before_script:
   - npm install -g dockerlint
 
-script: ./scripts/run-docker-lint.sh
+script:
+  - ./scripts/run-docker-lint.sh
+  - ./scripts/build-docker-images.sh

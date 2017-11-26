@@ -1,0 +1,10 @@
+
+
+
+- name: scala
+  path: languages/scala
+  url: http://scala.org
+
+- name: maven
+  path: build/maven
+  url: http://maven.org

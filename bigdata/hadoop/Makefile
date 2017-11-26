@@ -3,6 +3,7 @@ VERSION=$(shell cat VERSION)
 
 .DEFAULT_GOAL := help
 
+.PHONY: help
 help:
 
 	@echo ""
@@ -27,6 +28,12 @@ nocache:
 	@sed -i -e "s/ARG HADOOP_VERSION=.*/ARG HADOOP_VERSION=$(VERSION)/g" Dockerfile
 	docker build -t $(REPO):$(VERSION) --no-cache .
 
+.PHONY: push
+push:
+	docker push $(REPO):$(VERSION)
+	docker tag $(REPO):$(VERSION) $(REPO):latest
+	docker push $(REPO):latest
+
 .PHONY: run
 run:
 	docker run -ti $(REPO):$(VERSION)
@@ -42,9 +49,12 @@ run-multi:
 	@docker run -itd \
 		--name resourcemanager \
 		--hostname resourcemanager \
-		$(REPO):$(VERSION) 
+		$(REPO):$(VERSION) "/entrypoint-resource-manager.sh"
 
-	@docker run -itd $(REPO):$(VERSION)
+	@docker run -itd \
+		--name node1 \
+		--hostname node1 \
+		$(REPO):$(VERSION) "/entrypoint-node-manager.sh"
 
 
 	@echo 'Updating hostnames...'

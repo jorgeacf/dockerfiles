@@ -7,3 +7,7 @@ all:
 .PHONY: build
 build:
 	docker build -t $(REPO) .
+
+.PHONY: run
+run:
+		@docker run -it $(REPO):latest bash
