@@ -38,7 +38,7 @@ COPY entrypoint-resource-manager.sh /
 COPY config/*.* /hadoop/etc/hadoop/
 
 # Example for debug
-COPY run-word-count.sh /
+COPY /tests /tests
 
 RUN mkdir -p /root/hdfs/namenode && \
     mkdir -p /root/hdfs/datanode && \
@@ -59,4 +59,4 @@ EXPOSE 8030 8031 8032 8033 8040 8042 8088
 #Other ports
 EXPOSE 49707 2122
 
-CMD ["/entrypoint.sh"]
+#CMD ["/entrypoint.sh"]

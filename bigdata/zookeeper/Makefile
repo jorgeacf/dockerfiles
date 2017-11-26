@@ -24,19 +24,19 @@ nocache:
 
 .PHONY: run
 run:
-	docker run -itd --name zookeeper-single -p 2181:2181 $(REPO):$(VERSION) 1
+	docker run -itd --name zookeeper-single --restart always -p 2181:2181 $(REPO):$(VERSION)
 
 .PHONY: run-multi
 run-multi:
 
 	@echo 'Starting Zookeeper #1...'
-	@docker run -itd --name zookeeper1 $(REPO):$(VERSION) 1
+	@docker run -itd --name zookeeper1 $(REPO):$(VERSION)
 
 	@echo 'Starting Zookeeper #2...'
-	@docker run -itd --name zookeeper2 $(REPO):$(VERSION) 2 172.17.0.2
+	@docker run -itd --name zookeeper2 $(REPO):$(VERSION) 2
 
 	@echo 'Starting Zookeeper #3...'
-	@docker run -itd --name zookeeper3 $(REPO):$(VERSION) 3 172.17.0.2
+	@docker run -itd --name zookeeper3 $(REPO):$(VERSION) 3
 
 	#@echo 'Updating hostnames...'
 	#@../../scripts/docker-update-all-containers-hosts.sh

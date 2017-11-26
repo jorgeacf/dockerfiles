@@ -49,9 +49,12 @@ run-multi:
 	@docker run -itd \
 		--name resourcemanager \
 		--hostname resourcemanager \
-		$(REPO):$(VERSION) 
+		$(REPO):$(VERSION) "/entrypoint-resource-manager.sh"
 
-	@docker run -itd $(REPO):$(VERSION)
+	@docker run -itd \
+		--name node1 \
+		--hostname node1 \
+		$(REPO):$(VERSION) "/entrypoint-node-manager.sh"
 
 
 	@echo 'Updating hostnames...'

@@ -21,8 +21,8 @@ RUN mkdir -p /zookeeper/{data,wal,log}
 RUN mkdir -p /tmp/zookeeper
 RUN cp /zookeeper/conf/zoo_sample.cfg /zookeeper/conf/zoo.cfg
 
-RUN echo "standaloneEnabled=false" >> /zookeeper/conf/zoo.cfg
-RUN echo "dynamicConfigFile=/zookeeper/conf/zoo.cfg.dynamic" >> /zookeeper/conf/zoo.cfg
+#RUN echo "standaloneEnabled=false" >> /zookeeper/conf/zoo.cfg
+#RUN echo "dynamicConfigFile=/zookeeper/conf/zoo.cfg.dynamic" >> /zookeeper/conf/zoo.cfg
 
 EXPOSE 2181 3181 4181
 

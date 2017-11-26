@@ -20,7 +20,10 @@ then
   /zookeeper/bin/zkServer.sh stop
   ZOO_LOG_DIR=/var/log ZOO_LOG4J_PROP='INFO,CONSOLE,ROLLINGFILE' /zookeeper/bin/zkServer.sh start-foreground
 else
-  echo "server.$MYID=$IPADDRESS:2888:3888;2181" >> /zookeeper/conf/zoo.cfg.dynamic
+  echo "server.1=172.17.0.2:2888:3888" >> /zookeeper/conf/zoo.cfg
+  echo "server.2=172.17.0.3:2888:3888" >> /zookeeper/conf/zoo.cfg
+  echo "server.3=172.17.0.4:2888:3888" >> /zookeeper/conf/zoo.cfg
+  echo "$MYID" > /tmp/zookeeper/myid
   #zkServer-initialize.sh --force --myid=$MYID
   /zookeeper/bin/zkServer.sh start-foreground
 fi

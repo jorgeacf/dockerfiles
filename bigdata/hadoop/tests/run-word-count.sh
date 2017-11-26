@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -euo pipefail
+[ -n "${DEBUG:-}" ] && set -x
+
 # test the hadoop cluster by running wordcount
 
 # create input files 
@@ -14,7 +17,7 @@ hadoop fs -mkdir -p input
 hdfs dfs -put ./input/* input
 
 # run wordcount 
-hadoop jar /hadoop/share/hadoop/mapreduce/sources/hadoop-mapreduce-examples-2.7.2-sources.jar org.apache.hadoop.examples.WordCount input output
+hadoop jar /hadoop/share/hadoop/mapreduce/hadoop*examples*.jar wordcount input output
 
 # print the input files
 echo -e "\ninput file1.txt:"
