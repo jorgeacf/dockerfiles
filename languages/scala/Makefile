@@ -1,9 +1,7 @@
 
-
 REPO := jorgeacf/scala
 
 include ../../Makefile.main
-
 
 .PHONY: help
 help:
