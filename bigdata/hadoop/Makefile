@@ -30,9 +30,9 @@ nocache:
 
 .PHONY: push
 push:
-	docker push $(REPO):$(VERSION)
 	docker tag $(REPO):$(VERSION) $(REPO):latest
 	docker push $(REPO):latest
+	docker push $(REPO):$(VERSION)
 
 .PHONY: run
 run:
