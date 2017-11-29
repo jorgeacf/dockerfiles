@@ -4,7 +4,7 @@ declare -a images=(
 	"build/maven"
 	"build/sbt"
 	"languages/scala"
-	"bigdata/hadoop"
+	#"bigdata/hadoop"
 	"bigdata/zookeeper"
 )
 
