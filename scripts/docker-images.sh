@@ -5,6 +5,7 @@ declare -a images=(
 	"build/sbt"
 	"languages/scala"
 	"bigdata/hadoop"
+	"bigdata/zookeeper"
 )
 
 echo $images
