@@ -1,5 +1,6 @@
 REPO=jorgeacf/zeppelin
-VERSION=$(shell cat VERSION)
+
+include ../../Makefile.main
 
 .DEFAULT_GOAL := help
 
@@ -10,21 +11,6 @@ help:
 
 	@echo ""
 
-.PHONY: all
-all:
-	make build
-
-.PHONY: build
-build:
-	docker build -t $(REPO):$(VERSION) .
-
 .PHONY: run
 run:
 	docker run -tid --name zeppelin -p 8080:8080 $(REPO):$(VERSION)
-
-.PHONY: clean
-clean:
-	@docker stop zeppelin >/dev/null
-	@docker rm zeppelin >/dev/null
-
-	@echo "Apache Zeppelin containers cleaned..."
