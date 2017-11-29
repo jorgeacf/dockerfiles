@@ -1,5 +1,7 @@
 REPO=jorgeacf/zookeeper
 
+include ../../Makefile.main
+
 help:
 
 	@echo ""
