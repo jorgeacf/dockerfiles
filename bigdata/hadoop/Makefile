@@ -1,11 +1,8 @@
 REPO=jorgeacf/hadoop
-VERSION=$(shell cat VERSION)
 
-.DEFAULT_GOAL := help
+include ../../Makefile.main
 
-.PHONY: help
 help:
-
 	@echo ""
 	@echo "This is the make help for Apache Hadoop (${VERSION}) docker image"
 	@echo ""
@@ -14,29 +11,12 @@ help:
 	@echo "  Run 'make clean' to clean all Hadoop containers."
 	@echo ""
 
-.PHONY: all
-all:
-	make build
+	make version
 
-.PHONY: build
-build:
-	@sed -i -e "s/ARG HADOOP_VERSION=.*/ARG HADOOP_VERSION=$(VERSION)/g" Dockerfile
-	@docker build -t $(REPO):$(VERSION) .
-
-.PHONY: nocache
-nocache:
-	@sed -i -e "s/ARG HADOOP_VERSION=.*/ARG HADOOP_VERSION=$(VERSION)/g" Dockerfile
-	docker build -t $(REPO):$(VERSION) --no-cache .
-
-.PHONY: push
-push:
-	docker tag $(REPO):$(VERSION) $(REPO):latest
-	docker push $(REPO):latest
-	docker push $(REPO):$(VERSION)
-
-.PHONY: run
-run:
-	docker run -ti $(REPO):$(VERSION)
+#.PHONY: build
+#build:
+#	@sed -i -e "s/ARG HADOOP_VERSION=.*/ARG HADOOP_VERSION=$(VERSION)/g" Dockerfile
+#	@docker build -t $(REPO):$(VERSION) .
 
 .PHONY: download
 download:
@@ -45,25 +25,21 @@ download:
 .PHONY: run-multi
 run-multi:
 
-	@echo "Starting hadoop-master container..."
+	RESOURCE_MANAGER_NAME=yarn-master
+	NODE_MANAGER_NAME=yarn-slave
+
+	@echo "Starting $(RESOURCE_MANAGER_NAME) container..."
 	@docker run -itd \
-		--name resourcemanager \
-		--hostname resourcemanager \
+		--name "yarn-master" \
+		--hostname "yarn-master" \
 		$(REPO):$(VERSION) "/entrypoint-resource-manager.sh"
 
+	@echo "Starting ${NODE_MANAGER_NAME}1 container..."
 	@docker run -itd \
-		--name node1 \
-		--hostname node1 \
+		--name "yarn-slave1" \
+		--hostname "yarn-slave1" \
 		$(REPO):$(VERSION) "/entrypoint-node-manager.sh"
 
 
 	@echo 'Updating hostnames...'
-	@../../scripts/docker-update-all-containers-hosts.sh
-
-.PHONY: clean
-clean:
-
-	-@docker ps | grep $(REPO):$(VERSION) | awk '{ print $$1 }' | xargs docker kill > /dev/null
-	-@docker ps -a | grep $(REPO):$(VERSION) | awk '{ print $$1 }' | xargs docker rm > /dev/null
-
-	@echo "Apache Hadoop containers cleaned..."
+	$(ROOT_DIR)/scripts/docker-update-all-containers-hosts.sh

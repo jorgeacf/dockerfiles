@@ -1,7 +1,6 @@
 REPO=jorgeacf/cassandra
-VERSION=$(shell cat VERSION)
 
-.DEFAULT_GOAL := help
+include ../../Makefile.main
 
 help:
 
@@ -10,13 +9,6 @@ help:
 
 	@echo ""
 
-.PHONY: all
-all:
-	make build
-
-.PHONY: build
-build:
-	@docker build -t $(REPO):$(VERSION) .
 
 .PHONY: run-multi
 run-multi:
@@ -28,11 +20,3 @@ run-multi:
 
 	@echo 'Updating hostnames...'
 	@../../scripts/docker-update-all-containers-hosts.sh
-
-.PHONY: clean
-clean:
-
-	-@docker ps | grep $(REPO):$(VERSION) | awk '{ print $$1 }' | xargs docker kill > /dev/null
-	-@docker ps -a | grep $(REPO):$(VERSION) | awk '{ print $$1 }' | xargs docker rm > /dev/null
-
-	@echo "Apache Cassandra containers cleaned..."

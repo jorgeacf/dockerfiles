@@ -3,7 +3,7 @@ MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
 LABEL Description="Hadoop"
 
-ARG HADOOP_VERSION=2.8.2
+ARG HADOOP_VERSION=2.9.0
 ARG HADOOP_TAR=hadoop-$HADOOP_VERSION.tar.gz
 
 WORKDIR /

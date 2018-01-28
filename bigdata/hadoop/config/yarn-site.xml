@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <configuration>
-
+    <property>
+        <name>yarn.webapp.ui2.enable</name>
+        <value>true</value>
+    </property>
     <property>
         <name>yarn.resourcemanager.scheduler.class</name>
         <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</value>

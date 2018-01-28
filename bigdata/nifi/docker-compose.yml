@@ -1,0 +1,9 @@
+version: '3'
+services:
+    nifi:
+        image: jorgeacf/nifi:1.5.0
+        volumes:
+          - ~/docker/volumes/nifi/data/:/opt/nifi/data
+          - ~/docker/volumes/nifi/logs/:/opt/nifi/logs
+        ports:
+          - 8080:8080

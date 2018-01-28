@@ -1,7 +1,7 @@
 version: '3'
 services:
     resource_manager:
-      image: jorgeacf/hadoop:2.8.2
+      image: jorgeacf/hadoop:2.9.0
       container_name: resourcemanager
       hostname: resourcemanager
       command: "/entrypoint-resource-manager.sh"
@@ -9,30 +9,13 @@ services:
         - 8088:8088
         - 19888:19888
         - 50070:50070
-        #- 50010:50010
-        #- 50020:50020
-        #- 50075:50075
-        #- 50090:50090
-        #- 8020:8020
-        #- 9000:9000
-        #- 8030:8030
-        #- 8031:8031
-        #- 8032:8032
-        #- 8033:8033
-        #- 8040:8040
     node_manager:
-      image: jorgeacf/hadoop:2.8.2
+      image: jorgeacf/hadoop:2.9.0
       command: "/entrypoint-node-manager.sh"
-      #ports:
-      #  - 38967:38967
-      #  - 8042:8042
-
-
 
 # Web Interfaces
 
 # Once the Hadoop cluster is up and running check the web-ui of the components as described below:
-
 # Daemon  Web Interface Notes
 # NameNode  http://nn_host:port/  Default HTTP port is 9870.
 # ResourceManager http://rm_host:port/  Default HTTP port is 8088.

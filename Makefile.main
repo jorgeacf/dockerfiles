@@ -1,12 +1,12 @@
 
+ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 VERSION=$(shell cat VERSION)
 
 .DEFAULT_GOAL := help
 
 .PHONY: version
 version:
-	echo $(REPO)
-	echo $(VERSION)
+	@echo $(REPO):$(VERSION)
 
 .PHONY: all
 all:
@@ -25,6 +25,10 @@ push:
 .PHONY: run
 run:
 	@docker run -it $(REPO):$(VERSION) bash
+
+.PHONY: run-d
+run-d:
+	@docker run -itd $(REPO):$(VERSION) bash
 
 .PHONY: clean
 clean:
