@@ -1,5 +1,12 @@
 version: '3'
 services:
+    nifi-registry:
+        image: jorgeacf/nifi-registry:0.1.0
+        volumes:
+          - ~/docker/volumes/nifi-registry/database/:/opt/nifi-registry/database
+          - ~/docker/volumes/nifi-registry/logs/:/opt/nifi-registry/logs
+        ports:
+          - 18080:18080
     nifi:
         image: jorgeacf/nifi:1.5.0
         volumes:
