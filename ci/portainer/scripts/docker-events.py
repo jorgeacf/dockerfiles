@@ -30,7 +30,8 @@ def print_containers(containers):
 	for container_name in containers:
 		number = 1
 		for container_metadata in containers[container_name]:
-			containers_ips += container_metadata.ip + ' ' + container_metadata.image_name + str(number) + '\n'
+			host = container_metadata.ip + ' ' + container_metadata.name + ' ' + container_metadata.image_name + str(number) + ' ' + container_metadata.id + '\n' 
+			containers_ips += host
 			number += 1
 	return containers_ips
 
@@ -85,10 +86,20 @@ def list_containers(containers):
 
 			print('List - Name: ' + name)
 
+			new_container = ContainerMetadata(container.id, container.name, name, version, ip)
 			if name in containers:
-				containers[name] = containers[name] + [ContainerMetadata(container.id, container.name, name, version, ip)]
+				containers[name] = containers[name] + [new_container]
 			else:
-				containers[name] = [ContainerMetadata(container.id, container.name, name, version, ip)]
+				containers[name] = [new_container]
+
+def update_containers_hosts(containers):
+	for container_type in containers:
+		for container_name in containers[container_type]:
+			container = client.containers.get(container_name.id)
+			hosts = print_containers(containers)
+			command = 'echo "# Docker Containers \n' + hosts + '\n#Docker Containers" > /etc/hosts'
+			container.exec_run(['sh', '-c', command])
+
 
 def main():
 
@@ -103,17 +114,9 @@ def main():
 
 		if 'status' in event_json:
 			if 'start' == event_json['status']:
-				c = add_new_container(containers, event)
+				add_new_container(containers, event)
+				update_containers_hosts(containers)
 				write_hosts(containers)
-
-				print('-------------------------')
-				for container_type in containers:
-					for container_name in containers[container_type]:
-						print('->' + container_name.name)
-						container = client.containers.get(container_name.id)
-						host = c.ip + ' ' + c.name
-						print(container.exec_run(['sh', '-c', 'echo ' + host + ' >> /etc/hosts']))
-				print('-------------------------')
 
 			if 'kill' == event_json['status']:
 				remove_container(containers, event)

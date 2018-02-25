@@ -30,7 +30,8 @@ def print_containers(containers):
 	for container_name in containers:
 		number = 1
 		for container_metadata in containers[container_name]:
-			containers_ips += container_metadata.ip + ' ' + container_metadata.image_name + str(number) + '\n'
+			host = container_metadata.ip + ' ' + container_metadata.name + ' ' + container_metadata.image_name + str(number) + ' ' + container_metadata.id + '\n' 
+			containers_ips += host
 			number += 1
 	return containers_ips
 
@@ -111,8 +112,8 @@ def main():
 					for container_name in containers[container_type]:
 						print('->' + container_name.name)
 						container = client.containers.get(container_name.id)
-						host = c.ip + ' ' + c.name
-						print(container.exec_run(['sh', '-c', 'echo ' + host + ' >> /etc/hosts']))
+						hosts = print_containers(containers)
+						print(container.exec_run(['sh', '-c', 'echo "# Docker Containers \n' + hosts + '" >> /etc/hosts']))
 				print('-------------------------')
 
 			if 'kill' == event_json['status']:

@@ -12,6 +12,4 @@ help:
 run:
 	@docker run -itd \
 		-p 8080:8080 \
-		-v ~/docker/volumes/nifi/data/:/opt/nifi/data \
-		-v ~/docker/volumes/nifi/logs/:/opt/nifi/logs \
 		$(REPO):$(VERSION) bash
