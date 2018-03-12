@@ -13,7 +13,7 @@ RUN dnf install -y wget && \
 	ln -s /opt/nifi-$NIFI_VERSION/ /opt/nifi
 
 RUN wget --no-cookies --no-check-certificate \
-	--header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \ 
+	--header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
 	"http://download.oracle.com/otn-pub/java/jdk/8u162-b12/0da788060d494f5095bf8624735fa2f1/jre-8u162-linux-x64.rpm" && \
 	dnf -y localinstall jre-8u162-linux-x64.rpm && \
 	rm jre-8u162-linux-x64.rpm
