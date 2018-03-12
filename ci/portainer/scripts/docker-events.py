@@ -17,8 +17,9 @@ client = docker.from_env()
 # /etc/hosts 127.0.0.1 localhost
 
 class ContainerMetadata:
-	def __init__(self, id, name, image_name, version, ip):
+	def __init__(self, id, short_id, name, image_name, version, ip):
 		self.id = id
+		self.short_id = short_id
 		self.name = name
 		self.image_name = image_name
 		self.version = version
@@ -28,11 +29,16 @@ def print_containers(containers):
 
 	containers_ips = ''
 	for container_name in containers:
-		number = 1
+		container_number = 1
+		number_of_containers = len(containers[container_name])
 		for container_metadata in containers[container_name]:
-			host = container_metadata.ip + ' ' + container_metadata.name + ' ' + container_metadata.image_name + str(number) + ' ' + container_metadata.id + '\n' 
+			image_container_name = container_metadata.image_name
+			if number_of_containers > 1:
+				image_container_name += str(container_number)
+			host_format = '{0} {1} {2} {3}\n'
+			host = host_format.format(container_metadata.ip, image_container_name, container_metadata.name, container_metadata.short_id)
 			containers_ips += host
-			number += 1
+			container_number += 1
 	return containers_ips
 
 def write_hosts(containers):
@@ -52,7 +58,7 @@ def add_new_container(containers, event):
 	version = image_name.split(':')[1]
 	ip = container.attrs['NetworkSettings']['IPAddress']
 
-	new_container = ContainerMetadata(container.id, container.name, name, version, ip)
+	new_container = ContainerMetadata(container.id, container.short_id, container.name, name, version, ip)
 	if name in containers:
 		containers[name] = containers[name] + [new_container]
 	else:
@@ -86,7 +92,7 @@ def list_containers(containers):
 
 			print('List - Name: ' + name)
 
-			new_container = ContainerMetadata(container.id, container.name, name, version, ip)
+			new_container = ContainerMetadata(container.id, container.short_id, container.name, name, version, ip)
 			if name in containers:
 				containers[name] = containers[name] + [new_container]
 			else:
@@ -97,7 +103,7 @@ def update_containers_hosts(containers):
 		for container_name in containers[container_type]:
 			container = client.containers.get(container_name.id)
 			hosts = print_containers(containers)
-			command = 'echo "# Docker Containers \n' + hosts + '\n#Docker Containers" > /etc/hosts'
+			command = 'echo "### BEGIN DOCKER CONTAINER HOSTS\n' + hosts + '### END DOCKER CONTAINER HOSTS" > /etc/hosts'
 			container.exec_run(['sh', '-c', command])
 
 
