@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-dockerlint --version
+dockerlint
 
 dockerfiles=$(find ../ -name "Dockerfile")
 
