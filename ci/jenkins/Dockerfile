@@ -25,8 +25,8 @@ RUN addgroup -g ${gid} ${group} \
 
 VOLUME /var/jenkins_home
 
-# `/usr/share/jenkins/ref/` contains all reference configuration we want 
-# to set on a fresh new installation. Use it to bundle additional plugins 
+# `/usr/share/jenkins/ref/` contains all reference configuration we want
+# to set on a fresh new installation. Use it to bundle additional plugins
 # or config file with your custom jenkins Docker image.
 RUN mkdir -p /usr/share/jenkins/ref/init.groovy.d
 

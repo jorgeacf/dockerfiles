@@ -20,7 +20,7 @@ RUN \
     apt-get autoremove -y && \
     apt-get clean
 
-RUN apt-get -y install systemd 
+RUN apt-get -y install systemd
 
 COPY config/zk /etc/mesos/zk
 COPY entrypoint-master.sh /

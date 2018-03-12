@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+dockerlint --version
+
 dockerfiles=$(find ../ -name "Dockerfile")
 
 status=0;
