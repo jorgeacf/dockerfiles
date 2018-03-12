@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo 'Starting dockerlint...'
+
 dockerlint
 
 dockerfiles=$(find ../ -name "Dockerfile")
@@ -12,5 +14,7 @@ for d in $dockerfiles; do
 		status=$code;
 	fi
 done
+
+echo 'Ending dockerlint...'
 
 exit $status;
