@@ -2,7 +2,7 @@
 
 echo 'Starting dockerlint...'
 
-dockerlint
+dockerlint -h
 
 dockerfiles=$(find ../ -name "Dockerfile")
 
