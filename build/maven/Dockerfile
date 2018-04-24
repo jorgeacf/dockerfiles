@@ -3,8 +3,8 @@ FROM fedora:latest
 ARG MAVEN_VERSION=3.5.2
 ARG JAVA_VERSION=jdk1.8.0_151
 
-ENV JAVA_HOME=/opt/jdk
-ENV PATH=$PATH:/opt/jdk/bin:/opt/maven/bin
+ENV JAVA_HOME=/usr/bin/java
+ENV PATH=$PATH:$JAVA_HOME/bin
 
 RUN dnf install -y wget java-1.8.0-openjdk-devel && \
 

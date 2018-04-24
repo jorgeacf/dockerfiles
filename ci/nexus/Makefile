@@ -1,13 +1,6 @@
 REPO=jorgeacf/nexus
-VERSION=$(shell cat VERSION)
 
-.PHONY: all
-all:
-	make build
-
-.PHONY: build
-build:
-	docker build -t $(REPO):$(VERSION) .
+include ../../Makefile.main
 
 .PHONY: run
 run:

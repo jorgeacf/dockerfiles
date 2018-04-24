@@ -1,22 +1,27 @@
-FROM centos:latest
+FROM fedora:latest
 MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
 LABEL Description="Nexus"
 
-ARG NEXUS_VERSION="2.14.5-02"
-ARG NEXUS_TAR=nexus-$NEXUS_VERSION-bundle.tar.gz
+ARG NEXUS_VERSION="3.10.0-04"
+ARG NEXUS_TAR="nexus-$NEXUS_VERSION-unix.tar.gz"
 
 RUN \
-	yum update -y && \
-	yum install java-1.8.0-openjdk-headless -y  && \
-	yum install wget -y && \
-	wget -O "$NEXUS_TAR" "http://www.sonatype.org/downloads/nexus-$NEXUS_VERSION-bundle.tar.gz" && \
-	tar xvzf $NEXUS_TAR && \
-	ln -s nexus-$NEXUS_VERSION nexus && \
-	rm $NEXUS_TAR
+	dnf update -y && \
+	dnf install java-1.8.0-openjdk -y  && \
+	dnf install wget procps -y && \
+	wget -O "$NEXUS_TAR" "http://download.sonatype.com/nexus/3/$NEXUS_TAR" && \
+	tar -zxvf $NEXUS_TAR && \
+	rm $NEXUS_TAR && \
+	mv nexus-$NEXUS_VERSION /opt && \
+	ln -s /opt/nexus-$NEXUS_VERSION /opt/nexus
+
+ENV NEXUS_HOME=/opt/nexus
+ENV PATH=$PATH:$NEXUS_HOME/bin
 
 EXPOSE 8081
 
+COPY config/nexus.vmoptions /opt/nexus/bin/nexus.vmoptions
 COPY entrypoint.sh /
 
 CMD ["/entrypoint.sh"]

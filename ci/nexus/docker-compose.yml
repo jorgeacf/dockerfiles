@@ -1,6 +1,6 @@
 version: '2.1'
 services:
     nexus:
-        image: jorgeacf/nexus:2.14.5-02
+        image: jorgeacf/nexus:3.10.0-04
         ports:
             - 8081:8081
