@@ -18,6 +18,8 @@ RUN cd /apache-atlas-sources-0.8.2/distro/target/ && \
 
 RUN dnf install -y python net-tools
 
+COPY config/atlas-application.properties /opt/apache-atlas-0.8.2/conf/atlas-application.properties
+
 COPY entrypoint.sh /
 
 ENTRYPOINT ["/entrypoint.sh"]
