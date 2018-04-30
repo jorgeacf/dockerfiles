@@ -6,7 +6,7 @@ set -euo pipefail
 echo "-----------------------------------------------------------"
 echo "Starting SSH service..."
 echo "-----------------------------------------------------------"
-/usr/sbin/sshd-keygen
+#/usr/sbin/sshd-keygen
 /usr/sbin/sshd
 sleep 1
 

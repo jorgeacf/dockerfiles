@@ -1,4 +1,4 @@
-FROM jorgeacf/centos:latest
+FROM fedora:latest
 MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
 LABEL Description="Hadoop"
@@ -9,14 +9,16 @@ ARG HADOOP_TAR=hadoop-$HADOOP_VERSION.tar.gz
 WORKDIR /
 
 RUN \
-	yum install -y openssh-server openssh-clients && \
+	dnf install -y wget openssh-server openssh-clients && \
 	wget -O "$HADOOP_TAR" "http://www.apache.org/dyn/closer.lua?filename=hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-$HADOOP_VERSION.tar.gz&action=download" && \
 	tar zxvf "$HADOOP_TAR" && \
 	ln -sv hadoop-$HADOOP_VERSION hadoop && \
 	rm -r -f "$HADOOP_TAR" && \
 	rm -fr /hadoop/share/doc && \
-	yum autoremove -y && \
-	yum clean all
+	dnf autoremove -y && \
+	dnf clean all
+
+RUN dnf install -y java which procps
 
 # set environment variable
 ENV JAVA_HOME=/usr
@@ -25,10 +27,18 @@ ENV PATH=$PATH:$JAVA_HOME/bin
 ENV PATH=$PATH:$HADOOP_HOME/bin
 
 # ssh without key
-RUN ssh-keygen -t rsa -f /root/.ssh/id_rsa -P '' && \
-    cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
-COPY config/ssh_config /root/.ssh/config
-RUN chmod 600 /root/.ssh/config
+#RUN ssh-keygen -t rsa -f /root/.ssh/id_rsa -P '' && \
+#    cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+#COPY config/ssh_config /root/.ssh/config
+#RUN chmod 600 /root/.ssh/config
+
+RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' \
+     && sed -i 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config \
+     && sed -i 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config \
+     && sed -i 's/#PermitRootLogin yes/PermitRootLogin yes/' /etc/ssh/sshd_config \
+     && mkdir -p /root/.ssh \
+     && echo "StrictHostKeyChecking=no" > /root/.ssh/config \
+     && echo "UserKnownHostsFile=/dev/null" >> /root/.ssh/config
 
 COPY entrypoint.sh /
 COPY entrypoint-node-manager.sh /

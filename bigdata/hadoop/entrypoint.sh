@@ -13,8 +13,8 @@ if [ -n "$SLAVES" ]; then
 fi
 
 echo "Starting SSH service..."
-/usr/sbin/sshd-keygen
-/usr/sbin/sshd
+#/usr/sbin/sshd-keygen
+#/usr/sbin/sshd
 sleep 1
 
 echo "Starting YARN resourcemanager..."
