@@ -24,7 +24,7 @@ push:
 
 .PHONY: run
 run:
-	@docker run -it $(REPO):$(VERSION)
+	@docker run -it $(REPO):$(VERSION) bash
 
 .PHONY: run-d
 run-d:
