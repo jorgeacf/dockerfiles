@@ -27,18 +27,14 @@ ENV PATH=$PATH:$JAVA_HOME/bin
 ENV PATH=$PATH:$HADOOP_HOME/bin
 
 # ssh without key
-#RUN ssh-keygen -t rsa -f /root/.ssh/id_rsa -P '' && \
-#    cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
-#COPY config/ssh_config /root/.ssh/config
-#RUN chmod 600 /root/.ssh/config
+RUN ssh-keygen -t rsa -f /root/.ssh/id_rsa -P '' && \
+    cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys && \
+	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
+	ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa && \
+	ssh-keygen -f /etc/ssh/ssh_host_ed25519_key -N '' -t ed25519
 
-RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' \
-     && sed -i 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config \
-     && sed -i 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config \
-     && sed -i 's/#PermitRootLogin yes/PermitRootLogin yes/' /etc/ssh/sshd_config \
-     && mkdir -p /root/.ssh \
-     && echo "StrictHostKeyChecking=no" > /root/.ssh/config \
-     && echo "UserKnownHostsFile=/dev/null" >> /root/.ssh/config
+COPY config/ssh_config /root/.ssh/config
+RUN chmod 600 /root/.ssh/config
 
 COPY entrypoint.sh /
 COPY entrypoint-node-manager.sh /

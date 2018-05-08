@@ -1,3 +1,3 @@
-REPO := jorgeacf/docker-discovery
+REPO := jorgeacf/consul-server
 
 include ../../Makefile.main

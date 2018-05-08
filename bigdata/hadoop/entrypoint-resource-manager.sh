@@ -6,7 +6,6 @@ set -euo pipefail
 echo "-----------------------------------------------------------"
 echo "Starting SSH service..."
 echo "-----------------------------------------------------------"
-ssh-keygen
 /usr/sbin/sshd
 sleep 1
 
@@ -25,7 +24,6 @@ echo "Starting Job History Server..."
 echo "-----------------------------------------------------------"
 /hadoop/sbin/mr-jobhistory-daemon.sh start historyserver
 
-echo '--------'
 tail -f /hadoop/logs/*
 /hadoop/sbin/yarn-daemon.sh stop resourcemanager
 /hadoop/sbin/hadoop-daemon.sh --script hdfs stop namenode

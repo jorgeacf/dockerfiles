@@ -21,8 +21,7 @@ run:
 		--name docker-discovery \
 		--volume /var/run/docker.sock:/var/run/docker.sock \
 		--privileged=true \
-		--restart always \
-		$(REPO):$(TAG) bash
+		$(REPO):$(TAG)
 
 		# curl --unix-socket /run/docker.sock http://docker/images/json
 
