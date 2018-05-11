@@ -8,8 +8,6 @@ ENV MAVEN_HOME=/opt/maven
 ENV PATH=$PATH:$MAVEN_HOME/bin:$JAVA_HOME/bin
 
 RUN dnf install -y wget java-1.8.0-openjdk-devel && \
-
-	# Maven
 	wget http://apache.mirrors.nublue.co.uk/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz && \
 	tar -zxvf apache-maven-$MAVEN_VERSION-bin.tar.gz && \
 	rm apache-maven-$MAVEN_VERSION-bin.tar.gz && \

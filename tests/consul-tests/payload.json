@@ -1,0 +1,14 @@
+{
+  "ID": "hadoop1",
+  "Name": "hadoop",
+  "Tags": [
+    "primary",
+    "v1"
+  ],
+  "Address": "127.1.2.3",
+  "Port": 8000,
+  "Meta": {
+    "hadoop_version": "3.0"
+  },
+  "EnableTagOverride": false
+}
