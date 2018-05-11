@@ -9,9 +9,9 @@ ARG APACHE_DRILL_VERSION=1.7.0
 
 ARG TAR=apache-drill-${APACHE_DRILL_VERSION}.tar.gz
 
-RUN \
-	url="http://archive.apache.org/dist/drill/drill-${APACHE_DRILL_VERSION}/${TAR}" && \
-	wget -t 100 --retry-connrefused -O "${TAR}" "$url" && \
+ARG URL="http://archive.apache.org/dist/drill/drill-${APACHE_DRILL_VERSION}/${TAR}"
+
+RUN wget -t 100 --retry-connrefused -O "${TAR}" "${URL}" && \
 	tar xvf "${TAR}" && \
     rm -fv  "${TAR}" && \
     ln -sv "apache-drill-${APACHE_DRILL_VERSION}" drill

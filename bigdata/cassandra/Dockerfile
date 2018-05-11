@@ -5,17 +5,15 @@ LABEL Description="Apache Cassandra"
 
 ENV PATH $PATH:/cassandra/bin
 
-
 ARG CASSANDRA_VERSION=3.7
-
 
 ARG TAR="apache-cassandra-$CASSANDRA_VERSION-bin.tar.gz"
 
+ARG URL="http://www.apache.org/dyn/closer.lua?filename=cassandra/$CASSANDRA_VERSION/$TAR&action=download"
+
 WORKDIR /
 
-RUN \
-	url="http://www.apache.org/dyn/closer.lua?filename=cassandra/$CASSANDRA_VERSION/$TAR&action=download" && \
-	wget -t 100 --retry-connrefused -O "$TAR" "$url" && \
+RUN wget -t 100 --retry-connrefused -O "$TAR" "${URL}" && \
 	tar xvf "${TAR}" && \
     rm -fv  "${TAR}" && \
     ln -sv "apache-cassandra-${CASSANDRA_VERSION}" cassandra && \
