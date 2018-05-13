@@ -12,11 +12,3 @@ run:
 		--privileged=true \
 		--user 0 \
 		$(REPO):$(VERSION)
-
-	#echo 'Updating hostnames...'
-	#@../../scripts/docker-update-all-containers-hosts.sh
-
-.PHONY: clean
-clean:
-	@docker stop jenkins
-	@docker rm jenkins

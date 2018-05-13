@@ -1,17 +1,5 @@
 FROM fedora:latest
 
-#RUN apk add --no-cache git openssh-client curl zip unzip bash ttf-dejavu coreutils
-
-#ARG MAVEN_VERSION=3.2.5
-#ARG M2_HOME=/usr/lib/mvn
-
-#RUN apk add --update wget && \
-#  cd /tmp && \
-#  wget "http://ftp.unicamp.br/pub/apache/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz" && \
-#  tar -zxvf "apache-maven-$MAVEN_VERSION-bin.tar.gz" && \
-#  mv "apache-maven-$MAVEN_VERSION" "$M2_HOME" && \
-#  ln -s "$M2_HOME/bin/mvn" /usr/bin/mvn
-
 RUN dnf install -y findutils
 
 ENV JENKINS_HOME /var/jenkins_home
@@ -22,11 +10,7 @@ ARG group=jenkins
 ARG uid=1000
 ARG gid=1000
 
-#RUN addgroup -g ${gid} ${group} \
-#&& adduser -h "$JENKINS_HOME" -u ${uid} -G ${group} -s /bin/bash -D ${user}
-
 RUN useradd --home /home/jenkins jenkins
-#RUN groupadd ${group}
 RUN usermod -G jenkins jenkins
 
 VOLUME /var/jenkins_home
@@ -35,14 +19,6 @@ VOLUME /var/jenkins_home
 # to set on a fresh new installation. Use it to bundle additional plugins
 # or config file with your custom jenkins Docker image.
 RUN mkdir -p /usr/share/jenkins/ref/init.groovy.d
-
-#ENV TINI_VERSION 0.9.0
-#ENV TINI_SHA fa23d1e20732501c3bb8eeeca423c89ac80ed452
-
-#RUN curl -fsSL https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static -o /bin/tini && chmod +x /bin/tini \
-#  && echo "$TINI_SHA  /bin/tini" | sha1sum -c -
-
-#COPY init.groovy /usr/share/jenkins/ref/init.groovy.d/tcp-slave-agent-port.groovy
 
 ARG JENKINS_VERSION
 ENV JENKINS_VERSION ${JENKINS_VERSION:-2.107.2}
@@ -58,9 +34,7 @@ RUN chown -R ${user} "$JENKINS_HOME" /usr/share/jenkins/ref
 RUN dnf install -y docker
 RUN dnf install -y java
 
-EXPOSE 8080
-
-EXPOSE 50000
+EXPOSE 8080 50000
 
 ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 
