@@ -3,6 +3,6 @@
 set -euo pipefail
 [ -n "${DEBUG:-}" ] && set -x
 
-consulate -h
+#consulate -h
 
 bash
