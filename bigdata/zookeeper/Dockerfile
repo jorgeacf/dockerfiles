@@ -1,7 +1,7 @@
 FROM jorgeacf/centos:latest
 MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
-ARG ZOOKEEPER_VERSION=3.4.11
+ARG ZOOKEEPER_VERSION=3.4.12
 ARG ZOOKEEPER_TAR="zookeeper-${ZOOKEEPER_VERSION}.tar.gz"
 
 LABEL Description="ZooKeeper"
