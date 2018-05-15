@@ -127,7 +127,7 @@ def main():
 				except:
 					log.error('Can''t add new container... [' + event + ']')
 
-			if 'stop' == event_json['status']:
+			if 'die' == event_json['status']:
 				try:
 					remove_container(containers, event)
 				except:
