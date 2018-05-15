@@ -12,6 +12,8 @@ RUN dnf install -y wget java && \
 	mv /nifi-$NIFI_VERSION /opt && \
 	ln -s /opt/nifi-$NIFI_VERSION/ /opt/nifi
 
+RUN dnf install -y hostname
+
 ENV JAVA_HOME=/usr
 
 COPY conf /opt/nifi/conf

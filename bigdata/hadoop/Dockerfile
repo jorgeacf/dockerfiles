@@ -3,13 +3,13 @@ MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
 LABEL Description="Hadoop"
 
-ARG HADOOP_VERSION=2.9.0
+ARG HADOOP_VERSION=2.9.1
 ARG HADOOP_TAR=hadoop-$HADOOP_VERSION.tar.gz
 
 WORKDIR /
 
 RUN \
-	dnf install -y wget openssh-server openssh-clients && \
+	dnf install -y wget java which procps openssh-server openssh-clients && \
 	wget -O "$HADOOP_TAR" "http://www.apache.org/dyn/closer.lua?filename=hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-$HADOOP_VERSION.tar.gz&action=download" && \
 	tar zxvf "$HADOOP_TAR" && \
 	ln -sv hadoop-$HADOOP_VERSION hadoop && \
@@ -17,8 +17,6 @@ RUN \
 	rm -fr /hadoop/share/doc && \
 	dnf autoremove -y && \
 	dnf clean all
-
-RUN dnf install -y java which procps
 
 # set environment variable
 ENV JAVA_HOME=/usr

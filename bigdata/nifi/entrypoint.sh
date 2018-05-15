@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+[ -n "${DEBUG:-}" ] && set -x
+
+HOSTNAME="$(echo -e "$(hostname)" | tr -d '[:space:]')"
+IPADDRESS="$(echo -e "$(hostname -I)" | tr -d '[:space:]')"
+
+echo "Hostname=[${HOSTNAME}]"
+echo "IPADDRESS=[${IPADDRESS}]"
+
+# Replace configuration
+sed -i -e "s/nifi.cluster.node.address=/nifi.cluster.node.address=${IPADDRESS}/g" /opt/nifi/conf/nifi.properties
+sed -i -e "s/nifi.remote.input.host=/nifi.remote.input.host=${IPADDRESS}/g" /opt/nifi/conf/nifi.properties
+sed -i -e "s/nifi.web.http.host=/nifi.web.http.host=${IPADDRESS}/g" /opt/nifi/conf/nifi.properties
+
 #/opt/nifi/bin/nifi.sh run
 
 /opt/nifi/bin/nifi.sh start;

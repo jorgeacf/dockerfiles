@@ -22,9 +22,9 @@ echo "ip: $IPADDRESS"
 
 #else
   
-  echo "server.1=zookeeper-1:2888:3888" >> /zookeeper/conf/zoo.cfg
-  echo "server.2=zookeeper-2:2888:3888" >> /zookeeper/conf/zoo.cfg
-  echo "server.3=zookeeper-3:2888:3888" >> /zookeeper/conf/zoo.cfg
+  echo "server.1=zookeeper1:2888:3888" >> /zookeeper/conf/zoo.cfg
+  echo "server.2=zookeeper2:2888:3888" >> /zookeeper/conf/zoo.cfg
+  echo "server.3=zookeeper3:2888:3888" >> /zookeeper/conf/zoo.cfg
   echo "$MYID" > /tmp/zookeeper/myid
   
   ZOO_LOG_DIR=/var/log ZOO_LOG4J_PROP='INFO,CONSOLE,ROLLINGFILE' zkServer.sh start-foreground
