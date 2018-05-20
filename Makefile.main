@@ -24,11 +24,11 @@ push:
 
 .PHONY: run
 run:
-	@docker run -it $(REPO):$(VERSION) bash
+	@docker run -it $(REPO):$(VERSION)
 
 .PHONY: run-d
 run-d:
-	@docker run -itd $(REPO):$(VERSION) bash
+	@docker run -itd $(REPO):$(VERSION)
 
 .PHONY: clean
 clean:

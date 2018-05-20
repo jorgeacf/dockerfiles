@@ -3,9 +3,7 @@ MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
 LABEL Description="Docker Discovery"
 
-RUN dnf install -y net-tools iputils bind-utils
-
-RUN dnf install -y wget unzip && \
+RUN dnf install -y wget unzip net-tools iputils bind-utils hostname && \
 	wget https://releases.hashicorp.com/consul/1.0.7/consul_1.0.7_linux_amd64.zip && \
 	unzip consul_1.0.7_linux_amd64.zip && \
 	rm consul_1.0.7_linux_amd64.zip && \

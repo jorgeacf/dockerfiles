@@ -30,16 +30,12 @@ run-multi:
 
 	@echo "Starting $(RESOURCE_MANAGER_NAME) container..."
 	@docker run -itd \
-		--name "yarn-master" \
-		--hostname "yarn-master" \
 		$(REPO):$(VERSION) "/entrypoint-resource-manager.sh"
 
 	@echo "Starting ${NODE_MANAGER_NAME}1 container..."
 	@docker run -itd \
-		--name "yarn-slave1" \
-		--hostname "yarn-slave1" \
 		$(REPO):$(VERSION) "/entrypoint-node-manager.sh"
 
 
-	@echo 'Updating hostnames...'
-	$(ROOT_DIR)/scripts/docker-update-all-containers-hosts.sh
+	#@echo 'Updating hostnames...'
+	#$(ROOT_DIR)/scripts/docker-update-all-containers-hosts.sh

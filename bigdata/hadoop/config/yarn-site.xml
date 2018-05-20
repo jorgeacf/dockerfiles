@@ -23,7 +23,7 @@
     </property>
     <property>
         <name>yarn.resourcemanager.hostname</name>
-        <value>resourcemanager</value>
+        <value>hadoop1</value>
     </property>
     <property>
         <name>yarn.nodemanager.vmem-check-enabled</name>

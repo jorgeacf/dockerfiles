@@ -9,6 +9,14 @@ help:
 
 	@echo ""
 
+.PHONY: run
+run:
+
+	@echo 'Starting Zookeeper #1...'
+	@docker run -itd \
+		-v ~/docker_volumes/zookeeper:/data \
+		$(REPO):$(VERSION)
+
 .PHONY: run-multi
 run-multi:
 

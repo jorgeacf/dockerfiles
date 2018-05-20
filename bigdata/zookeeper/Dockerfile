@@ -8,25 +8,20 @@ LABEL Description="ZooKeeper"
 
 WORKDIR /
 
-ENV PATH=/zookeeper/bin:${PATH}
+ENV PATH=/opt/zookeeper/bin:${PATH}
 
 RUN wget -O "$ZOOKEEPER_TAR" "http://apache.mirrors.nublue.co.uk/zookeeper/zookeeper-$ZOOKEEPER_VERSION/zookeeper-$ZOOKEEPER_VERSION.tar.gz" && \
 	tar zxvf "${ZOOKEEPER_TAR}" && \
 	rm -fv "${ZOOKEEPER_TAR}" && \
-	ln -sv /zookeeper-${ZOOKEEPER_VERSION} /zookeeper && \
-	cp -av /zookeeper/conf/zoo_sample.cfg /zookeeper/conf/zoo.cfg && \
-	rm -fr /zookeeper/{src,docs}
+	mv /zookeeper-${ZOOKEEPER_VERSION} /opt && \
+	ln -sv /opt/zookeeper-${ZOOKEEPER_VERSION} /opt/zookeeper && \
+	rm -fr /opt/zookeeper/{src,docs}
 
-RUN mkdir -p /zookeeper/{data,wal,log}
-RUN mkdir -p /tmp/zookeeper
-RUN cp /zookeeper/conf/zoo_sample.cfg /zookeeper/conf/zoo.cfg
-
-#RUN echo "standaloneEnabled=false" >> /zookeeper/conf/zoo.cfg
-#RUN echo "dynamicConfigFile=/zookeeper/conf/zoo.cfg.dynamic" >> /zookeeper/conf/zoo.cfg
-
+RUN mkdir -p /data/{zookeeper,logs}
 
 EXPOSE 2181 3181 4181
 
+COPY config/* /opt/zookeeper/conf/
 COPY entrypoint.sh /
 
 ENTRYPOINT ["/entrypoint.sh"]

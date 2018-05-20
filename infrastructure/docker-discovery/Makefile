@@ -8,6 +8,7 @@ run:
 		--name docker-container-discovery \
 		--volume /var/run/docker.sock:/var/run/docker.sock \
 		--privileged=true \
+		--restart unless-stopped \
 		$(REPO):$(VERSION)
 
 .PHONY: run-d
@@ -16,4 +17,5 @@ run-d:
 		--name docker-container-discovery \
 		--volume /var/run/docker.sock:/var/run/docker.sock \
 		--privileged=true \
+		--restart unless-stopped \
 		$(REPO):$(VERSION)
