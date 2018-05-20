@@ -1,20 +1,33 @@
-FROM jorgeacf/centos:latest
+FROM fedora:latest
 MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
+
+LABEL Description="Zeppelin"
 
 ARG ZEPPELIN_VERSION=0.7.3
 ARG ZEPPELIN_TAR="zeppelin-$ZEPPELIN_VERSION-bin-all.tgz"
 
-LABEL Description="Zeppelin"
+ENV ZEPPELIN_HOME=/opt/zeppelin
+ENV PATH=$PATH:$ZEPPELIN_HOME/bin
 
-WORKDIR /
-
-RUN wget -O "$ZEPPELIN_TAR" "http://apache.mirror.anlx.net/zeppelin/zeppelin-$ZEPPELIN_VERSION/$ZEPPELIN_TAR" && \
+RUN dnf install -y wget java findutils hostname && \
+	wget -O "$ZEPPELIN_TAR" "http://apache.mirror.anlx.net/zeppelin/zeppelin-$ZEPPELIN_VERSION/$ZEPPELIN_TAR" && \
 	tar zxvf "${ZEPPELIN_TAR}" && \
 	rm -fv "${ZEPPELIN_TAR}" && \
-	ln -sv /zeppelin-$ZEPPELIN_VERSION-bin-all /zeppelin
+	mv /zeppelin-$ZEPPELIN_VERSION-bin-all /opt/zeppelin-$ZEPPELIN_VERSION-bin-all && \
+	ln -sv /opt/zeppelin-$ZEPPELIN_VERSION-bin-all /opt/zeppelin
+
+RUN groupadd zeppelin && useradd -g zeppelin zeppelin
+RUN chown -R zeppelin /opt/zeppelin/
+
+COPY entrypoint.sh /usr/local/bin/
+
+WORKDIR $ZEPPELIN_HOME
+
+USER zeppelin
 
 EXPOSE 8080
 
-COPY entrypoint.sh /
+VOLUME ["/opt/zeppelin/notebook"]
 
-CMD ["/entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["zeppelin"]

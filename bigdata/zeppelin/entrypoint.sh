@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
-/zeppelin/bin/zeppelin-daemon.sh start
+set -euo pipefail
+[ -n "${DEBUG:-}" ] && set -x
 
-bash
+if [ "$1" = 'zeppelin' ]; then
+
+	zeppelin-daemon.sh start
+
+	tail -f /opt/zeppelin/logs/*.log
+fi
+
+exec "$@"
