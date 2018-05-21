@@ -11,6 +11,8 @@ echo "IPADDRESS=[${IPADDRESS}]"
 
 if [ "$1" = 'consul-server' ]; then
 
+	export CONSUL_UI_BETA="true";
+
 	consul agent \
 		-server \
 		-bootstrap \

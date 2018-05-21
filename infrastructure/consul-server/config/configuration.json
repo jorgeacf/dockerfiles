@@ -1,8 +1,8 @@
 {
-  "datacenter": "local-dev",
+  "datacenter": "lab",
   "data_dir": "/temp/consul-server/data",
   "log_level": "INFO",
-  "node_name": "docker-discovery",
+  "node_name": "consul-server",
   "server": true,
   "ports": {
     "dns": 53
