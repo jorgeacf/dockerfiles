@@ -19,11 +19,11 @@
 
 	<!-- This is related to the hive container -->
 	<property>
-		<name>hadoop.proxyuser.hive.hosts</name>
+		<name>hadoop.proxyuser.root.hosts</name>
 		<value>*</value>
 	</property>
 	<property>
-		<name>hadoop.proxyuser.hive.groups</name>
+		<name>hadoop.proxyuser.root.groups</name>
 		<value>*</value>
 	</property>
 

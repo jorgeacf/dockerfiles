@@ -12,15 +12,16 @@ RUN \
 	dnf install -y wget java which procps openssh-server openssh-clients && \
 	wget -O "$HADOOP_TAR" "http://www-eu.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz" && \
 	tar zxvf "$HADOOP_TAR" && \
-	ln -sv hadoop-$HADOOP_VERSION hadoop && \
+	mv hadoop-$HADOOP_VERSION /opt/hadoop-$HADOOP_VERSION && \
+	ln -sv /opt/hadoop-$HADOOP_VERSION /opt/hadoop && \
 	rm -r -f "$HADOOP_TAR" && \
-	rm -fr /hadoop/share/doc && \
+	rm -fr /opt/hadoop/share/doc && \
 	dnf autoremove -y && \
 	dnf clean all
 
 # set environment variable
 ENV JAVA_HOME=/usr
-ENV HADOOP_HOME=/hadoop
+ENV HADOOP_HOME=/opt/hadoop
 ENV PATH=$PATH:$JAVA_HOME/bin
 ENV PATH=$PATH:$HADOOP_HOME/bin
 
@@ -39,17 +40,19 @@ COPY entrypoint-node-manager.sh /
 COPY entrypoint-resource-manager.sh /
 
 # Configuration
-COPY config/*.* /hadoop/etc/hadoop/
+COPY config/*.* /opt/hadoop/etc/hadoop/
 
 # Example for debug
 COPY /tests /tests
 
 RUN mkdir -p /root/hdfs/namenode && \
     mkdir -p /root/hdfs/datanode && \
-    mkdir /hadoop/logs
+    mkdir /opt/hadoop/logs
+
+VOLUME ["/opt/hadoop-$HADOOP_VERSION"]
 
 # Format namenode
-RUN /hadoop/bin/hdfs namenode -format
+RUN /opt/hadoop/bin/hdfs namenode -format
 
 # HDFS ports
 EXPOSE 50010 50020 50070 50075 50090 8020 9000

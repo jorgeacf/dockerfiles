@@ -9,13 +9,17 @@ IPADDRESS="$(echo -e "$(hostname -I)" | tr -d '[:space:]')"
 echo "Hostname=[${HOSTNAME}]"
 echo "IPADDRESS=[${IPADDRESS}]"
 
-# Replace configuration
-sed -i -e "s/nifi.cluster.node.address=/nifi.cluster.node.address=${IPADDRESS}/g" /opt/nifi/conf/nifi.properties
-sed -i -e "s/nifi.remote.input.host=/nifi.remote.input.host=${IPADDRESS}/g" /opt/nifi/conf/nifi.properties
-sed -i -e "s/nifi.web.http.host=/nifi.web.http.host=${IPADDRESS}/g" /opt/nifi/conf/nifi.properties
+if [ "$1" = 'nifi' ]; then
 
-#/opt/nifi/bin/nifi.sh run
+	# Replace configuration
+	sed -i -e "s/nifi.cluster.node.address=/nifi.cluster.node.address=${IPADDRESS}/g" $NIFI_HOME/conf/nifi.properties
+	sed -i -e "s/nifi.remote.input.host=/nifi.remote.input.host=${IPADDRESS}/g" $NIFI_HOME/conf/nifi.properties
+	sed -i -e "s/nifi.web.http.host=/nifi.web.http.host=${IPADDRESS}/g" $NIFI_HOME/conf/nifi.properties
 
-/opt/nifi/bin/nifi.sh start;
+	$NIFI_HOME/bin/nifi.sh start;
 
-tail -f /dev/null /opt/nifi/logs/*
+	tail -f /dev/null $NIFI_HOME/logs/*.log
+
+fi
+
+exec "$@"

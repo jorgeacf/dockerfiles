@@ -12,14 +12,14 @@ sleep 1
 echo "-----------------------------------------------------------"
 echo "Starting YARN nodemanager..."
 echo "-----------------------------------------------------------"
-/hadoop/sbin/yarn-daemon.sh start nodemanager
+/opt/hadoop/sbin/yarn-daemon.sh start nodemanager
 
 
 echo "-----------------------------------------------------------"
 echo "Starting HDFS datanode..."
 echo "-----------------------------------------------------------"
-/hadoop/sbin/hadoop-daemons.sh --script hdfs start datanode
+/opt/hadoop/sbin/hadoop-daemons.sh --script hdfs start datanode
 
-tail -f /hadoop/logs/*
-/hadoop/sbin/yarn-daemon.sh stop nodemanager
-/hadoop/sbin/hadoop-daemons.sh --script hdfs stop datanode
+tail -f /opt/hadoop/logs/*
+/opt/hadoop/sbin/yarn-daemon.sh stop nodemanager
+/opt/hadoop/sbin/hadoop-daemons.sh --script hdfs stop datanode

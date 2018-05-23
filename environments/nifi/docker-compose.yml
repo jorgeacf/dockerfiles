@@ -7,6 +7,22 @@ services:
 #        privileged: true
 #        network_mode: bridge
 
+    hive:
+        image: jorgeacf/hive:2.3.3
+        network_mode: bridge
+        volumes:
+            - hadoop_home:/opt/hadoop
+        depends_on:
+            - resource_manager
+
+    zeppelin:
+        image: jorgeacf/zeppelin:0.7.3
+        network_mode: bridge
+        volumes:
+            - hadoop_home:/opt/hadoop
+        depends_on:
+            - resource_manager
+
     zookeeper:
         image: jorgeacf/zookeeper:3.4.12
         #scale: 3
@@ -24,6 +40,8 @@ services:
         image: jorgeacf/hadoop:2.9.1
         command: "/entrypoint-resource-manager.sh"
         network_mode: bridge
+        volumes:
+            - hadoop_home:/opt/hadoop
 
     datanode:
         image: jorgeacf/hadoop:2.9.1
@@ -31,8 +49,9 @@ services:
         network_mode: bridge
 
 volumes:
-  zookeeper_volume:
-  mysql_volume:
-  nifi_volume:
-  yarn_resource_manager_volume:
-  yarn_datanode_volume:
+    hadoop_home:
+#  zookeeper_volume:
+#  mysql_volume:
+#  nifi_volume:
+#  yarn_resource_manager_volume:
+#  yarn_datanode_volume:

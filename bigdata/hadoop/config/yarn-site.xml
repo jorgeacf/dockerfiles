@@ -10,7 +10,7 @@
     </property>
     <property>
         <name>yarn.scheduler.fair.allocation.file</name>
-        <value>/hadoop/etc/hadoop/fair-scheduler.xml</value>
+        <value>/opt/hadoop/etc/hadoop/fair-scheduler.xml</value>
     </property>
 
     <property>

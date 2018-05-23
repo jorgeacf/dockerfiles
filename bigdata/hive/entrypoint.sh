@@ -1,14 +1,25 @@
 #!/usr/bin/env bash
 
-hdfs dfs -mkdir /tmp
-hdfs dfs -mkdir /user
-hdfs dfs -mkdir /user/hive
-hdfs dfs -mkdir /user/hive/warehouse
-hdfs dfs -chmod g+w /tmp
-hdfs dfs -chmod g+w /user/hive/warehouse
+set -euo pipefail
+[ -n "${DEBUG:-}" ] && set -x
 
-rm -r -f metastore_db
+if [ "$1" = 'hive' ]; then
 
-schematool -dbType derby -initSchema --verbose
+	export HADOOP_HOME=/opt/hadoop
+	export PATH=$PATH:$HADOOP_HOME/bin
 
-hiveserver2 --hiveconf hive.root.logger=INFO,console
+	#hdfs dfs -mkdir /tmp
+	#hdfs dfs -mkdir /user
+	#hdfs dfs -mkdir /user/hive
+	#hdfs dfs -mkdir /user/hive/warehouse
+	#hdfs dfs -chmod g+w /tmp
+	#hdfs dfs -chmod g+w /user/hive/warehouse
+
+	rm -r -f metastore_db
+
+	/opt/hive/bin/schematool -dbType derby -initSchema --verbose
+
+	/opt/hive/bin/hiveserver2 --hiveconf hive.root.logger=INFO,console
+fi
+
+exec "$@"

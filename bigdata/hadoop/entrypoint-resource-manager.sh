@@ -12,19 +12,19 @@ sleep 1
 echo "-----------------------------------------------------------"
 echo "Starting YARN Resource Manager..."
 echo "-----------------------------------------------------------"
-/hadoop/sbin/yarn-daemon.sh start resourcemanager
+/opt/hadoop/sbin/yarn-daemon.sh start resourcemanager
 
 echo "-----------------------------------------------------------"
 echo "Starting HDFS Namenode..."
 echo "-----------------------------------------------------------"
-/hadoop/sbin/hadoop-daemon.sh --script hdfs start namenode
+/opt/hadoop/sbin/hadoop-daemon.sh --script hdfs start namenode
 
 echo "-----------------------------------------------------------"
 echo "Starting Job History Server..."
 echo "-----------------------------------------------------------"
-/hadoop/sbin/mr-jobhistory-daemon.sh start historyserver
+/opt/hadoop/sbin/mr-jobhistory-daemon.sh start historyserver
 
-tail -f /hadoop/logs/*
-/hadoop/sbin/yarn-daemon.sh stop resourcemanager
-/hadoop/sbin/hadoop-daemon.sh --script hdfs stop namenode
-/hadoop/sbin/mr-jobhistory-daemon.sh stop historyserver
+tail -f /opt/hadoop/logs/*
+/opt/hadoop/sbin/yarn-daemon.sh stop resourcemanager
+/opt/hadoop/sbin/hadoop-daemon.sh --script hdfs stop namenode
+/opt/hadoop/sbin/mr-jobhistory-daemon.sh stop historyserver

@@ -9,7 +9,7 @@ if [ -n "$SLAVES" ]; then
 		echo "hadoop-slave$i" >> slaves
 		i=$(( $i + 1 ))
 	done
-	mv slaves /hadoop/etc/hadoop/slaves
+	mv slaves /opt/hadoop/etc/hadoop/slaves
 fi
 
 echo "Starting SSH service..."
@@ -18,7 +18,7 @@ echo "Starting SSH service..."
 sleep 1
 
 echo "Starting YARN resourcemanager..."
-/hadoop/sbin/yarn-daemon.sh start resourcemanager
+/opt/hadoop/sbin/yarn-daemon.sh start resourcemanager
 
 #echo "Starting HDFS namenode..."
 #/hadoop/sbin/hadoop-daemon.sh --script hdfs start namenode
@@ -28,6 +28,6 @@ echo "Starting YARN resourcemanager..."
 #/hadoop/sbin/start-yarn.sh
 #/hadoop/sbin/mr-jobhistory-daemon.sh start historyserver
 
-tail -f /hadoop/logs/*
-/hadoop/sbin/yarn-daemon.sh stop resourcemanager
+tail -f /opt/hadoop/logs/*
+/opt/hadoop/sbin/yarn-daemon.sh stop resourcemanager
 #/hadoop/sbin/hadoop-daemon.sh --script hdfs stop namenode

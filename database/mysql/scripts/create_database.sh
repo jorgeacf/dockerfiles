@@ -3,7 +3,7 @@
 set -euo pipefail
 [ -n "${DEBUG:-}" ] && set -x
 
-DATABASE_NAME=my_database
+DATABASE_NAME=test_database
 USER=jorgeacf
 PASS=jorgeacf
 

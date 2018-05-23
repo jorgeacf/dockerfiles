@@ -1,4 +1,4 @@
-REPO := jorgeacf/consulate
+REPO := jorgeacf/consul-client
 
 include ../../Makefile.main
 

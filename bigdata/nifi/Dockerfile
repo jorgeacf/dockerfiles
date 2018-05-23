@@ -1,38 +1,32 @@
 FROM fedora:latest
 
 ARG NIFI_VERSION=1.6.0
+ENV NIFI_HOME=/opt/nifi
 
-ARG UID=1000
-ARG GID=1000
+ENV JAVA_HOME=/usr
 
-RUN dnf install -y wget java && \
-	wget http://apache.mirror.anlx.net/nifi/$NIFI_VERSION/nifi-$NIFI_VERSION-bin.tar.gz && \
+ARG DOWNLOAD_SITE=https://www.apache.org/dist/nifi/$NIFI_VERSION/nifi-$NIFI_VERSION-bin.tar.gz
+
+RUN dnf install -y wget java hostname && \
+	wget $DOWNLOAD_SITE && \
 	tar -xzf nifi-$NIFI_VERSION-bin.tar.gz && \
 	rm nifi-$NIFI_VERSION-bin.tar.gz && \
 	mv /nifi-$NIFI_VERSION /opt && \
 	ln -s /opt/nifi-$NIFI_VERSION/ /opt/nifi
 
-RUN dnf install -y hostname
+COPY entrypoint.sh /usr/local/bin/
+COPY config $NIFI_HOME/conf
 
-ENV JAVA_HOME=/usr
+RUN groupadd nifi && \
+    useradd -r -g nifi nifi && \
+    bash -c "mkdir -p $NIFI_HOME/{database_repository,flowfile_repository,content_repository,provenance_repository}" && \
+    chown nifi:nifi -R /opt/nifi-$NIFI_VERSION
 
-COPY conf /opt/nifi/conf
+USER nifi
 
-ENV NIFI_HOME /opt/nifi
-
-# Setup NiFi user
-#RUN groupadd -g $GID nifi || groupmod -n nifi `getent group $GID | cut -d: -f1` && \
-#	useradd --shell /bin/bash -u $UID -g $GID -m nifi && \
-#   	mkdir -p $NIFI_HOME/data/templates && \
-#	chown -R nifi:nifi $NIFI_HOME && \
-#	chown -R nifi:nifi /opt/nifi-$NIFI_VERSION
-
-#USER nifi
-
-#WORKDIR /opt/nifi-$NIFI_VERSION
+WORKDIR $NIFI_HOME
 
 EXPOSE 8080 8181
 
-COPY entrypoint.sh /
-
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["nifi"]
