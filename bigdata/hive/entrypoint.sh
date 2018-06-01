@@ -19,7 +19,9 @@ if [ "$1" = 'hive' ]; then
 
 	/opt/hive/bin/schematool -dbType derby -initSchema --verbose
 
-	/opt/hive/bin/hiveserver2 --hiveconf hive.root.logger=INFO,console
+	/opt/hive/bin/hiveserver2 --hiveconf hive.root.logger=DEBUG,console
+
+	echo "=====END====="
 fi
 
 exec "$@"

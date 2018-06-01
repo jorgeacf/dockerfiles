@@ -12,15 +12,13 @@ RUN dnf install -y wget java hostname && \
 	tar -xzf nifi-$NIFI_VERSION-bin.tar.gz && \
 	rm nifi-$NIFI_VERSION-bin.tar.gz && \
 	mv /nifi-$NIFI_VERSION /opt && \
-	ln -s /opt/nifi-$NIFI_VERSION/ /opt/nifi
+	ln -s /opt/nifi-$NIFI_VERSION/ $NIFI_HOME && \
+	groupadd nifi && \
+    useradd -r -g nifi nifi && \
+    chown nifi:nifi -R /opt/nifi-$NIFI_VERSION
 
 COPY entrypoint.sh /usr/local/bin/
 COPY config $NIFI_HOME/conf
-
-RUN groupadd nifi && \
-    useradd -r -g nifi nifi && \
-    bash -c "mkdir -p $NIFI_HOME/{database_repository,flowfile_repository,content_repository,provenance_repository}" && \
-    chown nifi:nifi -R /opt/nifi-$NIFI_VERSION
 
 USER nifi
 

@@ -27,6 +27,15 @@ build () {
 	docker build -t ${REPO}:${VERSION} .
 }
 
+execute () {
+	ID=$(docker ps -q --filter ancestor=${REPO}:${VERSION})
+	
+	if [ -n "$ID" ]
+	then
+		docker exec -it $ID bash
+	fi
+}
+
 run () {
 	docker run -it ${REPO}:${VERSION}
 }
