@@ -1,7 +1,7 @@
 version: '2.2'
 services:
 
-    consul-server:
+    dnsmasq:
         image: jorgeacf/dnsmasq:latest
         restart: unless-stopped
         network_mode: bridge
@@ -17,7 +17,7 @@ services:
         restart: unless-stopped
         network_mode: bridge
         depends_on:
-          - consul-server
+          - dnsmasq
 
 volumes:
     hosts:
