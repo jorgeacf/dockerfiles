@@ -2,20 +2,22 @@ version: '2.2'
 services:
 
     consul-server:
-        image: jorgeacf/consul-server:1.1.0
+        image: jorgeacf/dnsmasq:latest
         restart: unless-stopped
         network_mode: bridge
+        volumes:
+            - hosts:/hosts
 
     docker-discovery:
         image: jorgeacf/docker-discovery:latest
         volumes:
           - "/var/run/docker.sock:/var/run/docker.sock"
+          - hosts:/hosts
         privileged: true
         restart: unless-stopped
         network_mode: bridge
         depends_on:
           - consul-server
 
-#networks:
-#    app_net:
-#        driver: bridge
+volumes:
+    hosts:

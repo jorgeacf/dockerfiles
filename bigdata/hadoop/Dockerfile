@@ -35,6 +35,9 @@ RUN ssh-keygen -t rsa -f /root/.ssh/id_rsa -P '' && \
 COPY config/ssh_config /root/.ssh/config
 RUN chmod 600 /root/.ssh/config
 
+# JUST FOR TESTS
+RUN dnf install -y iputils net-tools
+
 COPY entrypoint.sh /
 COPY entrypoint-node-manager.sh /
 COPY entrypoint-resource-manager.sh /

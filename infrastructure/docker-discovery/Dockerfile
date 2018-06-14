@@ -8,6 +8,7 @@ RUN dnf install -y python-pip && \
 	pip install docker python-consul
 
 COPY scripts/* /scripts/
-COPY entrypoint.sh /
+COPY entrypoint.sh /usr/local/bin/
+RUN mkdir /var/log/docker-events/
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]

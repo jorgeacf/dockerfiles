@@ -4,11 +4,12 @@ import docker
 import json
 import consul
 import logging
+import requests
 
 
-logging.basicConfig(level=logging.INFO,
-                    format='[%(levelname)s] %(asctime)s (%(threadName)-10s) %(message)s',
-                    )
+logging.basicConfig(filename='/var/log/docker-events/docker-events-consul.log',
+					level=logging.INFO,
+                    format=' [%(levelname)s] %(asctime)s (%(threadName)-10s) %(message)s')
 
 # Configuration
 consul_host = '172.17.0.2'
@@ -27,50 +28,15 @@ class ContainerMetadata:
 		self.version = version
 		self.ip = ip
 
-
-def print_containers(containers):
-
-	containers_ips = ''
-	for container_name in containers:
-		container_number = 1
-		number_of_containers = len(containers[container_name])
-		for container_metadata in containers[container_name]:
-			image_container_name = container_metadata.image_name
-			host_format = '{0} {1} {2} {3} {4}\n'
-
-			if number_of_containers == 1:
-				host = host_format.format(container_metadata.ip, image_container_name + '.lab.figueiredo.com',
-					image_container_name, container_metadata.name, container_metadata.short_id)
-				containers_ips += host
-
-				image_container_name += str(container_number)
-				host = host_format.format(container_metadata.ip, image_container_name + '.lab.figueiredo.com',
-				image_container_name, container_metadata.name, container_metadata.short_id)
-				containers_ips += host
-			else:
-				image_container_name += str(container_number)
-				host = host_format.format(container_metadata.ip, image_container_name + '.lab.figueiredo.com',
-				image_container_name, container_metadata.name, container_metadata.short_id)
-				containers_ips += host
-			
-			container_number += 1
-	return containers_ips
-
-def write_hosts(containers):
-	hosts_file = open("/etc/hosts", "w")
-	hosts_file.write("127.0.0.1 localhost\n")
-	hosts_file.write(print_containers(containers))
-	hosts_file.close()
-
+	def toJSON(self):
+		return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
 def add_new_container(containers, event):
 	event_json = json.loads(event)
 	container = client.containers.get(event_json['id'])
-
 	image_name = container.image.tags[0].replace('jorgeacf/', '')
 	name = image_name.split(':')[0]
 	version = image_name.split(':')[1]
-	#ip = container.attrs['NetworkSettings']['IPAddress']
 	first_network_name = list(container.attrs['NetworkSettings']['Networks'])[0]
 	ip = container.attrs['NetworkSettings']['Networks'][first_network_name]['IPAddress']
 
@@ -86,7 +52,7 @@ def add_new_container(containers, event):
 	#if number_of_containers > 1:
 	container_name += str(number_of_containers)
 
-	logging.info('Starting container name=[' + container_name + '], ip=[' + ip + ']')
+	logging.info('Starting container name=[' + container_name + '], ip=[' + ip + '], object=[\n' + new_container.toJSON() + ']')
 
 	# Regist container on consul
 	try:
@@ -94,6 +60,13 @@ def add_new_container(containers, event):
 	except Exception as exception:
 		logging.error(exception)
 		#raise
+
+	response = requests.get('http://'+ consul_host +':8500/v1/catalog/nodes')
+
+	if(response.ok):
+		json_data = json.loads(response.content)
+		logging.info('Consult nodes: \n' + json.dumps(json_data, sort_keys=True, indent=4))
+
 
 	return new_container
 
@@ -127,7 +100,6 @@ def list_containers(containers):
 			image_name = container.image.tags[0].replace('jorgeacf/', '')
 			name = image_name.split(':')[0]
 			version = image_name.split(':')[1]
-			#ip = container.attrs['NetworkSettings']['IPAddress']
 			first_network_name = list(container.attrs['NetworkSettings']['Networks'])[0]
 			ip = container.attrs['NetworkSettings']['Networks'][first_network_name]['IPAddress']
 
@@ -142,7 +114,7 @@ def list_containers(containers):
 			#if number_of_containers > 1:
 			container_name += str(number_of_containers)
 
-			logging.info('Listing container name=[' + container_name + '], ip=[' + ip + ']')
+			logging.info('Listing container name=[' + container_name + '], ip=[' + ip + '], object=[\n' + new_container.toJSON() + ']')
 
 			# Regist container on consul
 			try:
@@ -151,34 +123,27 @@ def list_containers(containers):
 				logging.error(exception)
 				#raise
 
+			response = requests.get('http://'+ consul_host +':8500/v1/catalog/nodes')
+
+			if(response.ok):
+				json_data = json.loads(response.content)
+				logging.info('Consult nodes: \n' + json.dumps(json_data, sort_keys=True, indent=4))
+
 def clear_hosts():
 
 	for node in consul.catalog.nodes()[1]:
 		consul.catalog.deregister(node['Node'])
 
-def update_containers_hosts(containers):
-	for container_type in containers:
-		for container_name in containers[container_type]:
-			container = client.containers.get(container_name.id)
-			hosts = print_containers(containers)
-			command = 'echo "127.0.0.1 localhost\n\n### BEGIN DOCKER CONTAINER HOSTS\n' + hosts + '### END DOCKER CONTAINER HOSTS" > /etc/hosts'
-			#print(command)
-			logging.info('Updating container [' + container_name.name + '] /etc/hosts.')
-			container.exec_run(['sh', '-c', command])
-
 def main():
 
-	import time
-	time.sleep(20)
-	
 	logging.info('Main start...')
 
+	import time
+	time.sleep(5)
+	
 	containers = {}
 
-	#clear_hosts()
 	list_containers(containers)
-	#write_hosts(containers)
-	update_containers_hosts(containers)
 
 	for event in client.events():
 		event_json = json.loads(event)
@@ -186,20 +151,20 @@ def main():
 		if 'status' in event_json:
 			if 'start' == event_json['status']:
 				try:
-					#logging.info('Starting registering container... [' + event_json['id'] + ']')
-					add_new_container(containers, event)
-					#write_hosts(containers)
-					update_containers_hosts(containers)
-					#logging.info('End registering container... [' + event_json['id'] + ']')
+					#add_new_container(containers, event)
+					containers = {}
+					clear_hosts()
+					list_containers(containers)
 				except Exception as exception:
 					logging.error('Can''t add new container... [' + event + ']')
 					raise
 
 			if 'stop' == event_json['status']:
 				try:
-					remove_container(containers, event)
-					#write_hosts(containers)
-					#update_containers_hosts(containers)
+					#remove_container(containers, event)
+					containers = {}
+					clear_hosts()
+					list_containers(containers)
 				except Exception as exception:
 					logging.error('Can''t remove container... [' + event + ']')
 					raise

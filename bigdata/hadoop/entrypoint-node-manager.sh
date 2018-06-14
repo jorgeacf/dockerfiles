@@ -7,7 +7,10 @@ echo "-----------------------------------------------------------"
 echo "Starting SSH service..."
 echo "-----------------------------------------------------------"
 /usr/sbin/sshd
-sleep 1
+sleep 5
+
+ping -c 1 hadoop1
+ping -c 1 localhost
 
 echo "-----------------------------------------------------------"
 echo "Starting YARN nodemanager..."
@@ -20,6 +23,9 @@ echo "Starting HDFS datanode..."
 echo "-----------------------------------------------------------"
 /opt/hadoop/sbin/hadoop-daemons.sh --script hdfs start datanode
 
-tail -f /opt/hadoop/logs/*
+echo "-----------------------------------------------------------"
+echo "Starting reading logs..."
+echo "-----------------------------------------------------------"
+tail -f /opt/hadoop/logs/*.log
 /opt/hadoop/sbin/yarn-daemon.sh stop nodemanager
 /opt/hadoop/sbin/hadoop-daemons.sh --script hdfs stop datanode
