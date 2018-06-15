@@ -56,76 +56,32 @@ def write_hosts(containers):
 	hosts_file.write(print_containers(containers))
 	hosts_file.close()
 
-
-def add_new_container(containers, event):
-	event_json = json.loads(event)
-	container = client.containers.get(event_json['id'])
-
-	image_name = container.image.tags[0].replace('jorgeacf/', '')
-	name = image_name.split(':')[0]
-	version = image_name.split(':')[1]
-	#ip = container.attrs['NetworkSettings']['IPAddress']
-	first_network_name = list(container.attrs['NetworkSettings']['Networks'])[0]
-	ip = container.attrs['NetworkSettings']['Networks'][first_network_name]['IPAddress']
-
-	# Add container to the list
-	new_container = ContainerMetadata(container.id, container.short_id, container.name, name, version, ip)
-	if name in containers:
-		containers[name] = containers[name] + [new_container]
-	else:
-		containers[name] = [new_container]
-
-	container_name = name
-	number_of_containers = len(containers[name])
-	#if number_of_containers > 1:
-	container_name += str(number_of_containers)
-
-	logging.info('Starting container name=[' + container_name + '], ip=[' + ip + '], object=[\n' + new_container.toJSON() + ']')
-
-	return new_container
-
-def remove_container(containers, event):
-	event_json = json.loads(event)
-	container = client.containers.get(event_json['id'])
-
-	image_name = container.image.tags[0].replace('jorgeacf/', '')
-	name = image_name.split(':')[0]
-
-	if name in containers:
-		for container in containers[name]:
-			if container.id == event_json['id']:
-				for node in consul.catalog.nodes()[1]:
-					if node['Address'] == container.ip:
-						#consul.catalog.deregister(node['Node'])
-						logging.info('Stoping container ' + node['Node'])
-
-	containers[name] = [c for c in containers[name] if c.id != event_json['id']]
-
-
 def list_containers(containers):
 
 	for container in client.containers.list():
-		if 'jorgeacf' in container.image.tags[0]:
-			image_name = container.image.tags[0].replace('jorgeacf/', '')
-			name = image_name.split(':')[0]
-			version = image_name.split(':')[1]
-			#ip = container.attrs['NetworkSettings']['IPAddress']
-			first_network_name = list(container.attrs['NetworkSettings']['Networks'])[0]
-			ip = container.attrs['NetworkSettings']['Networks'][first_network_name]['IPAddress']
+		try:
+			if 'jorgeacf' in container.image.tags[0]:
+				image_name = container.image.tags[0].replace('jorgeacf/', '')
+				name = image_name.split(':')[0]
+				version = image_name.split(':')[1]
+				#ip = container.attrs['NetworkSettings']['IPAddress']
+				first_network_name = list(container.attrs['NetworkSettings']['Networks'])[0]
+				ip = container.attrs['NetworkSettings']['Networks'][first_network_name]['IPAddress']
 
-			new_container = ContainerMetadata(container.id, container.short_id, container.name, name, version, ip)
-			if name in containers:
-				containers[name] = containers[name] + [new_container]
-			else:
-				containers[name] = [new_container]
+				new_container = ContainerMetadata(container.id, container.short_id, container.name, name, version, ip)
+				if name in containers:
+					containers[name] = containers[name] + [new_container]
+				else:
+					containers[name] = [new_container]
 
-			container_name = name
-			number_of_containers = len(containers[name])
-			#if number_of_containers > 1:
-			container_name += str(number_of_containers)
+				container_name = name
+				number_of_containers = len(containers[name])
+				#if number_of_containers > 1:
+				container_name += str(number_of_containers)
 
-			logging.info('Listing container name=[' + container_name + '], ip=[' + ip + '], object=[\n' + new_container.toJSON() + ']')
-
+				logging.info('Listing container name=[' + container_name + '], ip=[' + ip + '], object=[\n' + new_container.toJSON() + ']')
+		except Exception as exception:
+			logging.error("Can not list container " + container.name)
 
 def main():
 

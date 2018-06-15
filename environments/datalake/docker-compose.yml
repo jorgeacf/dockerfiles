@@ -12,6 +12,7 @@ services:
         network_mode: bridge
         volumes:
             - hadoop_home:/opt/hadoop
+            - ~/.ssh:/home/zeppelin/.ssh:Z
         depends_on:
             - resource_manager
     zookeeper:

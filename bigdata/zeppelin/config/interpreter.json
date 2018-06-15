@@ -8,7 +8,7 @@
         "default.password": "jorgeacf",
         "zeppelin.interpreter.output.limit": "102400",
         "default.user": "jorgeacf",
-        "default.url": "jdbc:mariadb://mariadb1:3306",
+        "default.url": "jdbc:mariadb://mysql1:3306",
         "default.driver": "org.mariadb.jdbc.Driver",
         "zeppelin.interpreter.localRepo": "/opt/zeppelin/local-repo/2DFT6F66A",
         "common.max_count": "1000"

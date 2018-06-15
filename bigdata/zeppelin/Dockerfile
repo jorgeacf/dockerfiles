@@ -28,7 +28,7 @@ RUN dnf install -y wget java-1.8.0-openjdk-devel findutils hostname git && \
 
 COPY scripts/*.sh /usr/local/bin/
 COPY entrypoint.sh /usr/local/bin/
-#COPY config/* /opt/zeppelin/conf/
+COPY config/* /opt/zeppelin/conf/
 
 WORKDIR $ZEPPELIN_HOME
 
