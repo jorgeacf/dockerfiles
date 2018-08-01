@@ -23,7 +23,12 @@ services:
         image: jorgeacf/mysql:10.2.14
         network_mode: bridge
     nifi:
-        image: jorgeacf/nifi:1.6.0
+        image: jorgeacf/nifi:1.7.1
+        network_mode: bridge
+    nifi-registry:
+        image: jorgeacf/nifi-registry:0.2.0
+        volumes:
+            - ~/.ssh:/root/.ssh:Z
         network_mode: bridge
     resource_manager:
         image: jorgeacf/hadoop:2.9.1

@@ -3,6 +3,8 @@
 set -euo pipefail
 [ -n "${DEBUG:-}" ] && set -x
 
+sleep 5;
+
 DATABASE_NAME=test_database
 USER=jorgeacf
 PASS=jorgeacf

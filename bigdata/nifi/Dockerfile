@@ -1,6 +1,6 @@
 FROM fedora:latest
 
-ARG NIFI_VERSION=1.6.0
+ARG NIFI_VERSION=1.7.1
 ENV NIFI_HOME=/opt/nifi
 
 ENV JAVA_HOME=/usr

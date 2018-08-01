@@ -16,8 +16,13 @@
 <providers>
 
     <flowPersistenceProvider>
-        <class>org.apache.nifi.registry.provider.flow.FileSystemFlowPersistenceProvider</class>
-        <property name="Flow Storage Directory">./flow_storage</property>
+        <class>
+          org.apache.nifi.registry.provider.flow.git.GitFlowPersistenceProvider
+        </class>
+        <property name="Flow Storage Directory">./database</property>
+        <property name="Remote To Push"></property>
+        <property name="Remote Access User">jorgeacf</property>
+        <property name="Remote Access Password">0af562d44d828232969c5f50219f5a4babdc64ff</property>
     </flowPersistenceProvider>
 
 </providers>

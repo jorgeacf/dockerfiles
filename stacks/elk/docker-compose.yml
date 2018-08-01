@@ -1,0 +1,18 @@
+version: '2.2'
+services:
+
+    elasticsearch:
+        image: jorgeacf/elasticsearch:6.2.4
+        network_mode: bridge
+
+    kibana:
+        image: jorgeacf/kibana:6.2.4
+        network_mode: bridge
+        depends_on:
+            - elasticsearch
+
+    logstash:
+        image: jorgeacf/logstash:6.0.0
+        network_mode: bridge
+        depends_on:
+            - elasticsearch
