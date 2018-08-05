@@ -12,7 +12,15 @@ if [ "$1" = 'nifi-registry' ]; then
 	git config --global user.email "jorgefigueiredo@outlook.com"
 	git config --global user.name "Jorge Figueiredo"
 
-	git clone git@github.com:jorgeacf/nifi-flows.git /opt/nifi-registry/flow_storage
+	git clone git@github.com:jorgeacf/nifi-flows.git /opt/nifi-registry/data
+
+	cd /opt/nifi-registry/data
+
+	git checkout develop
+
+	git-changes-commit.sh &
+
+	cd -
 
 	/opt/nifi-registry/bin/nifi-registry.sh start;
 

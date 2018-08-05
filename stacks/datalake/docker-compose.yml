@@ -7,14 +7,14 @@ services:
             - hadoop_home:/opt/hadoop
         depends_on:
             - resource_manager
-    zeppelin:
-        image: jorgeacf/zeppelin:0.7.3
-        network_mode: bridge
-        volumes:
-            - hadoop_home:/opt/hadoop
-            - ~/.ssh:/home/zeppelin/.ssh:Z
-        depends_on:
-            - resource_manager
+#    zeppelin:
+#        image: jorgeacf/zeppelin:0.7.3
+#        network_mode: bridge
+#        volumes:
+#            - hadoop_home:/opt/hadoop
+#            - ~/.ssh:/home/zeppelin/.ssh:Z
+#        depends_on:
+#            - resource_manager
     zookeeper:
         image: jorgeacf/zookeeper:3.4.12
         #scale: 3
@@ -28,7 +28,7 @@ services:
     nifi-registry:
         image: jorgeacf/nifi-registry:0.2.0
         volumes:
-            - ~/.ssh:/root/.ssh:Z
+            - ~/.ssh:/home/nifi-registry/.ssh:Z
         network_mode: bridge
     resource_manager:
         image: jorgeacf/hadoop:2.9.1
