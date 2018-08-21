@@ -3,7 +3,7 @@ MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
 LABEL Description="Nexus"
 
-ARG NEXUS_VERSION="3.10.0-04"
+ARG NEXUS_VERSION="3.13.0-01"
 ARG NEXUS_TAR="nexus-$NEXUS_VERSION-unix.tar.gz"
 
 RUN \

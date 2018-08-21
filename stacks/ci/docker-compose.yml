@@ -1,37 +1,43 @@
 version: '2.1'
 services:
-    gitlab:
-        image: gitlab/gitlab-ce:latest
-        restart: always
-        ports:
-          - 443:443
-          - 80:80
-          - 22:22
-        volumes:
-          - gitlab_config:/etc/gitlab
-          - gitlab_logs:/var/log/gitlab
-          - gitlab_data:/var/opt/gitlab
+#    gitlab:
+#        image: gitlab/gitlab-ce:latest
+#        network_mode: bridge
+        #restart: always
+        #ports:
+        #  - 443:443
+        #  - 80:80
+        #  - 22:22
+        #volumes:
+        #  - gitlab_config:/etc/gitlab
+        #  - gitlab_logs:/var/log/gitlab
+        #  - gitlab_data:/var/opt/gitlab
     jenkins:
-        image: jorgeacf/jenkins:2.60.3
-        restart: always
-        ports:
-          - 8080:8080
+        image: jorgeacf/jenkins:2.121.3
+        network_mode: bridge
+        privileged: true
+        #restart: always
+        #ports:
+        #  - 8080:8080
         volumes:
           - jenkins_home:/var/jenkins_home
+          - /var/run/docker.sock:/var/run/docker.sock
     nexus:
-        image: jorgeacf/nexus:2.14.5-02
-        restart: always
-        ports:
-          - 8081:8081
-    sonar:
-        image: sonarqube
-        restart: always
-        ports:
-          - 9000:9000
-          - 9092:9092
+        image: jorgeacf/nexus:3.13.0-01
+        network_mode: bridge
+        #restart: always
+        #ports:
+        #  - 8081:8081
+#    sonar:
+#        image: sonarqube
+#        network_mode: bridge
+        #restart: always
+        #ports:
+        #  - 9000:9000
+        #  - 9092:9092
 
 volumes:
   jenkins_home:
-  gitlab_config:
-  gitlab_logs:
-  gitlab_data:
+#  gitlab_config:
+#  gitlab_logs:
+#  gitlab_data:
