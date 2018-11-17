@@ -3,9 +3,11 @@
 set -euo pipefail
 [ -n "${DEBUG:-}" ] && set -x
 
+export RUNLEVEL=1
+
 LDAP_ROOTPASS=asdasd123
 LDAP_DOMAIN=de-gbi.xyz
-LDAP_ORGANISATION=GBI-DE
+LDAP_ORGANISATION=Jorge
 
 
   cat <<EOF | debconf-set-selections
@@ -26,6 +28,12 @@ EOF
 
 dpkg-reconfigure -f noninteractive slapd
 
-/usr/sbin/slapd -h "ldap:///" -u openldap -g openldap -d 0
+#dpkg-reconfigure slapd
+
+ldapadd -H ldap:// -x -D "cn=admin,dc=de-gbi,dc=xyz" -f de-gbi.xyz.ldif -w asdasd123
+
+ldapsearch -H ldap:// -x -D "cn=admin,dc=de-gbi,dc=xyz" -w asdasd123 -b "dc=de-gbi,dc=xyz"
+
+#/usr/sbin/slapd -h "ldap:///" -u openldap -g openldap -d 0
 
 bash
