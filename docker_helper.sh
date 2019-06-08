@@ -7,7 +7,7 @@ ACTION=${1:-print_env}
 IMAGE_NAME=${2:-X}
 
 ROOT_DIR=$(pwd)
-IMAGE_DIR=$(find . -maxdepth 2 -type d -print | grep -m1 $IMAGE_NAME)
+IMAGE_DIR=$(find . -maxdepth 3 -type d -print | grep -m1 $IMAGE_NAME)
 VERSION=$(cat ${IMAGE_DIR}/VERSION)
 IFS='/' read -r -a array <<< "$IMAGE_DIR"
 REPO="jorgeacf/${array[-1]}"
