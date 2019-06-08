@@ -5,7 +5,7 @@ declare -a images=(
 	#"build/sbt"
 	#"build/gradle"
 	#"jorgeacf/hive"
-	"bigdata/nifi"
+	#"bigdata/nifi"
 	#"languages/scala"
 	#"bigdata/hadoop"
 	#"bigdata/zeppelin"
