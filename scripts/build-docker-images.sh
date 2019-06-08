@@ -13,9 +13,10 @@ docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
 for i in "${images[@]}"
 do
-   cd "$i"
-   make build push
-   cd -
+	echo ":> $i"
+   	cd "$i"
+   	make build push
+   	cd -
 done
 
 docker images
