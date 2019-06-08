@@ -10,6 +10,7 @@ declare -a images=(
 	#"bigdata/hadoop"
 	#"bigdata/zeppelin"
 	#"bigdata/zookeeper"
+	"devops/ansible"
 )
 
 echo $images
