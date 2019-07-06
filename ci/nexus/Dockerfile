@@ -3,7 +3,7 @@ MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
 LABEL Description="Nexus"
 
-ARG NEXUS_VERSION="3.13.0-01"
+ARG NEXUS_VERSION="3.17.0-01"
 ARG NEXUS_TAR="nexus-$NEXUS_VERSION-unix.tar.gz"
 
 RUN \
@@ -22,6 +22,7 @@ ENV PATH=$PATH:$NEXUS_HOME/bin
 EXPOSE 8081
 
 COPY config/nexus.vmoptions /opt/nexus/bin/nexus.vmoptions
-COPY entrypoint.sh /
+COPY config/nexus.properties /opt/data/sonatype-work/nexus3/data/etc/nexus.properties
+COPY entrypoint.sh /usr/local/bin/
 
-CMD ["/entrypoint.sh"]
+CMD ["entrypoint.sh"]

@@ -1,4 +1,3 @@
-
 FROM debian:latest
 MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
