@@ -7,7 +7,7 @@ RUN dnf update -y && dnf clean all
 RUN dnf install -y nginx && dnf clean all
 
 COPY config/ /etc/nginx/
-COPY ssl/ /ssl/
+#COPY ssl/ /ssl/
 
 EXPOSE 80 443
 
