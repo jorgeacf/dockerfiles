@@ -10,10 +10,6 @@ declare -a images=(
 	"bigdata/nifi"
 	"infrastructure/nginx"
 	"ci/nexus"
-	#"languages/scala"
-	#"bigdata/hadoop"
-	#"bigdata/zeppelin"
-	#"bigdata/zookeeper"
 )
 
 echo $images
