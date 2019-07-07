@@ -8,6 +8,7 @@ dockerfiles=$(find ../ -name "Dockerfile")
 
 status=0;
 for d in $dockerfiles; do
+	echo "In directory [$(pwd)]"
 	dockerlint $d
 	code=$?
 	if [ $code -ne 0 ]; then

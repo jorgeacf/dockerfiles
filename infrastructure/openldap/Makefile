@@ -1,3 +1,1 @@
-REPO := jorgeacf/openldap
-
-include ../../Makefile.main
+../../Makefile

@@ -31,6 +31,7 @@ all:
 
 .PHONY: build
 build:
+	#@sed -i -e "s/ARG NODEJS_VERSION=.*/ARG NODEJS_VERSION=$(VERSION)/g" Dockerfile
 	@echo -e "${BLUE}Building...${NC}" $<
 	@docker build -t $(NAMESPACE)/$(REPO):$(VERSION) --build-arg VERSION=$(VERSION) . ; \
 	if [ $$? -ne 0 ] ; \
