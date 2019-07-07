@@ -8,6 +8,13 @@ REPO:=$(shell basename "$$PWD")
 RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
 
+SHELL += -eu
+
+BLUE  := \033[0;34m
+GREEN := \033[0;32m
+RED   := \033[0;31m
+NC    := \033[0m
+
 #
 #	Single docker image targets
 #
@@ -24,13 +31,19 @@ all:
 
 .PHONY: build
 build:
-	@docker build -t $(NAMESPACE)/$(REPO):$(VERSION) --build-arg VERSION=$(VERSION) .
+	@echo -e "${BLUE}Building...${NC}" $<
+	@docker build -t $(NAMESPACE)/$(REPO):$(VERSION) --build-arg VERSION=$(VERSION) . ; \
+	if [ $$? -ne 0 ] ; \
+		then echo -e "\n${RED}  Build failed :(${NC}\n" ; \
+	else echo -e "\n${GREEN} ✓ Successfully built [$(NAMESPACE)/$(REPO):$(VERSION)] docker image. ${NC}\n" ; fi
 
 .PHONY: push
 push:
+	#@docker login --username=jorgeacf
+	@docker tag $(NAMESPACE)/$(REPO):$(VERSION) $(NAMESPACE)/$(REPO):$(VERSION)
 	@docker tag $(NAMESPACE)/$(REPO):$(VERSION) $(NAMESPACE)/$(REPO):latest
-	@docker push $(NAMESPACE)/$(REPO):latest
 	@docker push $(NAMESPACE)/$(REPO):$(VERSION)
+	@docker push $(NAMESPACE)/$(REPO):latest
 
 .PHONY: run
 run:
@@ -57,7 +70,17 @@ clean:
 	@docker stop $$(docker ps -a -q --filter ancestor=$(NAMESPACE)/$(REPO):$(VERSION) --format="{{.ID}}") >> /dev/null
 	@docker rm $$(docker ps -a -q --filter ancestor=$(NAMESPACE)/$(REPO):$(VERSION) --format="{{.ID}}")
 
+.PHONY: rerun
+rerun:
+	@$(MAKE) clean
+	@$(MAKE) build
+	@$(MAKE) run
 
+.PHONY: rerun-d
+rerun-d:
+	@$(MAKE) clean
+	@$(MAKE) build
+	@$(MAKE) run-d
 
 #
 #	All docker image targets

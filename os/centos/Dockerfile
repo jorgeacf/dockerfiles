@@ -1,4 +1,4 @@
-FROM centos:$VERSION
+FROM centos:latest
 MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
 LABEL Description="CentOS Development Base Container"

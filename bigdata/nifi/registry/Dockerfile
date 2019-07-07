@@ -30,7 +30,7 @@ USER nifi-registry
 
 EXPOSE 18080
 
-VOLUME [/home/nifi-registry/.ssh"]
+VOLUME ["/home/nifi-registry/.ssh"]
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["nifi-registry"]
