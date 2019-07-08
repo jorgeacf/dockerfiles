@@ -3,8 +3,8 @@ MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
 LABEL Description="Nexus"
 
-ARG NEXUS_VERSION="3.17.0-01"
-ARG NEXUS_TAR="nexus-$NEXUS_VERSION-unix.tar.gz"
+ARG NEXUS_VERSION="3.17.0"
+ARG NEXUS_TAR="nexus-$NEXUS_VERSION-01-unix.tar.gz"
 
 RUN \
 	dnf update -y && \
