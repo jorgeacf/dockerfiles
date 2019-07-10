@@ -6,7 +6,7 @@ LABEL Description="Debian Development Base Container"
 ENV JAVA_HOME=/usr
 
 RUN apt-get update && \
-	apt-get install -y --no-install-recommends openjdk-8-jre-headless && \
+	apt-get install -y --no-install-recommends openjdk-8-jre-headless ca-certificates-java && \
     apt-get clean
 
 
