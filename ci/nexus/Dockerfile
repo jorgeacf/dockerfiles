@@ -13,8 +13,8 @@ RUN \
 	wget -O "$NEXUS_TAR" "http://download.sonatype.com/nexus/3/$NEXUS_TAR" && \
 	tar -zxvf $NEXUS_TAR && \
 	rm $NEXUS_TAR && \
-	mv nexus-$NEXUS_VERSION /opt && \
-	ln -s /opt/nexus-$NEXUS_VERSION /opt/nexus
+	mv nexus-$NEXUS_VERSION-01 /opt && \
+	ln -s /opt/nexus-$NEXUS_VERSION-01 /opt/nexus
 
 ENV NEXUS_HOME=/opt/nexus
 ENV PATH=$PATH:$NEXUS_HOME/bin

@@ -63,6 +63,7 @@ run-d:
 		-v $(HOME)/dev:/home/$(whoami)/dev \
 		-v $(HOME)/.ssh:/home/$(whoami)/.ssh \
 		-v $(HOME)/.now:/home/$(whoami)/.now \
+		-v $(HOME)/.ssl:/home/$(whoami)/.ssl \
 		-w /home/$(whoami) \
 		-u $(id -u ${USER}):$(id -g ${USER}) \
 		$(NAMESPACE)/$(REPO):$(VERSION) ${RUN_ARGS}
