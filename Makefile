@@ -6,7 +6,9 @@ REPO:=$(shell basename "$$PWD")
 
 # Ignore arguments first word
 RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-
+CURRENT_USER_NAME := $(shell whoami)
+#CURRENT_USER_ID := $(id -u ${CURRENT_USER_NAME})
+#CURRENT_USER_GROUP_ID := $(id -g ${CURRENT_USER_NAME})
 
 SHELL += -eu
 
@@ -48,23 +50,27 @@ push:
 
 .PHONY: run
 run:
-	@docker run -it \
-		-v $(HOME)/dev:/home/$(whoami)/dev \
-		-v $(HOME)/.ssh:/home/$(whoami)/.ssh \
-		-v $(HOME)/.now:/home/$(whoami)/.now \
-		-v $(HOME)/.ssl:/home/$(whoami)/.ssl \
-		-w /home/$(whoami) \
-		-u $(id -u ${USER}):$(id -g ${USER}) \
+	docker run -it \
+		-v $(HOME)/dev:/home/$(CURRENT_USER_NAME)/dev \
+		-v $(HOME)/.ssh:/home/$(CURRENT_USER_NAME)/.ssh \
+		-v $(HOME)/.now:/home/$(CURRENT_USER_NAME)/.now \
+		-v $(HOME)/.ssl:/home/$(CURRENT_USER_NAME)/.ssl \
+		-v $(HOME)/.npm:/home/$(CURRENT_USER_NAME)/.npm \
+		-w /home/$(CURRENT_USER_NAME) \
+		-u 1000:1000 \
+		-v /etc/passwd:/etc/passwd \
 		$(NAMESPACE)/$(REPO):$(VERSION) ${RUN_ARGS}
 
 .PHONY: run-d
 run-d:
 	@docker run -itd \
-		-v $(HOME)/dev:/home/$(whoami)/dev \
-		-v $(HOME)/.ssh:/home/$(whoami)/.ssh \
-		-v $(HOME)/.now:/home/$(whoami)/.now \
-		-v $(HOME)/.ssl:/home/$(whoami)/.ssl \
-		-w /home/$(whoami) \
+		-v $(HOME)/dev:/home/$(CURRENT_USER_NAME)/dev \
+		-v $(HOME)/.ssh:/home/$(CURRENT_USER_NAME)/.ssh \
+		-v $(HOME)/.now:/home/$(CURRENT_USER_NAME)/.now \
+		-v $(HOME)/.ssl:/home/$(CURRENT_USER_NAME)/.ssl \
+		-v $(HOME)/.npm:/home/$(CURRENT_USER_NAME)/.npm \
+		-w /home/$(CURRENT_USER_NAME) \
+		-u 1000:1000 \
 		-u $(id -u ${USER}):$(id -g ${USER}) \
 		$(NAMESPACE)/$(REPO):$(VERSION) ${RUN_ARGS}
 
