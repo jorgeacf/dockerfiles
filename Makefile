@@ -53,9 +53,11 @@ run:
 		-v $(HOME)/.ssh:/home/$(whoami)/.ssh \
 		-v $(HOME)/.now:/home/$(whoami)/.now \
 		-v $(HOME)/.ssl:/home/$(whoami)/.ssl \
-		-w /home/$(whoami) \
-		-u $(id -u ${USER}):$(id -g ${USER}) \
+		-v $(HOME)/html:/var/www/html \
 		$(NAMESPACE)/$(REPO):$(VERSION) ${RUN_ARGS}
+
+		#-w /home/$(whoami) \
+		#-u $(id -u ${USER}):$(id -g ${USER}) \
 
 .PHONY: run-d
 run-d:
@@ -64,8 +66,7 @@ run-d:
 		-v $(HOME)/.ssh:/home/$(whoami)/.ssh \
 		-v $(HOME)/.now:/home/$(whoami)/.now \
 		-v $(HOME)/.ssl:/home/$(whoami)/.ssl \
-		-w /home/$(whoami) \
-		-u $(id -u ${USER}):$(id -g ${USER}) \
+		-v $(HOME)/html:/var/www/html \
 		$(NAMESPACE)/$(REPO):$(VERSION) ${RUN_ARGS}
 
 .PHONY: clean
