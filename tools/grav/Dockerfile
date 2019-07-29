@@ -27,7 +27,7 @@ RUN set -ex; \
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
 RUN { \
-		echo 'opcache.memory_consumption=128'; \
+		echo 'opcache.memory_consumption=1024'; \
 		echo 'opcache.interned_strings_buffer=8'; \
 		echo 'opcache.max_accelerated_files=4000'; \
 		echo 'opcache.revalidate_freq=2'; \
@@ -44,17 +44,18 @@ VOLUME /var/www/html
 ENV SOURCE="/usr/src/grav"
 
 RUN set -ex; \
-  wget https://getgrav.org/download/core/grav-admin/${GRAV_VERSION} && \
+  wget https://getgrav.org/download/core/grav/${GRAV_VERSION} && \
   unzip ${GRAV_VERSION} && \
   mkdir -p "$SOURCE" && \
-  cp -r grav-admin/. "$SOURCE" && \
-  rm -rf grav-admin ${GRAV_VERSION} && \
+  cp -r grav/. "$SOURCE" && \
+  rm -rf grav ${GRAV_VERSION} && \
   chown -R www-data:www-data "$SOURCE"
 
-RUN cd /usr/src/grav/ && \
-	bin/gpm selfupgrade -f && \
-	bin/gpm update -f -y && \
-	bin/gpm install git-sync -y
+#RUN cd /usr/src/grav/ && \
+#	bin/gpm selfupgrade -f && \
+#	bin/gpm update -f -y && \
+#	bin/gpm install git-sync -y && \
+#  bin/gpm install admin -y
 
 COPY entrypoint.sh /usr/local/bin/
 
