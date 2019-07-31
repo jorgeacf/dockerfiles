@@ -34,7 +34,7 @@ WORKDIR /var/www/html
 VOLUME ["/var/www/html"]
 
 COPY entrypoint.sh /usr/local/bin/
-COPY config/grav /etc/nginx/sites-enabled/grav
+COPY config/sites-enabled/* /etc/nginx/sites-enabled
 
 RUN chmod +x /usr/local/bin/entrypoint.sh && \
   chown root:root /usr/local/bin/entrypoint.sh
