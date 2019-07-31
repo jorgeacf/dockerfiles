@@ -49,6 +49,7 @@ push:
 .PHONY: run
 run:
 	@docker run -it \
+		-p 80:80 \
 		-v $(HOME)/dev:/home/$(whoami)/dev \
 		-v $(HOME)/.ssh:/home/$(whoami)/.ssh \
 		-v $(HOME)/.now:/home/$(whoami)/.now \
@@ -62,6 +63,7 @@ run:
 .PHONY: run-d
 run-d:
 	@docker run -itd \
+		-p 80:80 \
 		-v $(HOME)/dev:/home/$(whoami)/dev \
 		-v $(HOME)/.ssh:/home/$(whoami)/.ssh \
 		-v $(HOME)/.now:/home/$(whoami)/.now \
