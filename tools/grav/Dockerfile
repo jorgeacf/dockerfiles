@@ -28,7 +28,7 @@ RUN set -ex; \
   cp -r grav/. "$SOURCE" && \
   rm -rf grav ${GRAV_VERSION} && \
   cd ${SOURCE} && \
-  bin/gpm selfupgrade -f -y && \ 
+  bin/gpm selfupgrade -f -y && \
   bin/gpm update -f -y && \
   bin/gpm install admin -y && \
   bin/gpm install git-sync -y && \
