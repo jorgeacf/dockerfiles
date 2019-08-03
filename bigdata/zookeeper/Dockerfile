@@ -10,7 +10,7 @@ ENV ZOOKEEPER_HOME=/opt/zookeeper
 ENV PATH=${PATH}:$ZOOKEEPER_HOME/bin
 
 RUN dnf install -y wget java hostname && \
-	wget -O "$ZOOKEEPER_TAR" "http://apache.mirrors.nublue.co.uk/zookeeper/zookeeper-$ZOOKEEPER_VERSION/zookeeper-$ZOOKEEPER_VERSION.tar.gz" && \
+	wget -O "$ZOOKEEPER_TAR" "http://archive.apache.org/dist/zookeeper/zookeeper-$ZOOKEEPER_VERSION/zookeeper-$ZOOKEEPER_VERSION.tar.gz" && \
 	tar zxvf "${ZOOKEEPER_TAR}" && \
 	rm -fv "${ZOOKEEPER_TAR}" && \
 	mv /zookeeper-${ZOOKEEPER_VERSION} /opt && \
