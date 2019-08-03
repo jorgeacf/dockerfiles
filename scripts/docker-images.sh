@@ -9,6 +9,7 @@ declare -a images=(
 	"build/gradle"
 	"bigdata/hive"
 	"bigdata/nifi"
+	"bigdata/zookeeper"
 	"infrastructure/nginx"
 	"ci/nexus"
 )
