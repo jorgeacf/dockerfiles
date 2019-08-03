@@ -27,6 +27,11 @@ RUN set -ex; \
   mkdir -p "$SOURCE" && \
   cp -r grav/. "$SOURCE" && \
   rm -rf grav ${GRAV_VERSION} && \
+  cd ${SOURCE} && \
+  bin/gpm selfupgrade -f -y && \ 
+  bin/gpm update -f -y && \
+  bin/gpm install admin -y && \
+  bin/gpm install git-sync -y && \
   chown -R www-data:www-data "$SOURCE"
 
 WORKDIR /var/www/html
@@ -38,6 +43,9 @@ COPY config/sites-enabled/* /etc/nginx/sites-enabled
 
 RUN chmod +x /usr/local/bin/entrypoint.sh && \
   chown root:root /usr/local/bin/entrypoint.sh
+
+RUN rm -f /etc/nginx/sites-available/default && \
+    rm -f /etc/nginx/sites-enabled/default
 
 EXPOSE 80 443
 

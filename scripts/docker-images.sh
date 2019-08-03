@@ -1,6 +1,7 @@
 #!/bin/bash
 
 declare -a images=(
+	"tools/grav"
 	"os/centos"
 	"os/debian"
 	"build/maven"
