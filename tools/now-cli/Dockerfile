@@ -1,7 +1,5 @@
-FROM node:latest
+FROM fedora:latest
 
-RUN	npm i -g --unsafe-perm now
-
-
-
-ENTRYPOINT [ "now" ]
+RUN dnf -y install nodejs && \
+	npm i -g --unsafe-perm now && \ 
+	npm update -g now

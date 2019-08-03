@@ -1,4 +1,4 @@
-ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+ ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 VERSION:=$(shell [ -r VERSION ] && cat VERSION || echo latest)
 NAMESPACE:=jorgeacf
@@ -6,7 +6,9 @@ REPO:=$(shell basename "$$PWD")
 
 # Ignore arguments first word
 RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-
+CURRENT_USER_NAME := $(shell whoami)
+#CURRENT_USER_ID := $(id -u ${CURRENT_USER_NAME})
+#CURRENT_USER_GROUP_ID := $(id -g ${CURRENT_USER_NAME})
 
 SHELL += -eu
 
