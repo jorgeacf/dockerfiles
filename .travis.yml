@@ -9,4 +9,4 @@ before_script:
   - npm install -g dockerlint
 
 script:
-  - ./scripts/build-docker-images.sh
+  - .build_scripts/build-docker-images.sh
