@@ -2,6 +2,9 @@
 
 TMP=/tmp/.travis_build_logs
 
+set -euo pipefail
+[ -n "${DEBUG:-}" ] && set -x
+
 travis_fold() {
   local action=$1
   local name=$2
@@ -17,10 +20,6 @@ travis_fold_start() {
 travis_fold_end() {
   travis_fold end `cat ${TMP}`
 }
-
-
-set -euo pipefail
-[ -n "${DEBUG:-}" ] && set -x
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
