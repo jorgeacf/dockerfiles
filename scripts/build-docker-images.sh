@@ -1,5 +1,24 @@
 #!/bin/bash
 
+TMP=/tmp/.travis_build_logs
+
+travis_fold() {
+  local action=$1
+  local name=$2
+  echo -en "travis_fold:${action}:${name}\r"
+}
+
+travis_fold_start() {
+  travis_fold start $1
+  echo $1
+  /bin/echo -n $1 > $TMP
+}
+
+travis_fold_end() {
+  travis_fold end `cat ${TMP}`
+}
+
+
 set -euo pipefail
 [ -n "${DEBUG:-}" ] && set -x
 
@@ -13,9 +32,11 @@ docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
 for i in "${images[@]}"
 do
-   cd "$i"
-   make build push
-   cd -
+	cd "$i"
+	travis_fold_start "$i"
+	make build push
+	travis_fold_end
+	cd -
 done
 
 docker images
