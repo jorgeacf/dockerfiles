@@ -10,6 +10,8 @@ CURRENT_USER_NAME := $(shell whoami)
 #CURRENT_USER_ID := $(id -u ${CURRENT_USER_NAME})
 #CURRENT_USER_GROUP_ID := $(id -g ${CURRENT_USER_NAME})
 
+OS_NAME := $(shell uname -s | tr A-Z a-z)
+
 SHELL += -eu
 
 BLUE  := \033[0;34m
@@ -25,19 +27,27 @@ NC    := \033[0m
 
 .PHONY: version
 version:
-	@echo $(NAMESPACE)/$(REPO):$(VERSION)
+	@echo "OS: ${OS_NAME}"
+	@echo "Docker Image: $(NAMESPACE)/$(REPO):$(VERSION)"
+	# check Dockerfile with lint
 
 .PHONY: all
 all:
-	make build
+	@$(MAKE) build
 
 .PHONY: lint
 lint:
 	@dockerlint Dockerfile
 
+	# brew install hadolint
+	# hadolint Dockerfile
+
+	# brew install shellcheck
+	# shellcheck entrypoint.sh
+
 .PHONY: build
 build:
-	@$(MAKE) lint
+	#@$(MAKE) lint
 	#@sed -i -e "s/ARG NODEJS_VERSION=.*/ARG NODEJS_VERSION=$(VERSION)/g" Dockerfile
 	@echo -e "${BLUE}Building...${NC}" $<
 	@docker build -t $(NAMESPACE)/$(REPO):$(VERSION) --build-arg VERSION=$(VERSION) . ; \
