@@ -1,4 +1,4 @@
- ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 VERSION:=$(shell [ -r VERSION ] && cat VERSION || echo latest)
 NAMESPACE:=jorgeacf
