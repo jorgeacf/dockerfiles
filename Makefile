@@ -71,9 +71,9 @@ run:
 		-v $(HOME)/.ssh:/home/$(whoami)/.ssh \
 		-v $(HOME)/.now:/home/$(whoami)/.now \
 		-v $(HOME)/.ssl:/home/$(whoami)/.ssl \
-		-v $(HOME)/html:/var/www/html \
 		$(NAMESPACE)/$(REPO):$(VERSION) ${RUN_ARGS}
 
+		#-v $(HOME)/html:/var/www/html \
 		#-w /home/$(whoami) \
 		#-u $(id -u ${USER}):$(id -g ${USER}) \
 

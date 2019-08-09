@@ -4,9 +4,9 @@ ARG GRAV_VERSION=1.6.11
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# install grav / nginx prerequisites
+# install grav
 RUN apt-get update && \
-    apt-get -y install --no-install-recommends lsb-release apt-transport-https ca-certificates wget zip unzip nginx git openssl sudo && \
+    apt-get -y install --no-install-recommends lsb-release apt-transport-https ca-certificates wget zip unzip git sudo && \
     wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg && \
     echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php7.3.list && \
     apt-get update && \
@@ -35,22 +35,20 @@ RUN set -ex; \
   bin/gpm update -f -y && \
   bin/gpm install admin -y && \
   bin/gpm install git-sync -y && \
-  chown -R www-data:www-data "$SOURCE"
+  bin/grav sandbox -s /var/www/html
 
 WORKDIR /var/www/html
 
 VOLUME ["/var/www/html"]
 
 COPY entrypoint.sh /usr/local/bin/
-COPY config/sites-enabled/* /etc/nginx/sites-enabled
 
 RUN chmod +x /usr/local/bin/entrypoint.sh && \
   chown root:root /usr/local/bin/entrypoint.sh
 
-RUN rm -f /etc/nginx/sites-available/default && \
-    rm -f /etc/nginx/sites-enabled/default
+RUN apt-get update && apt-get -y install curl
 
-EXPOSE 80 443
+EXPOSE 80
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["grav"]
