@@ -19,6 +19,8 @@ GREEN := \033[0;32m
 RED   := \033[0;31m
 NC    := \033[0m
 
+DOCKER_RUN_PARAMETERS=-p 80:80 -v $(HOME):/root
+
 .SILENT:
 
 #
@@ -49,7 +51,7 @@ help:
 version:
 	@echo ''
 	@echo "OS: \t\t${OS_NAME}"
-	@echo "Docker Image: \t${GREEN}$(NAMESPACE)/$(REPO):$(VERSION)${NC}"
+	@echo "Docker Image: \t$(NAMESPACE)/$(REPO):$(VERSION)"
 	@echo "Current User: \t${CURRENT_USER_NAME}"
 	@echo "CMD Args: \t\t${CMD_ARGS}"
 	@echo ''
@@ -63,7 +65,8 @@ all:
 install-build-dependencies:
 
 ifeq ($(OS_NAME),darwin)
-	echo "On MacOS"
+	 brew install hadolint
+	 brew install shellcheck
 endif
 
 ifeq ($(OS_NAME),linux)
@@ -72,18 +75,18 @@ endif
 
 .PHONY: lint
 lint:
-	@dockerlint Dockerfile
+	#@dockerlint Dockerfile
 
 	# brew install hadolint
-	# hadolint Dockerfile
+	#hadolint Dockerfile
 
 	# brew install shellcheck
-	# shellcheck entrypoint.sh
+	#shellcheck entrypoint.sh
 
 .PHONY: build
 build:
 	@$(MAKE) version
-	#@$(MAKE) lint
+	@$(MAKE) lint
 	#@sed -i -e "s/ARG NODEJS_VERSION=.*/ARG NODEJS_VERSION=$(VERSION)/g" Dockerfile
 	#@echo "${BLUE}Starting to build docker image...${NC}" $<
 	@docker build -t $(NAMESPACE)/$(REPO):$(VERSION) --build-arg VERSION=$(VERSION) . ; \
@@ -101,17 +104,21 @@ push:
 
 .PHONY: run
 run:
-	@docker run -it \
-		-p 80:80 \
-		-v $(HOME):/root \
+	docker run -it \
+		$(DOCKER_RUN_PARAMETERS) \
 		$(NAMESPACE)/$(REPO):$(VERSION) ${CMD_ARGS}
 
 .PHONY: run-d
 run-d:
 	@docker run -itd \
-		-p 80:80 \
-		-v $(HOME):/root \
+		$(DOCKER_RUN_PARAMETERS) \
 		$(NAMESPACE)/$(REPO):$(VERSION) ${CMD_ARGS}
+
+.PHONY: exec
+exec:
+	if [ -z "${CMD_ARGS}" ] ; \
+		then docker exec -it $$(docker ps -a -q --filter ancestor=$(NAMESPACE)/$(REPO):$(VERSION) --filter status=running --format="{{.ID}}") /bin/bash; \
+	else docker exec -it $$(docker ps -a -q --filter ancestor=$(NAMESPACE)/$(REPO):$(VERSION) --filter status=running --format="{{.ID}}") ${CMD_ARGS}; fi
 
 .PHONY: clean
 clean:

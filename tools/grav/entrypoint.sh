@@ -14,10 +14,15 @@ set -euo pipefail
 #wget https://getgrav.org/download/skeletons/${SKELETON_NAME}/${SKELETON_VERSION}/ -O /tmp/grav-skeleton.zip
 #unzip /tmp/grav-skeleton.zip -d /tmp
 
+#cd /tmp/grav-skeleton-deliver-site/
 #bin/gpm selfupgrade -f -y
 #bin/gpm update -f -y
 #bin/gpm install admin -y
 #bin/gpm install git-sync -y
+#cd -
+
+#rm -r user/
+#cp -r /tmp/grav-skeleton-deliver-site/user/ user
 
 #echo "Modifing user..."
 #chown -R www-data:www-data "$PWD"
@@ -33,8 +38,8 @@ set -euo pipefail
 
 if [[ "$1" = 'grav' ]]; then
 	
-	rm -r user/
-	ln -s /${HOME}/dev/sites/blog/ user
+	#rm -r user/
+	#ln -s /"${HOME}"/dev/sites/blog/ user
 	php -S 0.0.0.0:80 system/router.php
 
 else
