@@ -59,6 +59,17 @@ version:
 all:
 	@$(MAKE) build
 
+.PHONY: install-build-dependencies
+install-build-dependencies:
+
+ifeq ($(OS_NAME),darwin)
+	echo "On MacOS"
+endif
+
+ifeq ($(OS_NAME),linux)
+	echo "On Linux"
+endif
+
 .PHONY: lint
 lint:
 	@dockerlint Dockerfile
