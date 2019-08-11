@@ -5,7 +5,7 @@ NAMESPACE:=jorgeacf
 REPO:=$(shell basename "$$PWD")
 
 # Ignore arguments first word
-RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+CMD_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 CURRENT_USER_NAME := $(shell whoami)
 #CURRENT_USER_ID := $(id -u ${CURRENT_USER_NAME})
 #CURRENT_USER_GROUP_ID := $(id -g ${CURRENT_USER_NAME})
@@ -19,16 +19,40 @@ GREEN := \033[0;32m
 RED   := \033[0;31m
 NC    := \033[0m
 
+.SILENT:
+
 #
 #	Single docker image targets
 #
 
 .DEFAULT_GOAL := help
 
+.PHONY: help
+help:
+	@echo ''
+	@echo "OS: ${OS_NAME}"
+	@echo "${GREEN}Docker Image: $(NAMESPACE)/$(REPO):$(VERSION)${NC}"
+	@echo ''
+	@echo 'Usage: make ${BLUE}[TARGET]${NC} ${RED}[EXTRA_ARGUMENTS]${NC}'
+	@echo 'Target:'
+	@echo '   ${BLUE}lint${NC} runs Dockerfile and entrypoint.sh lint tools.'
+	@echo '   ${BLUE}build${NC} this docker image locally.'
+	@echo '   ${BLUE}push${NC} this docker image to a remote repository.'
+	@echo '   ${BLUE}run${NC} a container of this docker image.'
+	@echo '   ${BLUE}run-d${NC} a container in the backgroud of this docker image.'
+	@echo '   ${BLUE}clean${NC} all containers of this docker image.'
+	@echo ''
+	@echo 'Extra arguments:'
+	@echo '${RED}cmd=${NC}:	make cmd="whoami"'
+
 .PHONY: version
 version:
-	@echo "OS: ${OS_NAME}"
-	@echo "Docker Image: $(NAMESPACE)/$(REPO):$(VERSION)"
+	@echo ''
+	@echo "OS: \t\t${OS_NAME}"
+	@echo "Docker Image: \t${GREEN}$(NAMESPACE)/$(REPO):$(VERSION)${NC}"
+	@echo "Current User: \t${CURRENT_USER_NAME}"
+	@echo "CMD Args: \t\t${CMD_ARGS}"
+	@echo ''
 	# check Dockerfile with lint
 
 .PHONY: all
@@ -47,13 +71,14 @@ lint:
 
 .PHONY: build
 build:
+	@$(MAKE) version
 	#@$(MAKE) lint
 	#@sed -i -e "s/ARG NODEJS_VERSION=.*/ARG NODEJS_VERSION=$(VERSION)/g" Dockerfile
-	@echo -e "${BLUE}Building...${NC}" $<
+	#@echo "${BLUE}Starting to build docker image...${NC}" $<
 	@docker build -t $(NAMESPACE)/$(REPO):$(VERSION) --build-arg VERSION=$(VERSION) . ; \
 	if [ $$? -ne 0 ] ; \
-		then echo -e "\n${RED}  Build failed :(${NC}\n" ; \
-	else echo -e "\n${GREEN} ✓ Successfully built [$(NAMESPACE)/$(REPO):$(VERSION)] docker image. ${NC}\n" ; fi
+		then echo "\n${RED}  Build failed :(${NC}\n" ; \
+	else echo "\n${GREEN} ✓ Successfully build [$(NAMESPACE)/$(REPO):$(VERSION)] docker image. ${NC}\n" ; fi
 
 .PHONY: push
 push:
@@ -67,26 +92,15 @@ push:
 run:
 	@docker run -it \
 		-p 80:80 \
-		-v $(HOME)/dev:/home/$(whoami)/dev \
-		-v $(HOME)/.ssh:/home/$(whoami)/.ssh \
-		-v $(HOME)/.now:/home/$(whoami)/.now \
-		-v $(HOME)/.ssl:/home/$(whoami)/.ssl \
-		$(NAMESPACE)/$(REPO):$(VERSION) ${RUN_ARGS}
-
-		#-v $(HOME)/html:/var/www/html \
-		#-w /home/$(whoami) \
-		#-u $(id -u ${USER}):$(id -g ${USER}) \
+		-v $(HOME):/root \
+		$(NAMESPACE)/$(REPO):$(VERSION) ${CMD_ARGS}
 
 .PHONY: run-d
 run-d:
 	@docker run -itd \
 		-p 80:80 \
-		-v $(HOME)/dev:/home/$(whoami)/dev \
-		-v $(HOME)/.ssh:/home/$(whoami)/.ssh \
-		-v $(HOME)/.now:/home/$(whoami)/.now \
-		-v $(HOME)/.ssl:/home/$(whoami)/.ssl \
-		-v $(HOME)/html:/var/www/html \
-		$(NAMESPACE)/$(REPO):$(VERSION) ${RUN_ARGS}
+		-v $(HOME):/root \
+		$(NAMESPACE)/$(REPO):$(VERSION) ${CMD_ARGS}
 
 .PHONY: clean
 clean:
