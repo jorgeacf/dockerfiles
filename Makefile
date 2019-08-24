@@ -118,7 +118,7 @@ run-d:
 exec:
 	if [ -z "${CMD_ARGS}" ] ; \
 		then docker exec -it $$(docker ps -a -q --filter ancestor=$(NAMESPACE)/$(REPO):$(VERSION) --filter status=running --format="{{.ID}}") /bin/bash; \
-	else docker exec -it $$(docker ps -a -q --filter ancestor=$(NAMESPACE)/$(REPO):$(VERSION) --filter status=running --format="{{.ID}}") ${CMD_ARGS}; fi
+	else docker exec -it $$(docker ps -a -q --filter ancestor=$(NAMESPACE)/$(REPO):$(VERSION) --filter status=running --format="{{.ID}}") entrypoint.sh ${CMD_ARGS}; fi
 
 .PHONY: clean
 clean:

@@ -50,6 +50,12 @@ COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh && \
   chown root:root /usr/local/bin/entrypoint.sh
 
+RUN apt-get -qq update && \
+    apt-get -qq install -y curl && \
+    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \
+    apt-get -qq install -y build-essential nodejs && \
+    npm install -g sass
+
 EXPOSE 80
 
 ENTRYPOINT ["entrypoint.sh"]

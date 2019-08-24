@@ -3,47 +3,40 @@
 set -euo pipefail
 [ -n "${DEBUG:-}" ] && set -x
 
+CMD=$1
 
-#SKELETON_VERSION=1.4.2
-#wget https://getgrav.org/download/skeletons/clean-blog-site/${SKELETON_VERSION}/grav-skeleton-clean-blog-v${SKELETON_VERSION}.zip -O /tmp/grav-skeleton.zip
-#unzip /tmp/grav-skeleton.zip -d /tmp
+case "$CMD" in
+  "grav" )
+    	SITE_PATH=${2:-$SOURCE/user/}
+    	echo "SITE_PATH: $SITE_PATH"
 
-#SKELETON_NAME=deliver-site
-#SKELETON_VERSION=1.2.0
+    	rm -r user/
+    	ln -s $SITE_PATH user
+    	php -S 0.0.0.0:80 /var/www/html/system/router.php
+    ;;
 
-#wget https://getgrav.org/download/skeletons/${SKELETON_NAME}/${SKELETON_VERSION}/ -O /tmp/grav-skeleton.zip
-#unzip /tmp/grav-skeleton.zip -d /tmp
+  "download-skeleton" )
 
-#cd /tmp/grav-skeleton-deliver-site/
-#bin/gpm selfupgrade -f -y
-#bin/gpm update -f -y
-#bin/gpm install admin -y
-#bin/gpm install git-sync -y
-#cd -
+		SKELETON_NAME=$2 #open-publishing-space-site
+		SKELETON_VERSION=$3 #1.5.6
+		SKELETON_URL=https://getgrav.org/download/skeletons/${SKELETON_NAME}/${SKELETON_VERSION}/
 
-#rm -r user/
-#cp -r /tmp/grav-skeleton-deliver-site/user/ user
+		wget ${SKELETON_URL} -O /tmp/grav-skeleton.zip
+		unzip /tmp/grav-skeleton.zip -d /tmp
 
-#echo "Modifing user..."
-#chown -R www-data:www-data "$PWD"
-#echo "Done."
+		cd /tmp/grav-*/
+		bin/gpm selfupgrade -f -y
+		bin/gpm update -f -y
+		bin/gpm install admin -y
+		bin/gpm install git-sync -y
+		cd -
+		rm -r user/
+		cp -r /tmp/grav-skeleton*/user/ user
 
-#if ! [ -e index.php ] && [ -e bin/grav ]; then
-#  	echo "Required files not found in $PWD - Copying from ${SOURCE}..."
-#  	cp -r "$SOURCE"/. $PWD
-#
-#fi
+		bash
+    ;;
 
-#echo "Args: @[$@], Arg #0[$0], Arg #1[$1]"
-
-if [[ "$1" = 'grav' ]]; then
-	
-	#rm -r user/
-	#ln -s /"${HOME}"/dev/sites/blog/ user
-	php -S 0.0.0.0:80 system/router.php
-
-else
-    exec "$@"
-fi
-
-exit 0;
+   * )
+    exec $CMD ${@:2}
+    ;;
+esac
