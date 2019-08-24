@@ -2,7 +2,8 @@ FROM fedora:latest
 
 RUN dnf install -y java findutils
 
-ARG JENKINS_VERSION
+ARG VERSION
+ARG JENKINS_VERSION=${VERSION}
 ENV JENKINS_VERSION ${JENKINS_VERSION:-2.121.3}
 
 ENV JENKINS_HOME /var/jenkins_home
@@ -45,7 +46,7 @@ ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 
 COPY entrypoint.sh /usr/local/bin/
 
-#USER ${user}
+USER ${user}
 
 # set a health check
 HEALTHCHECK --interval=5s \
