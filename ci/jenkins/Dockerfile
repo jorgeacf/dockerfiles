@@ -37,6 +37,9 @@ ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 
 COPY entrypoint.sh /usr/local/bin/
 
+# TEST
+RUN dnf install -y git docker
+
 USER ${user}
 
 COPY provision/plugins.txt /usr/share/jenkins/ref/
@@ -61,8 +64,5 @@ EXPOSE ${JENKINS_SLAVE_AGENT_PORT}
 HEALTHCHECK --interval=5s \
             --timeout=5s \
             CMD curl -f http://localhost:${JENKINS_PORT}/login || exit 1
-
-# TEST
-#RUN dnf install -y git docker
 
 CMD ["entrypoint.sh"]
