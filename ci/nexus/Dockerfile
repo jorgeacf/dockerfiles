@@ -1,9 +1,10 @@
-FROM fedora:latest
+FROM fedora:30
 MAINTAINER Jorge Figueiredo (http://blog.jorgefigueiredo.com)
 
 LABEL Description="Nexus"
 
-ARG NEXUS_VERSION="3.17.0"
+ARG VERSION
+ARG NEXUS_VERSION=${VERSION}
 ARG NEXUS_TAR="nexus-$NEXUS_VERSION-01-unix.tar.gz"
 
 RUN \
