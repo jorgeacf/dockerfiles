@@ -19,7 +19,7 @@ GREEN := \033[0;32m
 RED   := \033[0;31m
 NC    := \033[0m
 
-DOCKER_RUN_PARAMETERS=-p 80:80 -v $(HOME):/root
+DOCKER_RUN_PARAMETERS=-p 80:80 -p 8080:8080 -p 8081:8081 -v $(HOME):/root
 
 .SILENT:
 
