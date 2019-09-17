@@ -16,10 +16,6 @@ ARG group=jenkins
 ARG uid=1000
 ARG gid=1000
 
-ENV JENKINS_UC https://updates.jenkins.io
-ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
-ENV JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
-
 RUN useradd --home /home/jenkins jenkins
 RUN usermod -G jenkins jenkins
 
@@ -41,18 +37,6 @@ COPY entrypoint.sh /usr/local/bin/
 RUN dnf install -y git docker
 
 USER ${user}
-
-COPY provision/plugins.txt /usr/share/jenkins/ref/
-COPY provision/init.groovy.d/*.groovy /usr/share/jenkins/ref/init.groovy.d/
-
-ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
-
-# Install plugins in the image
-#ENV JENKINS_UC_DOWNLOAD=http://10.101.22.22/nexus/repository
-COPY provision/jenkins-support /usr/local/bin/
-COPY provision/install-plugins.sh /usr/local/bin/
-RUN mkdir -p /usr/share/jenkins/ref/plugins
-RUN xargs /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 
 VOLUME ${JENKINS_HOME}
 
