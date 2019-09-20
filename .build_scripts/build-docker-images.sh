@@ -27,6 +27,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 images=$($DIR/docker-images.py)
 
+echo "-------"
+echo $images
+echo "-------"
+
 docker images
 
 docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
