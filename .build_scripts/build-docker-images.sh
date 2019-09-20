@@ -27,9 +27,16 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 images=$($DIR/docker-images.py)
 
-echo "-------"
-echo $images
-echo "-------"
+if [ -z "$images" ]
+then
+      echo "No images to build today... Exiting..."
+      exit 0;
+else
+      echo "-------"
+      echo "Docker images to build:"
+      echo $images
+      echo "-------"
+fi
 
 docker images
 
