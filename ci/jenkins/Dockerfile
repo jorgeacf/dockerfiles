@@ -33,7 +33,7 @@ ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 
 COPY entrypoint.sh /usr/local/bin/
 
-# TEST
+# TEST - to remove
 RUN dnf install -y git docker
 
 USER ${user}
