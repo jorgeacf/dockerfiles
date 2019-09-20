@@ -23,7 +23,9 @@ travis_fold_end() {
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-source "$DIR/docker-images.sh"
+#source "$DIR/docker-images.sh"
+
+images=$($DIR/docker-images.py)
 
 docker images
 
