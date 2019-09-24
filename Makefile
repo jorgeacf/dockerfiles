@@ -53,6 +53,7 @@ version:
 	@echo "OS: \t\t${OS_NAME}"
 	@echo "Docker Image: \t$(NAMESPACE)/$(REPO):$(VERSION)"
 	@echo "Current User: \t${CURRENT_USER_NAME}"
+	@echo "Root Dir: \t${ROOT_DIR}"
 	@echo "CMD Args: \t\t${CMD_ARGS}"
 	@echo ''
 	# check Dockerfile with lint
