@@ -1,7 +1,7 @@
 kind: pipeline
 name: Dockerfiles build
 steps:
-   - name: docker version
+  - name: docker version
     image: docker:latest
     volumes:
       - name: docker_sock
