@@ -1,0 +1,24 @@
+kind: pipeline
+name: Dockerfiles build
+steps:
+  - name: build image
+    image: jorgeacf/make:latest
+    commands:
+      - cd ci/jenkins
+      - make build
+    when:
+      branch:
+        - develop
+      event:
+        - push
+        - pull-request
+
+  - name: slack
+    image: plugins/slack
+    settings:
+      webhook:
+        from_secret: slack_webhook
+      channel: github-drone-builds
+      username: drone
+    when:
+      status: [ success, failure ]
