@@ -1,6 +1,15 @@
 kind: pipeline
 name: Dockerfiles build
 steps:
+   - name: docker version
+    image: docker:latest
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+    commands:
+      - docker info
+      - docker images
+
   - name: build image
     image: jorgeacf/make:latest
     commands:
