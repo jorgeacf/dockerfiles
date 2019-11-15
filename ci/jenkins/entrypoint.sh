@@ -1,8 +1,5 @@
 #! /bin/bash -e
 
-echo "skip upgrade wizard step after installation"
-echo "VERSION" > /var/jenkins_home/jenkins.install.UpgradeWizard.state
-
 : ${JENKINS_HOME:="/var/jenkins_home"}
 touch "${COPY_REFERENCE_FILE_LOG}" || (echo "Can not write to ${COPY_REFERENCE_FILE_LOG}. Wrong volume permissions?" && exit 1)
 echo "--- Copying files at $(date)" >> "$COPY_REFERENCE_FILE_LOG"
