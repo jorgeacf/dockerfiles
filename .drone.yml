@@ -5,7 +5,7 @@ steps:
     image: docker:dind
     volumes:
       - name: dockersock
-      path: /var/run/docker.sock
+        path: /var/run/docker.sock
     commands:
       - docker ps -a
 
@@ -32,6 +32,6 @@ steps:
       status: [ success, failure ]
 
 volumes:
-- name: dockersock
-  host:
-    path: /var/run/docker.sock
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock
