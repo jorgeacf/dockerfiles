@@ -1,11 +1,13 @@
 kind: pipeline
 name: Dockerfiles build
 steps:
-  - name: docker version
-    image: docker:latest
+  - name: test
+    image: docker:dind
+    volumes:
+      - name: dockersock
+      path: /var/run/docker.sock
     commands:
-      - docker info
-      - docker images
+      - docker ps -a
 
   - name: build image
     image: jorgeacf/make:latest
@@ -28,3 +30,8 @@ steps:
       username: drone
     when:
       status: [ success, failure ]
+
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/docker.sock
