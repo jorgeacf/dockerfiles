@@ -10,9 +10,9 @@ case "$CMD" in
     	SITE_PATH=${2:-$SOURCE/user/}
     	echo "SITE_PATH: $SITE_PATH"
 
-    	rm -r user/
-    	ln -s $SITE_PATH user
-    	php -S 0.0.0.0:80 /var/www/html/system/router.php
+    	#rm -r user/
+    	#ln -s $SITE_PATH user
+    	php -S 0.0.0.0:80 ${SOURCE}/system/router.php
     ;;
 
   "download-skeleton" )
@@ -25,6 +25,10 @@ case "$CMD" in
 		unzip /tmp/grav-skeleton.zip -d /tmp
 
 		cd /tmp/grav-*/
+
+		# Fix
+		curl https://raw.githubusercontent.com/getgrav/grav/c8af0d8a385a4dce7d5c5ef54a50c23b5946167f/system/src/Grav/Console/Gpm/SelfupgradeCommand.php -o system/src/Grav/Console/Gpm/SelfupgradeCommand.php
+
 		bin/gpm selfupgrade -f -y
 		bin/gpm update -f -y
 		bin/gpm install admin -y
