@@ -1,7 +1,7 @@
 #!/bin/bash
 
 declare -a images=(
-#	"tools/grav"
+	"tools/grav"
 #	"os/centos"
 #	"os/debian"
 #	"build/maven"
@@ -10,8 +10,8 @@ declare -a images=(
 #	"bigdata/hive"
 #	"bigdata/nifi"
 #	"bigdata/zookeeper"
-#	"infrastructure/nginx"
-#	"ci/nexus"
+	"infrastructure/nginx"
+	"ci/nexus"
 	"ci/jenkins"
 )
 

@@ -19,7 +19,7 @@ GREEN := \033[0;32m
 RED   := \033[0;31m
 NC    := \033[0m
 
-DOCKER_RUN_PARAMETERS=-p 80:80 -v $(HOME):/root
+DOCKER_RUN_PARAMETERS=-p 80:80 -p 8080:8080 -p 8081:8081 -v $(HOME):/root
 
 .SILENT:
 
@@ -53,6 +53,7 @@ version:
 	@echo "OS: \t\t${OS_NAME}"
 	@echo "Docker Image: \t$(NAMESPACE)/$(REPO):$(VERSION)"
 	@echo "Current User: \t${CURRENT_USER_NAME}"
+	@echo "Root Dir: \t${ROOT_DIR}"
 	@echo "CMD Args: \t\t${CMD_ARGS}"
 	@echo ''
 	# check Dockerfile with lint

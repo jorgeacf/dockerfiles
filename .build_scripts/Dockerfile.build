@@ -1,0 +1,5 @@
+ARG VERSION=latest
+
+FROM docker:${VERSION}
+
+RUN apk add --update make

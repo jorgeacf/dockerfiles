@@ -23,7 +23,20 @@ travis_fold_end() {
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-source "$DIR/docker-images.sh"
+#source "$DIR/docker-images.sh"
+
+images=$($DIR/docker-images.py)
+
+if [ -z "$images" ]
+then
+      echo "No images to build today... Exiting..."
+      exit 0;
+else
+      echo "-------"
+      echo "Docker images to build:"
+      echo $images
+      echo "-------"
+fi
 
 docker images
 
@@ -37,5 +50,6 @@ do
 	travis_fold_end
 	cd -
 done
+
 
 docker images

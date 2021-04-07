@@ -1,12 +1,14 @@
 sudo: required
 
-language: node_js
+language: python
+python:
+  - "3.5"
 
 services:
   - docker
 
 before_script:
-  - npm install -g dockerlint
+  - pip install GitPython
 
 script:
   - .build_scripts/build-docker-images.sh

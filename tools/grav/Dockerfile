@@ -38,12 +38,15 @@ RUN \
   bin/gpm selfupgrade -f -y && \
   bin/gpm update -f -y && \
   bin/gpm install admin -y && \
-  bin/gpm install git-sync -y && \
-  bin/grav sandbox -s /var/www/html
+  bin/gpm install git-sync -y
+# && \
+#  bin/grav sandbox -s /var/www/html
 
-WORKDIR /var/www/html
+#WORKDIR /var/www/html
+WORKDIR ${SOURCE}
 
-VOLUME ["/var/www/html"]
+#VOLUME ["/var/www/html"]
+VOLUME ["${SOURCE}"]
 
 COPY entrypoint.sh /usr/local/bin/
 
@@ -52,7 +55,7 @@ RUN chmod +x /usr/local/bin/entrypoint.sh && \
 
 RUN apt-get -qq update && \
     apt-get -qq install -y curl && \
-    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \
+    curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - && \
     apt-get -qq install -y build-essential nodejs && \
     npm install -g sass
 
