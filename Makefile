@@ -1,6 +1,7 @@
 ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 VERSION:=$(shell [ -r VERSION ] && cat VERSION || echo latest)
+PLATFORM:=$(shell [ -r PLATFORM ] && cat PLATFORM || echo linux)
 NAMESPACE:=jorgeacf
 REPO:=$(shell basename "$$PWD")
 
@@ -52,6 +53,7 @@ version:
 	@echo ''
 	@echo "OS: \t\t${OS_NAME}"
 	@echo "Docker Image: \t$(NAMESPACE)/$(REPO):$(VERSION)"
+	@echo "Platforms: \t${PLATFORM}"
 	@echo "Current User: \t${CURRENT_USER_NAME}"
 	@echo "Root Dir: \t${ROOT_DIR}"
 	@echo "CMD Args: \t\t${CMD_ARGS}"
@@ -94,6 +96,17 @@ build:
 	if [ $$? -ne 0 ] ; \
 		then echo "\n${RED}  Build failed :(${NC}\n" ; \
 	else echo "\n${GREEN} ✓ Successfully build [$(NAMESPACE)/$(REPO):$(VERSION)] docker image. ${NC}\n" ; fi
+
+.PHONY: buildx-push
+buildx-push:
+	@$(MAKE) version
+	@$(MAKE) lint
+	#@sed -i -e "s/ARG NODEJS_VERSION=.*/ARG NODEJS_VERSION=$(VERSION)/g" Dockerfile
+	#@echo "${BLUE}Starting to build docker image...${NC}" $<
+	@docker buildx build --platform ${PLATFORM} -t $(NAMESPACE)/$(REPO):$(VERSION) --build-arg VERSION=$(VERSION) --push . ; \
+	if [ $$? -ne 0 ] ; \
+		then echo "\n${RED}  Build failed :(${NC}\n" ; \
+	else echo "\n${GREEN} ✓ Successfully build and push [$(NAMESPACE)/$(REPO):$(VERSION)] docker image. ${NC}\n" ; fi
 
 .PHONY: push
 push:
