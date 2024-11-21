@@ -31,6 +31,9 @@ RUN sed -i 's/Listen localhost:631/Listen 0.0.0.0:631/' /etc/cups/cupsd.conf && 
 
 VOLUME [ "/etc/cups" ]
 
+# Copy the default configuration file
+# COPY --chown=root:lp cupsd.conf /etc/cups/cupsd.conf
+
 COPY entrypoint.sh /
 
 CMD ["/entrypoint.sh"]
